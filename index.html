@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>DHIS2-Editor</title>
+        <link rel="stylesheet"  type="text/css" media="screen" href="bootstrap-3.3.7/bootstrap-3.3.7/dist/css/bootstrap.css">
+        <link rel="stylesheet"  type="text/css" media="screen" href="css/styles.css">
+        <script src="node_modules/interactjs/dist/interact.js" ></script>
+        <script src="js/jquery/jquery.min.js"></script>
+    </head>
+    <body>
+            <nav class="navbar navbar-default navbar-fixed-top">
+                    <div class="container">
+                        <div id="form-name"></div>
+                    </div>
+            </nav>
+            <br><br><br>
+        <div class="container">
+            <div class="holder">
+                <div class="editor"> <p>Content</p> </div>
+                <div class="right-section">
+                    <div class="search">
+                        <input id="dataelement" class="form-control" placeholder="search" onkeyup="filterElements()"/>
+                    </div>
+                    <br><br>
+                    <div id="dataElements">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="js/dhisApi.js"></script>
+        <script src="js/drag-n-drop.js"></script>
+        <script src="dist/bundle.js"></script>
+    </body>
+</html>

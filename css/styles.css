@@ -1,0 +1,142 @@
+
+.navbar{
+   background-color:  rgb(39, 102, 150);
+}
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.right-section{
+        width: 20%;
+        margin-left: 78%;
+        text-align: center;
+        outline: 1px solid gray;
+        height: 650px;
+        overflow: scroll;
+        position: fixed;
+}
+.editor{
+    float: left;
+    width: 78%;
+    height:650px;
+    outline: 1px solid green;
+}
+.ck.ck-editor {
+    padding-top: 50px;
+}
+#form-name{
+    text-align: center;
+    padding-top: 10px;
+    font-size: 16px;
+    color: white;
+}
+.data-element{
+    width: 90%;
+    padding: 5px;
+    margin: 5px;
+    outline: 1px solid grey;
+    display: inline-block;
+    font-weight: 400;
+    text-align: left;
+    white-space: nowrap;
+    vertical-align: middle;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    font-size: 14px;
+    line-height: 2.5;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out; 
+}
+.search{
+    padding: 2px;
+    position: fixed;
+    width: 18.5%;
+    background-color:  rgb(39, 102, 150) ;
+}
+.dataElementStats{
+    padding: 7px;
+    position: fixed;
+    width: 18.5%;
+}
+
+.ck.ck-editor {
+    position: relative;
+    float: left;  
+    width: 78.5%; 
+}
+.ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable, .ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    height: 600px;
+    padding-top: 3%;
+}
+/* Use a media query to add a breakpoint at : */
+@media screen and (max-width:1100px) {
+    .right-section{
+        width: 100%;
+        text-align: center;
+        outline:  1px solid green;
+    }
+    .left-section{
+        width: 97%;
+        text-align: center;
+        outline: 1px solid blue;
+        position: absolute;
+        top: 10%;
+    } 
+}
+@media (min-width: 900px){
+    .container {
+        width: 100% !important;
+    }
+    .main-section .left-section {
+        text-align: center;
+        border-style: solid;
+        border-width: 1px;
+        width: 100%;
+    }
+    .main-section .right-section {
+        text-align: center;
+        border-style: solid;
+        border-width: 1px;
+        width: 100%;
+    }
+}
+
+@media (min-width: 700px){
+    .container {
+        width: 100% !important;
+    }
+    .main-section .left-section {
+        text-align: center;
+        border-style: solid;
+        border-width: 1px;
+        width: 100%;
+    }
+    .main-section .right-section {
+        text-align: center;
+        border-style: solid;
+        border-width: 1px;
+        width: 100%;
+    }
+}
+@media (min-width: 500px){   
+    .container {
+        width: 100% !important;
+    }
+    .main-section .left-section {
+        text-align: center;
+        border-style: solid;
+        border-width: 1px;
+        width: 100%;
+    }
+    .main-section .right-section {
+        text-align: center;
+        border-style: solid;
+        border-width: 1px;
+        width: 100%;
+    }
+}
+
