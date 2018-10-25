@@ -100,6 +100,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ckeditor_ckeditor5_paragraph_src_paragraph__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ckeditor/ckeditor5-paragraph/src/paragraph */ "./node_modules/@ckeditor/ckeditor5-paragraph/src/paragraph.js");
 /* harmony import */ var _ckeditor_ckeditor5_basic_styles_src_bold__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ckeditor/ckeditor5-basic-styles/src/bold */ "./node_modules/@ckeditor/ckeditor5-basic-styles/src/bold.js");
 /* harmony import */ var _ckeditor_ckeditor5_basic_styles_src_italic__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ckeditor/ckeditor5-basic-styles/src/italic */ "./node_modules/@ckeditor/ckeditor5-basic-styles/src/italic.js");
+/* harmony import */ var _ckeditor_ckeditor5_table_src_table__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ckeditor/ckeditor5-table/src/table */ "./node_modules/@ckeditor/ckeditor5-table/src/table.js");
+/* harmony import */ var _ckeditor_ckeditor5_table_src_tabletoolbar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ckeditor/ckeditor5-table/src/tabletoolbar */ "./node_modules/@ckeditor/ckeditor5-table/src/tabletoolbar.js");
+/* harmony import */ var _ckeditor_ckeditor5_heading_src_heading__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ckeditor/ckeditor5-heading/src/heading */ "./node_modules/@ckeditor/ckeditor5-heading/src/heading.js");
+
+
+
 
 
 
@@ -108,8 +114,11 @@ __webpack_require__.r(__webpack_exports__);
 
 _ckeditor_ckeditor5_editor_classic_src_classiceditor__WEBPACK_IMPORTED_MODULE_0__["default"]
     .create( document.querySelector( '.editor' ), {
-        plugins: [ _ckeditor_ckeditor5_essentials_src_essentials__WEBPACK_IMPORTED_MODULE_1__["default"], _ckeditor_ckeditor5_paragraph_src_paragraph__WEBPACK_IMPORTED_MODULE_2__["default"], _ckeditor_ckeditor5_basic_styles_src_bold__WEBPACK_IMPORTED_MODULE_3__["default"], _ckeditor_ckeditor5_basic_styles_src_italic__WEBPACK_IMPORTED_MODULE_4__["default"] ],
-        toolbar: [ 'bold', 'italic' ]
+        plugins: [ _ckeditor_ckeditor5_essentials_src_essentials__WEBPACK_IMPORTED_MODULE_1__["default"], _ckeditor_ckeditor5_paragraph_src_paragraph__WEBPACK_IMPORTED_MODULE_2__["default"], _ckeditor_ckeditor5_basic_styles_src_bold__WEBPACK_IMPORTED_MODULE_3__["default"], _ckeditor_ckeditor5_basic_styles_src_italic__WEBPACK_IMPORTED_MODULE_4__["default"], _ckeditor_ckeditor5_table_src_table__WEBPACK_IMPORTED_MODULE_5__["default"], _ckeditor_ckeditor5_table_src_tabletoolbar__WEBPACK_IMPORTED_MODULE_6__["default"], _ckeditor_ckeditor5_heading_src_heading__WEBPACK_IMPORTED_MODULE_7__["default"]],
+        toolbar: [ 'bold', 'italic', 'insertTable', 'heading'],
+        table: {
+            contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]
+        }
     } )
     .then( editor => {
         //console.log( 'Editor was initialized', editor );
@@ -34967,6 +34976,64 @@ class KeyObserver extends _domeventobserver__WEBPACK_IMPORTED_MODULE_0__["defaul
 
 /***/ }),
 
+/***/ "./node_modules/@ckeditor/ckeditor5-engine/src/view/observer/mouseobserver.js":
+/*!************************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-engine/src/view/observer/mouseobserver.js ***!
+  \************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return MouseObserver; });
+/* harmony import */ var _domeventobserver__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./domeventobserver */ "./node_modules/@ckeditor/ckeditor5-engine/src/view/observer/domeventobserver.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module engine/view/observer/mouseobserver
+ */
+
+
+
+/**
+ * Mouse events observer.
+ *
+ * Note that this observer is not available by default. To make it available it needs to be added to
+ * {@link module:engine/view/view~View} by {@link module:engine/view/view~View#addObserver} method.
+ *
+ * @extends module:engine/view/observer/domeventobserver~DomEventObserver
+ */
+class MouseObserver extends _domeventobserver__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	constructor( view ) {
+		super( view );
+
+		this.domEventType = 'mousedown';
+	}
+
+	onDomEvent( domEvent ) {
+		this.fire( domEvent.type, domEvent );
+	}
+}
+
+/**
+ * Fired when mouse button is pressed down on one of the editables.
+ *
+ * Introduced by {@link module:engine/view/observer/mouseobserver~MouseObserver}.
+ *
+ * Note that this event is not available by default. To make it available {@link module:engine/view/observer/mouseobserver~MouseObserver}
+ * needs to be added to {@link module:engine/view/view~View} by a {@link module:engine/view/view~View#addObserver} method.
+ *
+ * @see module:engine/view/observer/mouseobserver~MouseObserver
+ * @event module:engine/view/document~Document#event:mousedown
+ * @param {module:engine/view/observer/domeventdata~DomEventData} data Event data.
+ */
+
+
+/***/ }),
+
 /***/ "./node_modules/@ckeditor/ckeditor5-engine/src/view/observer/mutationobserver.js":
 /*!***************************************************************************************!*\
   !*** ./node_modules/@ckeditor/ckeditor5-engine/src/view/observer/mutationobserver.js ***!
@@ -40390,6 +40457,573 @@ class Essentials extends _ckeditor_ckeditor5_core_src_plugin__WEBPACK_IMPORTED_M
 
 /***/ }),
 
+/***/ "./node_modules/@ckeditor/ckeditor5-heading/src/heading.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-heading/src/heading.js ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Heading; });
+/* harmony import */ var _headingediting__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./headingediting */ "./node_modules/@ckeditor/ckeditor5-heading/src/headingediting.js");
+/* harmony import */ var _headingui__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./headingui */ "./node_modules/@ckeditor/ckeditor5-heading/src/headingui.js");
+/* harmony import */ var _ckeditor_ckeditor5_core_src_plugin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ckeditor/ckeditor5-core/src/plugin */ "./node_modules/@ckeditor/ckeditor5-core/src/plugin.js");
+/* harmony import */ var _theme_heading_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../theme/heading.css */ "./node_modules/@ckeditor/ckeditor5-heading/theme/heading.css");
+/* harmony import */ var _theme_heading_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_theme_heading_css__WEBPACK_IMPORTED_MODULE_3__);
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module heading/heading
+ */
+
+
+
+
+
+
+
+/**
+ * The headings feature.
+ *
+ * For a detailed overview, check the {@glink features/headings Headings feature documentation}
+ * and the {@glink api/heading package page}.
+ *
+ * This is a "glue" plugin which loads the {@link module:heading/headingediting~HeadingEditing heading editing feature}
+ * and {@link module:heading/headingui~HeadingUI heading UI feature}.
+ *
+ * @extends module:core/plugin~Plugin
+ */
+class Heading extends _ckeditor_ckeditor5_core_src_plugin__WEBPACK_IMPORTED_MODULE_2__["default"] {
+	/**
+	 * @inheritDoc
+	 */
+	static get requires() {
+		return [ _headingediting__WEBPACK_IMPORTED_MODULE_0__["default"], _headingui__WEBPACK_IMPORTED_MODULE_1__["default"] ];
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	static get pluginName() {
+		return 'Heading';
+	}
+}
+
+/**
+ * The configuration of the heading feature. Introduced by the {@link module:heading/headingediting~HeadingEditing} feature.
+ *
+ * Read more in {@link module:heading/heading~HeadingConfig}.
+ *
+ * @member {module:heading/heading~HeadingConfig} module:core/editor/editorconfig~EditorConfig#heading
+ */
+
+/**
+ * The configuration of the heading feature.
+ * The option is used by the {@link module:heading/headingediting~HeadingEditing} feature.
+ *
+ *		ClassicEditor
+ *			.create( {
+ * 				heading: ... // Heading feature config.
+ *			} )
+ *			.then( ... )
+ *			.catch( ... );
+ *
+ * See {@link module:core/editor/editorconfig~EditorConfig all editor options}.
+ *
+ * @interface HeadingConfig
+ */
+
+/**
+ * The available heading options.
+ *
+ * The default value is:
+ *
+ *		const headingConfig = {
+ *			options: [
+ *				{ model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+ *				{ model: 'heading1', view: 'h2', title: 'Heading 1', class: 'ck-heading_heading1' },
+ *				{ model: 'heading2', view: 'h3', title: 'Heading 2', class: 'ck-heading_heading2' },
+ *				{ model: 'heading3', view: 'h4', title: 'Heading 3', class: 'ck-heading_heading3' }
+ *			]
+ *		};
+ *
+ * It defines 3 levels of headings. In the editor model they will use `heading1`, `heading2`, and `heading3` elements.
+ * Their respective view elements (so the elements output by the editor) will be: `h2`, `h3`, and `h4`. This means that
+ * if you choose "Heading 1" in the headings dropdown the editor will turn the current block to `<heading1>` in the model
+ * which will result in rendering (and outputting to data) the `<h2>` element.
+ *
+ * The `title` and `class` properties will be used by the `headings` dropdown to render available options.
+ * Usually, the first option in the headings dropdown is the "Paragraph" option, hence it's also defined on the list.
+ * However, you don't need to define its view representation because it's handled by
+ * the {@link module:paragraph/paragraph~Paragraph} feature (which is required by
+ * the {@link module:heading/headingediting~HeadingEditing} feature).
+ *
+ * You can **read more** about configuring heading levels and **see more examples** in
+ * the {@glink features/headings Headings} guide.
+ *
+ * Note: In the model you should always start from `heading1`, regardless of how the headings are represented in the view.
+ * That's assumption is used by features like {@link module:autoformat/autoformat~Autoformat} to know which element
+ * they should use when applying the first level heading.
+ *
+ * The defined headings are also available as values passed to the `'heading'` command under their model names.
+ * For example, the below code will apply `<heading1>` to the current selection:
+ *
+ *		editor.execute( 'heading', { value: 'heading1' } );
+ *
+ * @member {Array.<module:heading/heading~HeadingOption>} module:heading/heading~HeadingConfig#options
+ */
+
+/**
+ * Heading option descriptor.
+ *
+ * @typedef {Object} module:heading/heading~HeadingOption
+ * @property {String} model Name of the model element to convert.
+ * @property {module:engine/view/elementdefinition~ElementDefinition} view Definition of a view element to convert from/to.
+ * @property {String} title The user-readable title of the option.
+ * @property {String} class The class which will be added to the dropdown item representing this option.
+ * @property {String} [icon] Icon used by {@link module:heading/headingbuttonsui~HeadingButtonsUI}. It can be omitted when using
+ * the default configuration.
+ * @extends module:engine/conversion/conversion~ConverterDefinition
+ */
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-heading/src/headingcommand.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-heading/src/headingcommand.js ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return HeadingCommand; });
+/* harmony import */ var _ckeditor_ckeditor5_core_src_command__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-core/src/command */ "./node_modules/@ckeditor/ckeditor5-core/src/command.js");
+/* harmony import */ var _ckeditor_ckeditor5_utils_src_first__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ckeditor/ckeditor5-utils/src/first */ "./node_modules/@ckeditor/ckeditor5-utils/src/first.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module heading/headingcommand
+ */
+
+
+
+
+/**
+ * The heading command. It is used by the {@link module:heading/heading~Heading heading feature} to apply headings.
+ *
+ * @extends module:core/command~Command
+ */
+class HeadingCommand extends _ckeditor_ckeditor5_core_src_command__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * Creates an instance of the command.
+	 *
+	 * @param {module:core/editor/editor~Editor} editor Editor instance.
+	 * @param {Array.<String>} modelElements Names of the element which this command can apply in the model.
+	 */
+	constructor( editor, modelElements ) {
+		super( editor );
+
+		/**
+		 * If the selection starts in a heading (which {@link #modelElements is supported by this command})
+		 * the value is set to the name of that heading model element.
+		 * It is  set to `false` otherwise.
+		 *
+		 * @observable
+		 * @readonly
+		 * @member {Boolean|String} #value
+		 */
+
+		/**
+		 * Set of defined model's elements names that this command support.
+		 * See {@link module:heading/heading~HeadingOption}.
+		 *
+		 * @readonly
+		 * @member {Array.<String>}
+		 */
+		this.modelElements = modelElements;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	refresh() {
+		const block = Object(_ckeditor_ckeditor5_utils_src_first__WEBPACK_IMPORTED_MODULE_1__["default"])( this.editor.model.document.selection.getSelectedBlocks() );
+
+		this.value = !!block && this.modelElements.includes( block.name ) && block.name;
+		this.isEnabled = !!block && this.modelElements.some( heading => checkCanBecomeHeading( block, heading, this.editor.model.schema ) );
+	}
+
+	/**
+	 * Executes the command. Applies the heading to the selected blocks or, if the first selected
+	 * block is a heading already, turns selected headings (of this level only) to paragraphs.
+	 *
+	 * @param {Object} options
+	 * @param {String} options.value Name of the element which this command will apply in the model.
+	 * @fires execute
+	 */
+	execute( options ) {
+		const model = this.editor.model;
+		const document = model.document;
+
+		const modelElement = options.value;
+
+		model.change( writer => {
+			const blocks = Array.from( document.selection.getSelectedBlocks() )
+				.filter( block => {
+					return checkCanBecomeHeading( block, modelElement, model.schema );
+				} );
+
+			for ( const block of blocks ) {
+				if ( !block.is( modelElement ) ) {
+					writer.rename( block, modelElement );
+				}
+			}
+		} );
+	}
+}
+
+// Checks whether the given block can be replaced by a specific heading.
+//
+// @private
+// @param {module:engine/model/element~Element} block A block to be tested.
+// @param {module:heading/headingcommand~HeadingCommand#modelElement} heading Command element name in the model.
+// @param {module:engine/model/schema~Schema} schema The schema of the document.
+// @returns {Boolean}
+function checkCanBecomeHeading( block, heading, schema ) {
+	return schema.checkChild( block.parent, heading ) && !schema.isObject( block );
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-heading/src/headingediting.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-heading/src/headingediting.js ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return HeadingEditing; });
+/* harmony import */ var _ckeditor_ckeditor5_core_src_plugin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-core/src/plugin */ "./node_modules/@ckeditor/ckeditor5-core/src/plugin.js");
+/* harmony import */ var _ckeditor_ckeditor5_paragraph_src_paragraph__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ckeditor/ckeditor5-paragraph/src/paragraph */ "./node_modules/@ckeditor/ckeditor5-paragraph/src/paragraph.js");
+/* harmony import */ var _headingcommand__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./headingcommand */ "./node_modules/@ckeditor/ckeditor5-heading/src/headingcommand.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module heading/headingediting
+ */
+
+
+
+
+
+const defaultModelElement = 'paragraph';
+
+/**
+ * The headings engine feature. It handles switching between block formats &ndash; headings and paragraph.
+ * This class represents the engine part of the heading feature. See also {@link module:heading/heading~Heading}.
+ * It introduces `heading1`-`headingN` commands which allow to convert paragraphs into headings.
+ *
+ * @extends module:core/plugin~Plugin
+ */
+class HeadingEditing extends _ckeditor_ckeditor5_core_src_plugin__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * @inheritDoc
+	 */
+	constructor( editor ) {
+		super( editor );
+
+		editor.config.define( 'heading', {
+			options: [
+				{ model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+				{ model: 'heading1', view: 'h2', title: 'Heading 1', class: 'ck-heading_heading1' },
+				{ model: 'heading2', view: 'h3', title: 'Heading 2', class: 'ck-heading_heading2' },
+				{ model: 'heading3', view: 'h4', title: 'Heading 3', class: 'ck-heading_heading3' }
+			]
+		} );
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	static get requires() {
+		return [ _ckeditor_ckeditor5_paragraph_src_paragraph__WEBPACK_IMPORTED_MODULE_1__["default"] ];
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	init() {
+		const editor = this.editor;
+		const options = editor.config.get( 'heading.options' );
+
+		const modelElements = [];
+
+		for ( const option of options ) {
+			// Skip paragraph - it is defined in required Paragraph feature.
+			if ( option.model !== defaultModelElement ) {
+				// Schema.
+				editor.model.schema.register( option.model, {
+					inheritAllFrom: '$block'
+				} );
+
+				editor.conversion.elementToElement( option );
+
+				modelElements.push( option.model );
+			}
+		}
+
+		// Register the heading command for this option.
+		editor.commands.add( 'heading', new _headingcommand__WEBPACK_IMPORTED_MODULE_2__["default"]( editor, modelElements ) );
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	afterInit() {
+		// If the enter command is added to the editor, alter its behavior.
+		// Enter at the end of a heading element should create a paragraph.
+		const editor = this.editor;
+		const enterCommand = editor.commands.get( 'enter' );
+		const options = editor.config.get( 'heading.options' );
+
+		if ( enterCommand ) {
+			this.listenTo( enterCommand, 'afterExecute', ( evt, data ) => {
+				const positionParent = editor.model.document.selection.getFirstPosition().parent;
+				const isHeading = options.some( option => positionParent.is( option.model ) );
+
+				if ( isHeading && !positionParent.is( defaultModelElement ) && positionParent.childCount === 0 ) {
+					data.writer.rename( positionParent, defaultModelElement );
+				}
+			} );
+		}
+	}
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-heading/src/headingui.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-heading/src/headingui.js ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return HeadingUI; });
+/* harmony import */ var _ckeditor_ckeditor5_core_src_plugin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-core/src/plugin */ "./node_modules/@ckeditor/ckeditor5-core/src/plugin.js");
+/* harmony import */ var _ckeditor_ckeditor5_ui_src_model__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ckeditor/ckeditor5-ui/src/model */ "./node_modules/@ckeditor/ckeditor5-ui/src/model.js");
+/* harmony import */ var _ckeditor_ckeditor5_ui_src_dropdown_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ckeditor/ckeditor5-ui/src/dropdown/utils */ "./node_modules/@ckeditor/ckeditor5-ui/src/dropdown/utils.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils */ "./node_modules/@ckeditor/ckeditor5-heading/src/utils.js");
+/* harmony import */ var _ckeditor_ckeditor5_utils_src_collection__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ckeditor/ckeditor5-utils/src/collection */ "./node_modules/@ckeditor/ckeditor5-utils/src/collection.js");
+/* harmony import */ var _theme_heading_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../theme/heading.css */ "./node_modules/@ckeditor/ckeditor5-heading/theme/heading.css");
+/* harmony import */ var _theme_heading_css__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_theme_heading_css__WEBPACK_IMPORTED_MODULE_5__);
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module heading/headingui
+ */
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * The headings UI feature. It introduces the `headings` dropdown.
+ *
+ * @extends module:core/plugin~Plugin
+ */
+class HeadingUI extends _ckeditor_ckeditor5_core_src_plugin__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * @inheritDoc
+	 */
+	init() {
+		const editor = this.editor;
+		const t = editor.t;
+		const options = Object(_utils__WEBPACK_IMPORTED_MODULE_3__["getLocalizedOptions"])( editor );
+		const defaultTitle = t( 'Choose heading' );
+		const dropdownTooltip = t( 'Heading' );
+
+		// Register UI component.
+		editor.ui.componentFactory.add( 'heading', locale => {
+			const titles = {};
+			const itemDefinitions = new _ckeditor_ckeditor5_utils_src_collection__WEBPACK_IMPORTED_MODULE_4__["default"]();
+
+			const headingCommand = editor.commands.get( 'heading' );
+			const paragraphCommand = editor.commands.get( 'paragraph' );
+
+			const commands = [ headingCommand ];
+
+			for ( const option of options ) {
+				const def = {
+					type: 'button',
+					model: new _ckeditor_ckeditor5_ui_src_model__WEBPACK_IMPORTED_MODULE_1__["default"]( {
+						label: option.title,
+						class: option.class,
+						withText: true
+					} )
+				};
+
+				if ( option.model === 'paragraph' ) {
+					def.model.bind( 'isOn' ).to( paragraphCommand, 'value' );
+					def.model.set( 'commandName', 'paragraph' );
+					commands.push( paragraphCommand );
+				} else {
+					def.model.bind( 'isOn' ).to( headingCommand, 'value', value => value === option.model );
+					def.model.set( {
+						commandName: 'heading',
+						commandValue: option.model
+					} );
+				}
+
+				// Add the option to the collection.
+				itemDefinitions.add( def );
+
+				titles[ option.model ] = option.title;
+			}
+
+			const dropdownView = Object(_ckeditor_ckeditor5_ui_src_dropdown_utils__WEBPACK_IMPORTED_MODULE_2__["createDropdown"])( locale );
+			Object(_ckeditor_ckeditor5_ui_src_dropdown_utils__WEBPACK_IMPORTED_MODULE_2__["addListToDropdown"])( dropdownView, itemDefinitions );
+
+			dropdownView.buttonView.set( {
+				isOn: false,
+				withText: true,
+				tooltip: dropdownTooltip
+			} );
+
+			dropdownView.extendTemplate( {
+				attributes: {
+					class: [
+						'ck-heading-dropdown'
+					]
+				}
+			} );
+
+			dropdownView.bind( 'isEnabled' ).toMany( commands, 'isEnabled', ( ...areEnabled ) => {
+				return areEnabled.some( isEnabled => isEnabled );
+			} );
+
+			dropdownView.buttonView.bind( 'label' ).to( headingCommand, 'value', paragraphCommand, 'value', ( value, para ) => {
+				const whichModel = value || para && 'paragraph';
+				// If none of the commands is active, display default title.
+				return titles[ whichModel ] ? titles[ whichModel ] : defaultTitle;
+			} );
+
+			// Execute command when an item from the dropdown is selected.
+			this.listenTo( dropdownView, 'execute', evt => {
+				editor.execute( evt.source.commandName, evt.source.commandValue ? { value: evt.source.commandValue } : undefined );
+				editor.editing.view.focus();
+			} );
+
+			return dropdownView;
+		} );
+	}
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-heading/src/utils.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-heading/src/utils.js ***!
+  \***************************************************************/
+/*! exports provided: getLocalizedOptions */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getLocalizedOptions", function() { return getLocalizedOptions; });
+/**
+ * Returns heading options as defined in `config.heading.options` but processed to consider
+ * editor localization, i.e. to display {@link module:heading/heading~HeadingOption}
+ * in the correct language.
+ *
+ * Note: The reason behind this method is that there's no way to use {@link module:utils/locale~Locale#t}
+ * when the user config is defined because the editor does not exist yet.
+ *
+ * @param {module:core/editor/editor~Editor} editor
+ * @returns {Array.<module:heading/heading~HeadingOption>}.
+ */
+function getLocalizedOptions( editor ) {
+	const t = editor.t;
+	const localizedTitles = {
+		Paragraph: t( 'Paragraph' ),
+		'Heading 1': t( 'Heading 1' ),
+		'Heading 2': t( 'Heading 2' ),
+		'Heading 3': t( 'Heading 3' )
+	};
+
+	return editor.config.get( 'heading.options' ).map( option => {
+		const title = localizedTitles[ option.title ];
+
+		if ( title && title != option.title ) {
+			// Clone the option to avoid altering the original `config.heading.options`.
+			option = Object.assign( {}, option, { title } );
+		}
+
+		return option;
+	} );
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-heading/theme/heading.css":
+/*!********************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-heading/theme/heading.css ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../postcss-loader/src??ref--5-1!./heading.css */ "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-heading/theme/heading.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"singleton":true,"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/@ckeditor/ckeditor5-paragraph/src/paragraph.js":
 /*!*********************************************************************!*\
   !*** ./node_modules/@ckeditor/ckeditor5-paragraph/src/paragraph.js ***!
@@ -40704,6 +41338,5134 @@ function checkCanBecomeParagraph( block, schema ) {
 	return schema.checkChild( block.parent, 'paragraph' ) && !schema.isObject( block );
 }
 
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/src/commands/insertcolumncommand.js":
+/*!************************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/src/commands/insertcolumncommand.js ***!
+  \************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return InsertColumnCommand; });
+/* harmony import */ var _ckeditor_ckeditor5_core_src_command__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-core/src/command */ "./node_modules/@ckeditor/ckeditor5-core/src/command.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./node_modules/@ckeditor/ckeditor5-table/src/commands/utils.js");
+/* harmony import */ var _tableutils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../tableutils */ "./node_modules/@ckeditor/ckeditor5-table/src/tableutils.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module table/commands/insertcolumncommand
+ */
+
+
+
+
+
+/**
+ * The insert column command.
+ *
+ * The command is registered by {@link module:table/tableediting~TableEditing} as `'insertTableColumnBefore'` and
+ * `'insertTableColumnAfter'` editor commands.
+ *
+ * To insert a column before the selected cell, execute the following command:
+ *
+ *		editor.execute( 'insertTableColumnBefore' );
+ *
+ * To insert a column after the selected cell, execute the following command:
+ *
+ *		editor.execute( 'insertTableColumnAfter' );
+ *
+ * @extends module:core/command~Command
+ */
+class InsertColumnCommand extends _ckeditor_ckeditor5_core_src_command__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * Creates a new `InsertColumnCommand` instance.
+	 *
+	 * @param {module:core/editor/editor~Editor} editor An editor on which this command will be used.
+	 * @param {Object} options
+	 * @param {String} [options.order="after"] The order of insertion relative to the column in which the caret is located.
+	 * Possible values: `"after"` and `"before"`.
+	 */
+	constructor( editor, options = {} ) {
+		super( editor );
+
+		/**
+		 * The order of insertion relative to the column in which the caret is located.
+		 *
+		 * @readonly
+		 * @member {String} module:table/commands/insertcolumncommand~InsertColumnCommand#order
+		 */
+		this.order = options.order || 'after';
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	refresh() {
+		const selection = this.editor.model.document.selection;
+
+		const tableParent = Object(_utils__WEBPACK_IMPORTED_MODULE_1__["findAncestor"])( 'table', selection.getFirstPosition() );
+
+		this.isEnabled = !!tableParent;
+	}
+
+	/**
+	 * Executes the command.
+	 *
+	 * Depending on the command's {@link #order} value, it inserts a column `'before'` or `'after'` the column in which the selection is
+	 * set.
+	 *
+	 * @fires execute
+	 */
+	execute() {
+		const editor = this.editor;
+		const selection = editor.model.document.selection;
+		const tableUtils = editor.plugins.get( _tableutils__WEBPACK_IMPORTED_MODULE_2__["default"] );
+
+		const firstPosition = selection.getFirstPosition();
+
+		const tableCell = Object(_utils__WEBPACK_IMPORTED_MODULE_1__["findAncestor"])( 'tableCell', firstPosition );
+		const table = tableCell.parent.parent;
+
+		const { column } = tableUtils.getCellLocation( tableCell );
+		const insertAt = this.order === 'after' ? column + 1 : column;
+
+		tableUtils.insertColumns( table, { columns: 1, at: insertAt } );
+	}
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/src/commands/insertrowcommand.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/src/commands/insertrowcommand.js ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return InsertRowCommand; });
+/* harmony import */ var _ckeditor_ckeditor5_core_src_command__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-core/src/command */ "./node_modules/@ckeditor/ckeditor5-core/src/command.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./node_modules/@ckeditor/ckeditor5-table/src/commands/utils.js");
+/* harmony import */ var _tableutils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../tableutils */ "./node_modules/@ckeditor/ckeditor5-table/src/tableutils.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module table/commands/insertrowcommand
+ */
+
+
+
+
+
+/**
+ * The insert row command.
+ *
+ * The command is registered by {@link module:table/tableediting~TableEditing} as `'insertTableRowBelow'` and
+ * `'insertTableRowAbove'` editor commands.
+ *
+ * To insert a row below the selected cell, execute the following command:
+ *
+ *		editor.execute( 'insertTableRowBelow' );
+ *
+ * To insert a row above the selected cell, execute the following command:
+ *
+ *		editor.execute( 'insertTableRowAbove' );
+ *
+ * @extends module:core/command~Command
+ */
+class InsertRowCommand extends _ckeditor_ckeditor5_core_src_command__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * Creates a new `InsertRowCommand` instance.
+	 *
+	 * @param {module:core/editor/editor~Editor} editor The editor on which this command will be used.
+	 * @param {Object} options
+	 * @param {String} [options.order="below"] The order of insertion relative to the row in which the caret is located.
+	 * Possible values: `"above"` and `"below"`.
+	 */
+	constructor( editor, options = {} ) {
+		super( editor );
+
+		/**
+		 * The order of insertion relative to the row in which the caret is located.
+		 *
+		 * @readonly
+		 * @member {String} module:table/commands/insertrowcommand~InsertRowCommand#order
+		 */
+		this.order = options.order || 'below';
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	refresh() {
+		const selection = this.editor.model.document.selection;
+
+		const tableParent = Object(_utils__WEBPACK_IMPORTED_MODULE_1__["findAncestor"])( 'table', selection.getFirstPosition() );
+
+		this.isEnabled = !!tableParent;
+	}
+
+	/**
+	 * Executes the command.
+	 *
+	 * Depending on the command's {@link #order} value, it inserts a row `'below'` or `'above'` the row in which selection is set.
+	 *
+	 * @fires execute
+	 */
+	execute() {
+		const editor = this.editor;
+		const selection = editor.model.document.selection;
+		const tableUtils = editor.plugins.get( _tableutils__WEBPACK_IMPORTED_MODULE_2__["default"] );
+
+		const tableCell = Object(_utils__WEBPACK_IMPORTED_MODULE_1__["findAncestor"])( 'tableCell', selection.getFirstPosition() );
+		const tableRow = tableCell.parent;
+		const table = tableRow.parent;
+
+		const row = table.getChildIndex( tableRow );
+		const insertAt = this.order === 'below' ? row + 1 : row;
+
+		tableUtils.insertRows( table, { rows: 1, at: insertAt } );
+	}
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/src/commands/inserttablecommand.js":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/src/commands/inserttablecommand.js ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return InsertTableCommand; });
+/* harmony import */ var _ckeditor_ckeditor5_core_src_command__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-core/src/command */ "./node_modules/@ckeditor/ckeditor5-core/src/command.js");
+/* harmony import */ var _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ckeditor/ckeditor5-engine/src/model/position */ "./node_modules/@ckeditor/ckeditor5-engine/src/model/position.js");
+/* harmony import */ var _ckeditor_ckeditor5_widget_src_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ckeditor/ckeditor5-widget/src/utils */ "./node_modules/@ckeditor/ckeditor5-widget/src/utils.js");
+/* harmony import */ var _tableutils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../tableutils */ "./node_modules/@ckeditor/ckeditor5-table/src/tableutils.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module table/commands/inserttablecommand
+ */
+
+
+
+
+
+
+/**
+ * The insert table command.
+ *
+ * The command is registered by {@link module:table/tableediting~TableEditing} as `'insertTable'` editor command.
+ *
+ * To insert a table at the current selection, execute the command and specify the dimensions:
+ *
+ *		editor.execute( 'insertTable', { rows: 20, columns: 5 } );
+ *
+ * @extends module:core/command~Command
+ */
+class InsertTableCommand extends _ckeditor_ckeditor5_core_src_command__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * @inheritDoc
+	 */
+	refresh() {
+		const model = this.editor.model;
+		const selection = model.document.selection;
+		const schema = model.schema;
+
+		const validParent = getInsertTableParent( selection.getFirstPosition() );
+
+		this.isEnabled = schema.checkChild( validParent, 'table' );
+	}
+
+	/**
+	 * Executes the command.
+	 *
+	 * Inserts a table with the given number of rows and columns into the editor.
+	 *
+	 * @param {Object} options
+	 * @param {Number} [options.rows=2] The number of rows to create in the inserted table.
+	 * @param {Number} [options.columns=2] The number of columns to create in the inserted table.
+	 * @fires execute
+	 */
+	execute( options = {} ) {
+		const model = this.editor.model;
+		const selection = model.document.selection;
+		const tableUtils = this.editor.plugins.get( _tableutils__WEBPACK_IMPORTED_MODULE_3__["default"] );
+
+		const rows = parseInt( options.rows ) || 2;
+		const columns = parseInt( options.columns ) || 2;
+
+		const insertPosition = Object(_ckeditor_ckeditor5_widget_src_utils__WEBPACK_IMPORTED_MODULE_2__["findOptimalInsertionPosition"])( selection );
+
+		model.change( writer => {
+			const table = tableUtils.createTable( writer, rows, columns );
+
+			model.insertContent( table, insertPosition );
+
+			writer.setSelection( _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_1__["default"].createAt( table.getChild( 0 ).getChild( 0 ).getChild( 0 ) ) );
+		} );
+	}
+}
+
+// Returns valid parent to insert table
+//
+// @param {module:engine/model/position} position
+function getInsertTableParent( position ) {
+	const parent = position.parent;
+
+	return parent === parent.root ? parent : parent.parent;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/src/commands/mergecellcommand.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/src/commands/mergecellcommand.js ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return MergeCellCommand; });
+/* harmony import */ var _ckeditor_ckeditor5_core_src_command__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-core/src/command */ "./node_modules/@ckeditor/ckeditor5-core/src/command.js");
+/* harmony import */ var _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ckeditor/ckeditor5-engine/src/model/position */ "./node_modules/@ckeditor/ckeditor5-engine/src/model/position.js");
+/* harmony import */ var _ckeditor_ckeditor5_engine_src_model_range__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ckeditor/ckeditor5-engine/src/model/range */ "./node_modules/@ckeditor/ckeditor5-engine/src/model/range.js");
+/* harmony import */ var _tablewalker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../tablewalker */ "./node_modules/@ckeditor/ckeditor5-table/src/tablewalker.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils */ "./node_modules/@ckeditor/ckeditor5-table/src/commands/utils.js");
+/* harmony import */ var _tableutils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../tableutils */ "./node_modules/@ckeditor/ckeditor5-table/src/tableutils.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module table/commands/mergecellcommand
+ */
+
+
+
+
+
+
+
+
+/**
+ * The merge cell command.
+ *
+ * The command is registered by {@link module:table/tableediting~TableEditing} as `'mergeTableCellRight'`, `'mergeTableCellLeft'`,
+ * `'mergeTableCellUp'` and `'mergeTableCellDown'` editor commands.
+ *
+ * To merge a table cell at the current selection with another cell, execute the command corresponding with the preferred direction.
+ *
+ * For example, to merge with a cell to the right:
+ *
+ *		editor.execute( 'mergeTableCellRight' );
+ *
+ * **Note**: If a table cell has a different [`rowspan`](https://www.w3.org/TR/html50/tabular-data.html#attr-tdth-rowspan)
+ * (for `'mergeTableCellRight'` and `'mergeTableCellLeft'`) or [`colspan`](https://www.w3.org/TR/html50/tabular-data.html#attr-tdth-colspan)
+ * (for `'mergeTableCellUp'` and `'mergeTableCellDown'`), the command will be disabled.
+ *
+ * @extends module:core/command~Command
+ */
+class MergeCellCommand extends _ckeditor_ckeditor5_core_src_command__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * Creates a new `MergeCellCommand` instance.
+	 *
+	 * @param {module:core/editor/editor~Editor} editor The editor on which this command will be used.
+	 * @param {Object} options
+	 * @param {String} options.direction Indicates which cell to merge with the currently selected one.
+	 * Possible values are: `'left'`, `'right'`, `'up'` and `'down'`.
+	 */
+	constructor( editor, options ) {
+		super( editor );
+
+		/**
+		 * The direction that indicates which cell will be merged with the currently selected one.
+		 *
+		 * @readonly
+		 * @member {String} #direction
+		 */
+		this.direction = options.direction;
+
+		/**
+		 * Whether the merge is horizontal (left/right) or vertical (up/down).
+		 *
+		 * @readonly
+		 * @member {Boolean} #isHorizontal
+		 */
+		this.isHorizontal = this.direction == 'right' || this.direction == 'left';
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	refresh() {
+		const cellToMerge = this._getMergeableCell();
+
+		this.isEnabled = !!cellToMerge;
+		// In order to check if currently selected cell can be merged with one defined by #direction some computation are done beforehand.
+		// As such we can cache it as a command's value.
+		this.value = cellToMerge;
+	}
+
+	/**
+	 * Executes the command.
+	 *
+	 * Depending on the command's {@link #direction} value, it will merge the cell that is to the `'left'`, `'right'`, `'up'` or `'down'`.
+	 *
+	 * @fires execute
+	 */
+	execute() {
+		const model = this.editor.model;
+		const doc = model.document;
+		const tableCell = Object(_utils__WEBPACK_IMPORTED_MODULE_4__["findAncestor"])( 'tableCell', doc.selection.getFirstPosition() );
+		const cellToMerge = this.value;
+		const direction = this.direction;
+
+		model.change( writer => {
+			const isMergeNext = direction == 'right' || direction == 'down';
+
+			// The merge mechanism is always the same so sort cells to be merged.
+			const cellToExpand = isMergeNext ? tableCell : cellToMerge;
+			const cellToRemove = isMergeNext ? cellToMerge : tableCell;
+
+			// Cache the parent of cell to remove for later check.
+			const removedTableCellRow = cellToRemove.parent;
+
+			mergeTableCells( cellToRemove, cellToExpand, writer );
+
+			const spanAttribute = this.isHorizontal ? 'colspan' : 'rowspan';
+			const cellSpan = parseInt( tableCell.getAttribute( spanAttribute ) || 1 );
+			const cellToMergeSpan = parseInt( cellToMerge.getAttribute( spanAttribute ) || 1 );
+
+			// Update table cell span attribute and merge set selection on merged contents.
+			writer.setAttribute( spanAttribute, cellSpan + cellToMergeSpan, cellToExpand );
+			writer.setSelection( _ckeditor_ckeditor5_engine_src_model_range__WEBPACK_IMPORTED_MODULE_2__["default"].createIn( cellToExpand ) );
+
+			// Remove empty row after merging.
+			if ( !removedTableCellRow.childCount ) {
+				removeEmptyRow( removedTableCellRow, writer );
+			}
+		} );
+	}
+
+	/**
+	 * Returns a cell that can be merged with the current cell depending on the command's direction.
+	 *
+	 * @returns {module:engine/model/element|undefined}
+	 * @private
+	 */
+	_getMergeableCell() {
+		const model = this.editor.model;
+		const doc = model.document;
+		const tableCell = Object(_utils__WEBPACK_IMPORTED_MODULE_4__["findAncestor"])( 'tableCell', doc.selection.getFirstPosition() );
+
+		if ( !tableCell ) {
+			return;
+		}
+
+		const tableUtils = this.editor.plugins.get( _tableutils__WEBPACK_IMPORTED_MODULE_5__["default"] );
+
+		// First get the cell on proper direction.
+		const cellToMerge = this.isHorizontal ?
+			getHorizontalCell( tableCell, this.direction, tableUtils ) :
+			getVerticalCell( tableCell, this.direction );
+
+		if ( !cellToMerge ) {
+			return;
+		}
+
+		// If found check if the span perpendicular to merge direction is equal on both cells.
+		const spanAttribute = this.isHorizontal ? 'rowspan' : 'colspan';
+		const span = parseInt( tableCell.getAttribute( spanAttribute ) || 1 );
+
+		const cellToMergeSpan = parseInt( cellToMerge.getAttribute( spanAttribute ) || 1 );
+
+		if ( cellToMergeSpan === span ) {
+			return cellToMerge;
+		}
+	}
+}
+
+// Returns the cell that can be merged horizontally.
+//
+// @param {module:engine/model/element~Element} tableCell
+// @param {String} direction
+// @returns {module:engine/model/node~Node|null}
+function getHorizontalCell( tableCell, direction, tableUtils ) {
+	const horizontalCell = direction == 'right' ? tableCell.nextSibling : tableCell.previousSibling;
+
+	if ( !horizontalCell ) {
+		return;
+	}
+
+	// Sort cells:
+	const cellOnLeft = direction == 'right' ? tableCell : horizontalCell;
+	const cellOnRight = direction == 'right' ? horizontalCell : tableCell;
+
+	// Get their column indexes:
+	const { column: leftCellColumn } = tableUtils.getCellLocation( cellOnLeft );
+	const { column: rightCellColumn } = tableUtils.getCellLocation( cellOnRight );
+
+	const leftCellSpan = parseInt( cellOnLeft.getAttribute( 'colspan' ) || 1 );
+
+	// The cell on the right must have index that is distant to the cell on the left by the left cell's width (colspan).
+	const cellsAreTouching = leftCellColumn + leftCellSpan === rightCellColumn;
+
+	// If the right cell's column index is different it means that there are rowspanned cells between them.
+	return cellsAreTouching ? horizontalCell : undefined;
+}
+
+// Returns the cell that can be merged vertically.
+//
+// @param {module:engine/model/element~Element} tableCell
+// @param {String} direction
+// @returns {module:engine/model/node~Node|null}
+function getVerticalCell( tableCell, direction ) {
+	const tableRow = tableCell.parent;
+	const table = tableRow.parent;
+
+	const rowIndex = table.getChildIndex( tableRow );
+
+	// Don't search for mergeable cell if direction points out of the table.
+	if ( ( direction == 'down' && rowIndex === table.childCount - 1 ) || ( direction == 'up' && rowIndex === 0 ) ) {
+		return;
+	}
+
+	const rowspan = parseInt( tableCell.getAttribute( 'rowspan' ) || 1 );
+	const headingRows = table.getAttribute( 'headingRows' ) || 0;
+
+	const isMergeWithBodyCell = direction == 'down' && ( rowIndex + rowspan ) === headingRows;
+	const isMergeWithHeadCell = direction == 'up' && rowIndex === headingRows;
+
+	// Don't search for mergeable cell if direction points out of the current table section.
+	if ( headingRows && ( isMergeWithBodyCell || isMergeWithHeadCell ) ) {
+		return;
+	}
+
+	const currentCellRowSpan = parseInt( tableCell.getAttribute( 'rowspan' ) || 1 );
+	const rowOfCellToMerge = direction == 'down' ? rowIndex + currentCellRowSpan : rowIndex;
+
+	const tableMap = [ ...new _tablewalker__WEBPACK_IMPORTED_MODULE_3__["default"]( table, { endRow: rowOfCellToMerge } ) ];
+
+	const currentCellData = tableMap.find( value => value.cell === tableCell );
+	const mergeColumn = currentCellData.column;
+
+	const cellToMergeData = tableMap.find( ( { row, rowspan, column } ) => {
+		if ( column !== mergeColumn ) {
+			return false;
+		}
+
+		if ( direction == 'down' ) {
+			// If merging a cell below the mergeRow is already calculated.
+			return row === rowOfCellToMerge;
+		} else {
+			// If merging a cell above calculate if it spans to mergeRow.
+			return rowOfCellToMerge === row + rowspan;
+		}
+	} );
+
+	return cellToMergeData && cellToMergeData.cell;
+}
+
+// Properly removes empty row from a table. Will update `rowspan` attribute of cells that overlaps removed row.
+//
+// @param {module:engine/model/element~Element} removedTableCellRow
+// @param {module:engine/model/writer~Writer} writer
+function removeEmptyRow( removedTableCellRow, writer ) {
+	const table = removedTableCellRow.parent;
+
+	const removedRowIndex = table.getChildIndex( removedTableCellRow );
+
+	for ( const { cell, row, rowspan } of new _tablewalker__WEBPACK_IMPORTED_MODULE_3__["default"]( table, { endRow: removedRowIndex } ) ) {
+		const overlapsRemovedRow = row + rowspan - 1 >= removedRowIndex;
+
+		if ( overlapsRemovedRow ) {
+			Object(_utils__WEBPACK_IMPORTED_MODULE_4__["updateNumericAttribute"])( 'rowspan', rowspan - 1, cell, writer );
+		}
+	}
+
+	writer.remove( removedTableCellRow );
+}
+
+// Merges two table cells - will ensure that after merging cells with empty paragraph the result table cell will only have one paragraph.
+// If one of the merged table cell is empty the merged table cell will have contents of the non-empty table cell.
+// If both are empty the merged table cell will have only one empty paragraph.
+//
+// @param {module:engine/model/element~Element} cellToRemove
+// @param {module:engine/model/element~Element} cellToExpand
+// @param {module:engine/model/writer~Writer} writer
+function mergeTableCells( cellToRemove, cellToExpand, writer ) {
+	if ( !isEmpty( cellToRemove ) ) {
+		if ( isEmpty( cellToExpand ) ) {
+			writer.remove( _ckeditor_ckeditor5_engine_src_model_range__WEBPACK_IMPORTED_MODULE_2__["default"].createIn( cellToExpand ) );
+		}
+
+		writer.move( _ckeditor_ckeditor5_engine_src_model_range__WEBPACK_IMPORTED_MODULE_2__["default"].createIn( cellToRemove ), _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_1__["default"].createAt( cellToExpand, 'end' ) );
+	}
+
+	// Remove merged table cell.
+	writer.remove( cellToRemove );
+}
+
+// Checks if passed table cell contains empty paragraph.
+//
+// @param {module:engine/model/element~Element} tableCell
+// @returns {Boolean}
+function isEmpty( tableCell ) {
+	return tableCell.childCount == 1 && tableCell.getChild( 0 ).is( 'paragraph' ) && tableCell.getChild( 0 ).isEmpty;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/src/commands/removecolumncommand.js":
+/*!************************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/src/commands/removecolumncommand.js ***!
+  \************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return RemoveColumnCommand; });
+/* harmony import */ var _ckeditor_ckeditor5_core_src_command__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-core/src/command */ "./node_modules/@ckeditor/ckeditor5-core/src/command.js");
+/* harmony import */ var _tablewalker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../tablewalker */ "./node_modules/@ckeditor/ckeditor5-table/src/tablewalker.js");
+/* harmony import */ var _tableutils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../tableutils */ "./node_modules/@ckeditor/ckeditor5-table/src/tableutils.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils */ "./node_modules/@ckeditor/ckeditor5-table/src/commands/utils.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module table/commands/removecolumncommand
+ */
+
+
+
+
+
+
+
+/**
+ * The remove column command.
+ *
+ * The command is registered by {@link module:table/tableediting~TableEditing} as `'removeTableColumn'` editor command.
+ *
+ * To remove the column containing the selected cell, execute the command:
+ *
+ *		editor.execute( 'removeTableColumn' );
+ *
+ * @extends module:core/command~Command
+ */
+class RemoveColumnCommand extends _ckeditor_ckeditor5_core_src_command__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * @inheritDoc
+	 */
+	refresh() {
+		const editor = this.editor;
+		const selection = editor.model.document.selection;
+		const tableUtils = editor.plugins.get( _tableutils__WEBPACK_IMPORTED_MODULE_2__["default"] );
+
+		const tableCell = Object(_utils__WEBPACK_IMPORTED_MODULE_3__["findAncestor"])( 'tableCell', selection.getFirstPosition() );
+
+		this.isEnabled = !!tableCell && tableUtils.getColumns( tableCell.parent.parent ) > 1;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	execute() {
+		const model = this.editor.model;
+		const selection = model.document.selection;
+
+		const firstPosition = selection.getFirstPosition();
+
+		const tableCell = Object(_utils__WEBPACK_IMPORTED_MODULE_3__["findAncestor"])( 'tableCell', firstPosition );
+		const tableRow = tableCell.parent;
+		const table = tableRow.parent;
+
+		const headingColumns = table.getAttribute( 'headingColumns' ) || 0;
+		const row = table.getChildIndex( tableRow );
+
+		// Cache the table before removing or updating colspans.
+		const tableMap = [ ...new _tablewalker__WEBPACK_IMPORTED_MODULE_1__["default"]( table ) ];
+
+		// Get column index of removed column.
+		const cellData = tableMap.find( value => value.cell === tableCell );
+		const removedColumn = cellData.column;
+
+		model.change( writer => {
+			// Update heading columns attribute if removing a row from head section.
+			if ( headingColumns && row <= headingColumns ) {
+				writer.setAttribute( 'headingColumns', headingColumns - 1, table );
+			}
+
+			for ( const { cell, column, colspan } of tableMap ) {
+				// If colspaned cell overlaps removed column decrease it's span.
+				if ( column <= removedColumn && colspan > 1 && column + colspan > removedColumn ) {
+					Object(_utils__WEBPACK_IMPORTED_MODULE_3__["updateNumericAttribute"])( 'colspan', colspan - 1, cell, writer );
+				} else if ( column === removedColumn ) {
+					// The cell in removed column has colspan of 1.
+					writer.remove( cell );
+				}
+			}
+		} );
+	}
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/src/commands/removerowcommand.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/src/commands/removerowcommand.js ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return RemoveRowCommand; });
+/* harmony import */ var _ckeditor_ckeditor5_core_src_command__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-core/src/command */ "./node_modules/@ckeditor/ckeditor5-core/src/command.js");
+/* harmony import */ var _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ckeditor/ckeditor5-engine/src/model/position */ "./node_modules/@ckeditor/ckeditor5-engine/src/model/position.js");
+/* harmony import */ var _ckeditor_ckeditor5_engine_src_model_range__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ckeditor/ckeditor5-engine/src/model/range */ "./node_modules/@ckeditor/ckeditor5-engine/src/model/range.js");
+/* harmony import */ var _tablewalker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../tablewalker */ "./node_modules/@ckeditor/ckeditor5-table/src/tablewalker.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils */ "./node_modules/@ckeditor/ckeditor5-table/src/commands/utils.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module table/commands/removerowcommand
+ */
+
+
+
+
+
+
+
+
+/**
+ * The remove row command.
+ *
+ * The command is registered by {@link module:table/tableediting~TableEditing} as `'removeTableRow'` editor command.
+ *
+ * To remove the row containing the selected cell, execute the command:
+ *
+ *		editor.execute( 'removeTableRow' );
+ *
+ * @extends module:core/command~Command
+ */
+class RemoveRowCommand extends _ckeditor_ckeditor5_core_src_command__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * @inheritDoc
+	 */
+	refresh() {
+		const model = this.editor.model;
+		const doc = model.document;
+
+		const tableCell = Object(_utils__WEBPACK_IMPORTED_MODULE_4__["findAncestor"])( 'tableCell', doc.selection.getFirstPosition() );
+
+		this.isEnabled = !!tableCell && tableCell.parent.parent.childCount > 1;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	execute() {
+		const model = this.editor.model;
+		const selection = model.document.selection;
+
+		const firstPosition = selection.getFirstPosition();
+		const tableCell = Object(_utils__WEBPACK_IMPORTED_MODULE_4__["findAncestor"])( 'tableCell', firstPosition );
+		const tableRow = tableCell.parent;
+		const table = tableRow.parent;
+
+		const currentRow = table.getChildIndex( tableRow );
+		const headingRows = table.getAttribute( 'headingRows' ) || 0;
+
+		model.change( writer => {
+			if ( headingRows && currentRow <= headingRows ) {
+				Object(_utils__WEBPACK_IMPORTED_MODULE_4__["updateNumericAttribute"])( 'headingRows', headingRows - 1, table, writer, 0 );
+			}
+
+			const tableMap = [ ...new _tablewalker__WEBPACK_IMPORTED_MODULE_3__["default"]( table, { endRow: currentRow } ) ];
+
+			const cellsToMove = new Map();
+
+			// Get cells from removed row that are spanned over multiple rows.
+			tableMap
+				.filter( ( { row, rowspan } ) => row === currentRow && rowspan > 1 )
+				.forEach( ( { column, cell, rowspan } ) => cellsToMove.set( column, { cell, rowspanToSet: rowspan - 1 } ) );
+
+			// Reduce rowspan on cells that are above removed row and overlaps removed row.
+			tableMap
+				.filter( ( { row, rowspan } ) => row <= currentRow - 1 && row + rowspan > currentRow )
+				.forEach( ( { cell, rowspan } ) => Object(_utils__WEBPACK_IMPORTED_MODULE_4__["updateNumericAttribute"])( 'rowspan', rowspan - 1, cell, writer ) );
+
+			// Move cells to another row.
+			const targetRow = currentRow + 1;
+			const tableWalker = new _tablewalker__WEBPACK_IMPORTED_MODULE_3__["default"]( table, { includeSpanned: true, startRow: targetRow, endRow: targetRow } );
+
+			let previousCell;
+
+			for ( const { row, column, cell } of [ ...tableWalker ] ) {
+				if ( cellsToMove.has( column ) ) {
+					const { cell: cellToMove, rowspanToSet } = cellsToMove.get( column );
+					const targetPosition = previousCell ? _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_1__["default"].createAfter( previousCell ) : _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_1__["default"].createAt( table.getChild( row ) );
+
+					writer.move( _ckeditor_ckeditor5_engine_src_model_range__WEBPACK_IMPORTED_MODULE_2__["default"].createOn( cellToMove ), targetPosition );
+					Object(_utils__WEBPACK_IMPORTED_MODULE_4__["updateNumericAttribute"])( 'rowspan', rowspanToSet, cellToMove, writer );
+
+					previousCell = cellToMove;
+				} else {
+					previousCell = cell;
+				}
+			}
+
+			writer.remove( tableRow );
+		} );
+	}
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/src/commands/setheadercolumncommand.js":
+/*!***************************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/src/commands/setheadercolumncommand.js ***!
+  \***************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return SetHeaderColumnCommand; });
+/* harmony import */ var _ckeditor_ckeditor5_core_src_command__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-core/src/command */ "./node_modules/@ckeditor/ckeditor5-core/src/command.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./node_modules/@ckeditor/ckeditor5-table/src/commands/utils.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module table/commands/setheadercolumncommand
+ */
+
+
+
+
+
+/**
+ * The header column command.
+ *
+ * The command is registered by {@link module:table/tableediting~TableEditing} as `'setTableColumnHeader'` editor command.
+ *
+ * You can make the column containing the selected cell a [header](https://www.w3.org/TR/html50/tabular-data.html#the-th-element)
+ * by executing:
+ *
+ *		editor.execute( 'setTableColumnHeader' );
+ *
+ * **Note:** All preceding columns will also become headers. If the current column is already a header, executing this command
+ * will make it a regular column back again (including the following columns).
+ *
+ * @extends module:core/command~Command
+ */
+class SetHeaderColumnCommand extends _ckeditor_ckeditor5_core_src_command__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * @inheritDoc
+	 */
+	refresh() {
+		const model = this.editor.model;
+		const doc = model.document;
+		const selection = doc.selection;
+
+		const position = selection.getFirstPosition();
+		const tableCell = Object(_utils__WEBPACK_IMPORTED_MODULE_1__["findAncestor"])( 'tableCell', position );
+
+		const isInTable = !!tableCell;
+
+		this.isEnabled = isInTable;
+
+		/**
+		 * Flag indicating whether the command is active. The command is active when the
+		 * {@link module:engine/model/selection~Selection} is in a header column.
+		 *
+		 * @observable
+		 * @readonly
+		 * @member {Boolean} #value
+		 */
+		this.value = isInTable && this._isInHeading( tableCell, tableCell.parent.parent );
+	}
+
+	/**
+	 * Executes the command.
+	 *
+	 * When the selection is in a non-header column, the command will set the `headingColumns` table attribute to cover that column.
+	 *
+	 * When the selection is already in a header column, it will set `headingColumns` so the heading section will end before that column.
+	 *
+	 * @fires execute
+	 */
+	execute() {
+		const model = this.editor.model;
+		const doc = model.document;
+		const selection = doc.selection;
+		const tableUtils = this.editor.plugins.get( 'TableUtils' );
+
+		const position = selection.getFirstPosition();
+		const tableCell = Object(_utils__WEBPACK_IMPORTED_MODULE_1__["findAncestor"])( 'tableCell', position.parent );
+		const tableRow = tableCell.parent;
+		const table = tableRow.parent;
+
+		const currentHeadingColumns = parseInt( table.getAttribute( 'headingColumns' ) || 0 );
+		const { column: selectionColumn } = tableUtils.getCellLocation( tableCell );
+
+		const headingColumnsToSet = currentHeadingColumns > selectionColumn ? selectionColumn : selectionColumn + 1;
+
+		model.change( writer => {
+			Object(_utils__WEBPACK_IMPORTED_MODULE_1__["updateNumericAttribute"])( 'headingColumns', headingColumnsToSet, table, writer, 0 );
+		} );
+	}
+
+	/**
+	 * Checks if a table cell is in the heading section.
+	 *
+	 * @param {module:engine/model/element~Element} tableCell
+	 * @param {module:engine/model/element~Element} table
+	 * @returns {Boolean}
+	 * @private
+	 */
+	_isInHeading( tableCell, table ) {
+		const headingColumns = parseInt( table.getAttribute( 'headingColumns' ) || 0 );
+
+		const tableUtils = this.editor.plugins.get( 'TableUtils' );
+
+		const { column } = tableUtils.getCellLocation( tableCell );
+
+		return !!headingColumns && column < headingColumns;
+	}
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/src/commands/setheaderrowcommand.js":
+/*!************************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/src/commands/setheaderrowcommand.js ***!
+  \************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return SetHeaderRowCommand; });
+/* harmony import */ var _ckeditor_ckeditor5_core_src_command__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-core/src/command */ "./node_modules/@ckeditor/ckeditor5-core/src/command.js");
+/* harmony import */ var _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ckeditor/ckeditor5-engine/src/model/position */ "./node_modules/@ckeditor/ckeditor5-engine/src/model/position.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils */ "./node_modules/@ckeditor/ckeditor5-table/src/commands/utils.js");
+/* harmony import */ var _tablewalker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../tablewalker */ "./node_modules/@ckeditor/ckeditor5-table/src/tablewalker.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module table/commands/setheaderrowcommand
+ */
+
+
+
+
+
+
+
+/**
+ * The header row command.
+ *
+ * The command is registered by {@link module:table/tableediting~TableEditing} as `'setTableColumnHeader'` editor command.
+ *
+ * You can make the row containing the selected cell a [header](https://www.w3.org/TR/html50/tabular-data.html#the-th-element) by executing:
+ *
+ *		editor.execute( 'setTableRowHeader' );
+ *
+ * **Note:** All preceding rows will also become headers. If the current row is already a header, executing this command
+ * will make it a regular row back again (including the following rows).
+ *
+ * @extends module:core/command~Command
+ */
+class SetHeaderRowCommand extends _ckeditor_ckeditor5_core_src_command__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * @inheritDoc
+	 */
+	refresh() {
+		const model = this.editor.model;
+		const doc = model.document;
+		const selection = doc.selection;
+
+		const position = selection.getFirstPosition();
+		const tableCell = Object(_utils__WEBPACK_IMPORTED_MODULE_2__["findAncestor"])( 'tableCell', position );
+		const isInTable = !!tableCell;
+
+		this.isEnabled = isInTable;
+
+		/**
+		 * Flag indicating whether the command is active. The command is active when the
+		 * {@link module:engine/model/selection~Selection} is in a header row.
+		 *
+		 * @observable
+		 * @readonly
+		 * @member {Boolean} #value
+		 */
+		this.value = isInTable && this._isInHeading( tableCell, tableCell.parent.parent );
+	}
+
+	/**
+	 * Executes the command.
+	 *
+	 * When the selection is in a non-header row, the command will set the `headingRows` table attribute to cover that row.
+	 *
+	 * When the selection is already in a header row, it will set `headingRows` so the heading section will end before that row.
+	 *
+	 * @fires execute
+	 */
+	execute() {
+		const model = this.editor.model;
+		const doc = model.document;
+		const selection = doc.selection;
+
+		const position = selection.getFirstPosition();
+		const tableCell = Object(_utils__WEBPACK_IMPORTED_MODULE_2__["findAncestor"])( 'tableCell', position );
+		const tableRow = tableCell.parent;
+		const table = tableRow.parent;
+
+		const currentHeadingRows = table.getAttribute( 'headingRows' ) || 0;
+		const selectionRow = tableRow.index;
+
+		const headingRowsToSet = currentHeadingRows > selectionRow ? selectionRow : selectionRow + 1;
+
+		model.change( writer => {
+			if ( headingRowsToSet ) {
+				// Changing heading rows requires to check if any of a heading cell is overlapping vertically the table head.
+				// Any table cell that has a rowspan attribute > 1 will not exceed the table head so we need to fix it in rows below.
+				const cellsToSplit = getOverlappingCells( table, headingRowsToSet, currentHeadingRows );
+
+				for ( const cell of cellsToSplit ) {
+					splitHorizontally( cell, headingRowsToSet, writer );
+				}
+			}
+
+			Object(_utils__WEBPACK_IMPORTED_MODULE_2__["updateNumericAttribute"])( 'headingRows', headingRowsToSet, table, writer, 0 );
+		} );
+	}
+
+	/**
+	 * Checks if a table cell is in the heading section.
+	 *
+	 * @param {module:engine/model/element~Element} tableCell
+	 * @param {module:engine/model/element~Element} table
+	 * @returns {Boolean}
+	 * @private
+	 */
+	_isInHeading( tableCell, table ) {
+		const headingRows = parseInt( table.getAttribute( 'headingRows' ) || 0 );
+
+		return !!headingRows && tableCell.parent.index < headingRows;
+	}
+}
+
+// Returns cells that span beyond the new heading section.
+//
+// @param {module:engine/model/element~Element} table The table to check.
+// @param {Number} headingRowsToSet New heading rows attribute.
+// @param {Number} currentHeadingRows Current heading rows attribute.
+// @returns {Array.<module:engine/model/element~Element>}
+function getOverlappingCells( table, headingRowsToSet, currentHeadingRows ) {
+	const cellsToSplit = [];
+
+	const startAnalysisRow = headingRowsToSet > currentHeadingRows ? currentHeadingRows : 0;
+	// We're analyzing only when headingRowsToSet > 0.
+	const endAnalysisRow = headingRowsToSet - 1;
+
+	const tableWalker = new _tablewalker__WEBPACK_IMPORTED_MODULE_3__["default"]( table, { startRow: startAnalysisRow, endRow: endAnalysisRow } );
+
+	for ( const { row, rowspan, cell } of tableWalker ) {
+		if ( rowspan > 1 && row + rowspan > headingRowsToSet ) {
+			cellsToSplit.push( cell );
+		}
+	}
+
+	return cellsToSplit;
+}
+
+// Splits the table cell horizontally.
+//
+// @param {module:engine/model/element~Element} tableCell
+// @param {Number} headingRows
+// @param {module:engine/model/writer~Writer} writer
+function splitHorizontally( tableCell, headingRows, writer ) {
+	const tableRow = tableCell.parent;
+	const table = tableRow.parent;
+	const rowIndex = tableRow.index;
+
+	const rowspan = parseInt( tableCell.getAttribute( 'rowspan' ) );
+	const newRowspan = headingRows - rowIndex;
+
+	const attributes = {};
+
+	const spanToSet = rowspan - newRowspan;
+
+	if ( spanToSet > 1 ) {
+		attributes.rowspan = spanToSet;
+	}
+
+	const startRow = table.getChildIndex( tableRow );
+	const endRow = startRow + newRowspan;
+	const tableMap = [ ...new _tablewalker__WEBPACK_IMPORTED_MODULE_3__["default"]( table, { startRow, endRow, includeSpanned: true } ) ];
+
+	let columnIndex;
+
+	for ( const { row, column, cell, colspan, cellIndex } of tableMap ) {
+		if ( cell === tableCell ) {
+			columnIndex = column;
+
+			if ( colspan > 1 ) {
+				attributes.colspan = colspan;
+			}
+		}
+
+		if ( columnIndex !== undefined && columnIndex === column && row === endRow ) {
+			const tableRow = table.getChild( row );
+			const tableCellPosition = _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_1__["default"].createFromParentAndOffset( tableRow, cellIndex );
+
+			Object(_utils__WEBPACK_IMPORTED_MODULE_2__["createEmptyTableCell"])( writer, tableCellPosition, attributes );
+		}
+	}
+
+	// Update the rowspan attribute after updating table.
+	Object(_utils__WEBPACK_IMPORTED_MODULE_2__["updateNumericAttribute"])( 'rowspan', newRowspan, tableCell, writer );
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/src/commands/splitcellcommand.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/src/commands/splitcellcommand.js ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return SplitCellCommand; });
+/* harmony import */ var _ckeditor_ckeditor5_core_src_command__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-core/src/command */ "./node_modules/@ckeditor/ckeditor5-core/src/command.js");
+/* harmony import */ var _tableutils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../tableutils */ "./node_modules/@ckeditor/ckeditor5-table/src/tableutils.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils */ "./node_modules/@ckeditor/ckeditor5-table/src/commands/utils.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module table/commands/splitcellcommand
+ */
+
+
+
+
+
+/**
+ * The split cell command.
+ *
+ * The command is registered by {@link module:table/tableediting~TableEditing} as `'splitTableCellVertically'`
+ * and `'splitTableCellHorizontally'`  editor commands.
+ *
+ * You can split any cell vertically or horizontally by executing this command. For example, to split the selected table cell vertically:
+ *
+ *		editor.execute( 'splitTableCellVertically' );
+ *
+ * @extends module:core/command~Command
+ */
+class SplitCellCommand extends _ckeditor_ckeditor5_core_src_command__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * Creates a new `SplitCellCommand` instance.
+	 *
+	 * @param {module:core/editor/editor~Editor} editor The editor on which this command will be used.
+	 * @param {Object} options
+	 * @param {String} options.direction Indicates whether the command should split cells `'horizontally'` or `'vertically'`.
+	 */
+	constructor( editor, options = {} ) {
+		super( editor );
+
+		/**
+		 * The direction that indicates which cell will be split.
+		 *
+		 * @readonly
+		 * @member {String} #direction
+		 */
+		this.direction = options.direction || 'horizontally';
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	refresh() {
+		const model = this.editor.model;
+		const doc = model.document;
+
+		const tableCell = Object(_utils__WEBPACK_IMPORTED_MODULE_2__["findAncestor"])( 'tableCell', doc.selection.getFirstPosition() );
+
+		this.isEnabled = !!tableCell;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	execute() {
+		const model = this.editor.model;
+		const document = model.document;
+		const selection = document.selection;
+
+		const firstPosition = selection.getFirstPosition();
+		const tableCell = Object(_utils__WEBPACK_IMPORTED_MODULE_2__["findAncestor"])( 'tableCell', firstPosition );
+
+		const isHorizontally = this.direction === 'horizontally';
+
+		const tableUtils = this.editor.plugins.get( _tableutils__WEBPACK_IMPORTED_MODULE_1__["default"] );
+
+		if ( isHorizontally ) {
+			tableUtils.splitCellHorizontally( tableCell, 2 );
+		} else {
+			tableUtils.splitCellVertically( tableCell, 2 );
+		}
+	}
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/src/commands/utils.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/src/commands/utils.js ***!
+  \**********************************************************************/
+/*! exports provided: findAncestor, updateNumericAttribute, createEmptyTableCell */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "findAncestor", function() { return findAncestor; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateNumericAttribute", function() { return updateNumericAttribute; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createEmptyTableCell", function() { return createEmptyTableCell; });
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module table/commands/utils
+ */
+
+/**
+ * Returns the parent element of given name. Returns undefined if position is not inside desired parent.
+ *
+ * @param {String} parentName Name of parent element to find.
+ * @param {module:engine/model/position~Position|module:engine/model/position~Position} position Position to start searching.
+ * @returns {module:engine/model/element~Element|module:engine/model/documentfragment~DocumentFragment}
+ */
+function findAncestor( parentName, position ) {
+	let parent = position.parent;
+
+	while ( parent ) {
+		if ( parent.name === parentName ) {
+			return parent;
+		}
+
+		parent = parent.parent;
+	}
+}
+
+/**
+ * A common method to update the numeric value. If a value is the default one, it will be unset.
+ *
+ * @param {String} key Attribute key.
+ * @param {*} value The new attribute value.
+ * @param {module:engine/model/item~Item} item Model item on which the attribute will be set.
+ * @param {module:engine/model/writer~Writer} writer
+ * @param {*} defaultValue Default attribute value. If a value is lower or equal, it will be unset.
+ */
+function updateNumericAttribute( key, value, item, writer, defaultValue = 1 ) {
+	if ( value > defaultValue ) {
+		writer.setAttribute( key, value, item );
+	} else {
+		writer.removeAttribute( key, item );
+	}
+}
+
+/**
+ * Common method to create empty table cell - it will create proper model structure as table cell must have at least one block inside.
+ *
+ * @param {module:engine/model/writer~Writer} writer Model writer.
+ * @param {module:engine/model/position~Position} insertPosition Position at which table cell should be inserted.
+ * @param {Object} attributes Element's attributes.
+ */
+function createEmptyTableCell( writer, insertPosition, attributes = {} ) {
+	const tableCell = writer.createElement( 'tableCell', attributes );
+	writer.insertElement( 'paragraph', tableCell );
+	writer.insert( tableCell, insertPosition );
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/src/converters/downcast.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/src/converters/downcast.js ***!
+  \***************************************************************************/
+/*! exports provided: downcastInsertTable, downcastInsertRow, downcastInsertCell, downcastTableHeadingRowsChange, downcastTableHeadingColumnsChange, downcastRemoveRow */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "downcastInsertTable", function() { return downcastInsertTable; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "downcastInsertRow", function() { return downcastInsertRow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "downcastInsertCell", function() { return downcastInsertCell; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "downcastTableHeadingRowsChange", function() { return downcastTableHeadingRowsChange; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "downcastTableHeadingColumnsChange", function() { return downcastTableHeadingColumnsChange; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "downcastRemoveRow", function() { return downcastRemoveRow; });
+/* harmony import */ var _ckeditor_ckeditor5_engine_src_view_position__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-engine/src/view/position */ "./node_modules/@ckeditor/ckeditor5-engine/src/view/position.js");
+/* harmony import */ var _ckeditor_ckeditor5_engine_src_view_range__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ckeditor/ckeditor5-engine/src/view/range */ "./node_modules/@ckeditor/ckeditor5-engine/src/view/range.js");
+/* harmony import */ var _tablewalker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../tablewalker */ "./node_modules/@ckeditor/ckeditor5-table/src/tablewalker.js");
+/* harmony import */ var _ckeditor_ckeditor5_widget_src_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ckeditor/ckeditor5-widget/src/utils */ "./node_modules/@ckeditor/ckeditor5-widget/src/utils.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils */ "./node_modules/@ckeditor/ckeditor5-table/src/utils.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module table/converters/downcast
+ */
+
+
+
+
+
+
+
+/**
+ * Model table element to view table element conversion helper.
+ *
+ * This conversion helper creates the whole table element with child elements.
+ *
+ * @param {Object} options
+ * @param {Boolean} options.asWidget If set to `true`, the downcast conversion will produce a widget.
+ * @returns {Function} Conversion helper.
+ */
+function downcastInsertTable( options = {} ) {
+	return dispatcher => dispatcher.on( 'insert:table', ( evt, data, conversionApi ) => {
+		const table = data.item;
+
+		if ( !conversionApi.consumable.consume( table, 'insert' ) ) {
+			return;
+		}
+
+		// Consume attributes if present to not fire attribute change downcast
+		conversionApi.consumable.consume( table, 'attribute:headingRows:table' );
+		conversionApi.consumable.consume( table, 'attribute:headingColumns:table' );
+
+		const asWidget = options && options.asWidget;
+
+		const figureElement = conversionApi.writer.createContainerElement( 'figure', { class: 'table' } );
+		const tableElement = conversionApi.writer.createContainerElement( 'table' );
+		conversionApi.writer.insert( _ckeditor_ckeditor5_engine_src_view_position__WEBPACK_IMPORTED_MODULE_0__["default"].createAt( figureElement ), tableElement );
+
+		let tableWidget;
+
+		if ( asWidget ) {
+			tableWidget = Object(_utils__WEBPACK_IMPORTED_MODULE_4__["toTableWidget"])( figureElement, conversionApi.writer );
+		}
+
+		const tableWalker = new _tablewalker__WEBPACK_IMPORTED_MODULE_2__["default"]( table );
+
+		const tableAttributes = {
+			headingRows: table.getAttribute( 'headingRows' ) || 0,
+			headingColumns: table.getAttribute( 'headingColumns' ) || 0
+		};
+
+		for ( const tableWalkerValue of tableWalker ) {
+			const { row, cell } = tableWalkerValue;
+
+			const tableSection = getOrCreateTableSection( getSectionName( row, tableAttributes ), tableElement, conversionApi );
+			const tableRow = table.getChild( row );
+
+			// Check if row was converted
+			const trElement = getOrCreateTr( tableRow, row, tableSection, conversionApi );
+
+			// Consume table cell - it will be always consumed as we convert whole table at once.
+			conversionApi.consumable.consume( cell, 'insert' );
+
+			const insertPosition = _ckeditor_ckeditor5_engine_src_view_position__WEBPACK_IMPORTED_MODULE_0__["default"].createAt( trElement, 'end' );
+
+			createViewTableCellElement( tableWalkerValue, tableAttributes, insertPosition, conversionApi, options );
+		}
+
+		const viewPosition = conversionApi.mapper.toViewPosition( data.range.start );
+
+		conversionApi.mapper.bindElements( table, asWidget ? tableWidget : figureElement );
+		conversionApi.writer.insert( viewPosition, asWidget ? tableWidget : figureElement );
+	} );
+}
+
+/**
+ * Model row element to view `<tr>` element conversion helper.
+ *
+ * This conversion helper creates the whole `<tr>` element with child elements.
+ *
+ * @returns {Function} Conversion helper.
+ */
+function downcastInsertRow( options = {} ) {
+	return dispatcher => dispatcher.on( 'insert:tableRow', ( evt, data, conversionApi ) => {
+		const tableRow = data.item;
+
+		if ( !conversionApi.consumable.consume( tableRow, 'insert' ) ) {
+			return;
+		}
+
+		const table = tableRow.parent;
+
+		const figureElement = conversionApi.mapper.toViewElement( table );
+		const tableElement = getViewTable( figureElement );
+
+		const row = table.getChildIndex( tableRow );
+
+		const tableWalker = new _tablewalker__WEBPACK_IMPORTED_MODULE_2__["default"]( table, { startRow: row, endRow: row } );
+
+		const tableAttributes = {
+			headingRows: table.getAttribute( 'headingRows' ) || 0,
+			headingColumns: table.getAttribute( 'headingColumns' ) || 0
+		};
+
+		for ( const tableWalkerValue of tableWalker ) {
+			const tableSection = getOrCreateTableSection( getSectionName( row, tableAttributes ), tableElement, conversionApi );
+			const trElement = getOrCreateTr( tableRow, row, tableSection, conversionApi );
+
+			// Consume table cell - it will be always consumed as we convert whole row at once.
+			conversionApi.consumable.consume( tableWalkerValue.cell, 'insert' );
+
+			const insertPosition = _ckeditor_ckeditor5_engine_src_view_position__WEBPACK_IMPORTED_MODULE_0__["default"].createAt( trElement, 'end' );
+
+			createViewTableCellElement( tableWalkerValue, tableAttributes, insertPosition, conversionApi, options );
+		}
+	} );
+}
+
+/**
+ * Model table cell element to view `<td>` or `<th>` element conversion helper.
+ *
+ * This conversion helper will create proper `<th>` elements for table cells that are in the heading section (heading row or column)
+ * and `<td>` otherwise.
+ *
+ * @returns {Function} Conversion helper.
+ */
+function downcastInsertCell( options = {} ) {
+	return dispatcher => dispatcher.on( 'insert:tableCell', ( evt, data, conversionApi ) => {
+		const tableCell = data.item;
+
+		if ( !conversionApi.consumable.consume( tableCell, 'insert' ) ) {
+			return;
+		}
+
+		const tableRow = tableCell.parent;
+		const table = tableRow.parent;
+		const rowIndex = table.getChildIndex( tableRow );
+
+		const tableWalker = new _tablewalker__WEBPACK_IMPORTED_MODULE_2__["default"]( table, { startRow: rowIndex, endRow: rowIndex } );
+
+		const tableAttributes = {
+			headingRows: table.getAttribute( 'headingRows' ) || 0,
+			headingColumns: table.getAttribute( 'headingColumns' ) || 0
+		};
+
+		// We need to iterate over a table in order to get proper row & column values from a walker
+		for ( const tableWalkerValue of tableWalker ) {
+			if ( tableWalkerValue.cell === tableCell ) {
+				const trElement = conversionApi.mapper.toViewElement( tableRow );
+				const insertPosition = _ckeditor_ckeditor5_engine_src_view_position__WEBPACK_IMPORTED_MODULE_0__["default"].createAt( trElement, tableRow.getChildIndex( tableCell ) );
+
+				createViewTableCellElement( tableWalkerValue, tableAttributes, insertPosition, conversionApi, options );
+
+				// No need to iterate further.
+				return;
+			}
+		}
+	} );
+}
+
+/**
+ * Conversion helper that acts on heading rows table attribute change.
+ *
+ * This converter will:
+ *
+ * * Rename `<td>` to `<th>` elements or vice versa depending on headings.
+ * * Create `<thead>` or `<tbody>` elements if needed.
+ * * Remove empty `<thead>` or `<tbody>` if needed.
+ *
+ * @returns {Function} Conversion helper.
+ */
+function downcastTableHeadingRowsChange( options = {} ) {
+	const asWidget = !!options.asWidget;
+
+	return dispatcher => dispatcher.on( 'attribute:headingRows:table', ( evt, data, conversionApi ) => {
+		const table = data.item;
+
+		if ( !conversionApi.consumable.consume( data.item, evt.name ) ) {
+			return;
+		}
+
+		const figureElement = conversionApi.mapper.toViewElement( table );
+		const viewTable = getViewTable( figureElement );
+
+		const oldRows = data.attributeOldValue;
+		const newRows = data.attributeNewValue;
+
+		// The head section has grown so move rows from <tbody> to <thead>.
+		if ( newRows > oldRows ) {
+			// Filter out only those rows that are in wrong section.
+			const rowsToMove = Array.from( table.getChildren() ).filter( ( { index } ) => isBetween( index, oldRows - 1, newRows ) );
+
+			const viewTableHead = getOrCreateTableSection( 'thead', viewTable, conversionApi );
+			moveViewRowsToTableSection( rowsToMove, viewTableHead, conversionApi, 'end' );
+
+			// Rename all table cells from moved rows to 'th' as they lands in <thead>.
+			for ( const tableRow of rowsToMove ) {
+				for ( const tableCell of tableRow.getChildren() ) {
+					renameViewTableCell( tableCell, 'th', conversionApi, asWidget );
+				}
+			}
+
+			// Cleanup: this will remove any empty section from the view which may happen when moving all rows from a table section.
+			removeTableSectionIfEmpty( 'tbody', viewTable, conversionApi );
+		}
+		// The head section has shrunk so move rows from <thead> to <tbody>.
+		else {
+			// Filter out only those rows that are in wrong section.
+			const rowsToMove = Array.from( table.getChildren() )
+				.filter( ( { index } ) => isBetween( index, newRows - 1, oldRows ) )
+				.reverse(); // The rows will be moved from <thead> to <tbody> in reverse order at the beginning of a <tbody>.
+
+			const viewTableBody = getOrCreateTableSection( 'tbody', viewTable, conversionApi );
+			moveViewRowsToTableSection( rowsToMove, viewTableBody, conversionApi );
+
+			// Check if cells moved from <thead> to <tbody> requires renaming to <td> as this depends on current heading columns attribute.
+			const tableWalker = new _tablewalker__WEBPACK_IMPORTED_MODULE_2__["default"]( table, { startRow: newRows ? newRows - 1 : newRows, endRow: oldRows - 1 } );
+
+			const tableAttributes = {
+				headingRows: table.getAttribute( 'headingRows' ) || 0,
+				headingColumns: table.getAttribute( 'headingColumns' ) || 0
+			};
+
+			for ( const tableWalkerValue of tableWalker ) {
+				renameViewTableCellIfRequired( tableWalkerValue, tableAttributes, conversionApi, asWidget );
+			}
+
+			// Cleanup: this will remove any empty section from the view which may happen when moving all rows from a table section.
+			removeTableSectionIfEmpty( 'thead', viewTable, conversionApi );
+		}
+
+		function isBetween( index, lower, upper ) {
+			return index > lower && index < upper;
+		}
+	} );
+}
+
+/**
+ * Conversion helper that acts on heading columns table attribute change.
+ *
+ * Depending on changed attributes this converter will rename `<td` to `<th>` elements or vice versa depending of the cell column index.
+ *
+ * @returns {Function} Conversion helper.
+ */
+function downcastTableHeadingColumnsChange( options = {} ) {
+	const asWidget = !!options.asWidget;
+
+	return dispatcher => dispatcher.on( 'attribute:headingColumns:table', ( evt, data, conversionApi ) => {
+		const table = data.item;
+
+		if ( !conversionApi.consumable.consume( data.item, evt.name ) ) {
+			return;
+		}
+
+		const tableAttributes = {
+			headingRows: table.getAttribute( 'headingRows' ) || 0,
+			headingColumns: table.getAttribute( 'headingColumns' ) || 0
+		};
+
+		const oldColumns = data.attributeOldValue;
+		const newColumns = data.attributeNewValue;
+
+		const lastColumnToCheck = ( oldColumns > newColumns ? oldColumns : newColumns ) - 1;
+
+		for ( const tableWalkerValue of new _tablewalker__WEBPACK_IMPORTED_MODULE_2__["default"]( table ) ) {
+			// Skip cells that were not in heading section before and after the change.
+			if ( tableWalkerValue.column > lastColumnToCheck ) {
+				continue;
+			}
+
+			renameViewTableCellIfRequired( tableWalkerValue, tableAttributes, conversionApi, asWidget );
+		}
+	} );
+}
+
+/**
+ * Conversion helper that acts on a removed row.
+ *
+ * @returns {Function} Conversion helper.
+ */
+function downcastRemoveRow() {
+	return dispatcher => dispatcher.on( 'remove:tableRow', ( evt, data, conversionApi ) => {
+		// Prevent default remove converter.
+		evt.stop();
+
+		const viewStart = conversionApi.mapper.toViewPosition( data.position ).getLastMatchingPosition( value => !value.item.is( 'tr' ) );
+		const viewItem = viewStart.nodeAfter;
+		const tableSection = viewItem.parent;
+
+		// Remove associated <tr> from the view.
+		const removeRange = _ckeditor_ckeditor5_engine_src_view_range__WEBPACK_IMPORTED_MODULE_1__["default"].createOn( viewItem );
+		const removed = conversionApi.writer.remove( removeRange );
+
+		for ( const child of _ckeditor_ckeditor5_engine_src_view_range__WEBPACK_IMPORTED_MODULE_1__["default"].createIn( removed ).getItems() ) {
+			conversionApi.mapper.unbindViewElement( child );
+		}
+
+		// Check if table section has any children left - if not remove it from the view.
+		if ( !tableSection.childCount ) {
+			// No need to unbind anything as table section is not represented in the model.
+			conversionApi.writer.remove( _ckeditor_ckeditor5_engine_src_view_range__WEBPACK_IMPORTED_MODULE_1__["default"].createOn( tableSection ) );
+		}
+	}, { priority: 'higher' } );
+}
+
+// Renames an existing table cell in the view to a given element name.
+//
+// **Note** This method will not do anything if a view table cell was not yet converted.
+//
+// @param {module:engine/model/element~Element} tableCell
+// @param {String} desiredCellElementName
+// @param {Object} conversionApi
+// @param {Boolean} asWidget
+function renameViewTableCell( tableCell, desiredCellElementName, conversionApi, asWidget ) {
+	const viewCell = conversionApi.mapper.toViewElement( tableCell );
+
+	// View cell might be not yet converted - skip it as it will be properly created by cell converter later on.
+	if ( !viewCell ) {
+		return;
+	}
+
+	let renamedCell;
+
+	if ( asWidget ) {
+		const editable = conversionApi.writer.createEditableElement( desiredCellElementName, viewCell.getAttributes() );
+		renamedCell = Object(_ckeditor_ckeditor5_widget_src_utils__WEBPACK_IMPORTED_MODULE_3__["toWidgetEditable"])( editable, conversionApi.writer );
+
+		conversionApi.writer.insert( _ckeditor_ckeditor5_engine_src_view_position__WEBPACK_IMPORTED_MODULE_0__["default"].createAfter( viewCell ), renamedCell );
+		conversionApi.writer.move( _ckeditor_ckeditor5_engine_src_view_range__WEBPACK_IMPORTED_MODULE_1__["default"].createIn( viewCell ), _ckeditor_ckeditor5_engine_src_view_position__WEBPACK_IMPORTED_MODULE_0__["default"].createAt( renamedCell ) );
+		conversionApi.writer.remove( _ckeditor_ckeditor5_engine_src_view_range__WEBPACK_IMPORTED_MODULE_1__["default"].createOn( viewCell ) );
+	} else {
+		renamedCell = conversionApi.writer.rename( desiredCellElementName, viewCell );
+	}
+
+	conversionApi.mapper.bindElements( tableCell, renamedCell );
+}
+
+// Renames a table cell element in the view according to its location in the table.
+//
+// @param {module:table/tablewalker~TableWalkerValue} tableWalkerValue
+// @param {{headingColumns, headingRows}} tableAttributes
+// @param {Object} conversionApi
+// @param {Boolean} asWidget
+function renameViewTableCellIfRequired( tableWalkerValue, tableAttributes, conversionApi, asWidget ) {
+	const { cell } = tableWalkerValue;
+
+	// Check whether current columnIndex is overlapped by table cells from previous rows.
+	const desiredCellElementName = getCellElementName( tableWalkerValue, tableAttributes );
+
+	const viewCell = conversionApi.mapper.toViewElement( cell );
+
+	// If in single change we're converting attribute changes and inserting cell the table cell might not be inserted into view
+	// because of child conversion is done after parent.
+	if ( viewCell && viewCell.name !== desiredCellElementName ) {
+		renameViewTableCell( cell, desiredCellElementName, conversionApi, asWidget );
+	}
+}
+
+// Creates a table cell element in the view.
+//
+// @param {module:table/tablewalker~TableWalkerValue} tableWalkerValue
+// @param {module:engine/view/position~Position} insertPosition
+// @param {Object} conversionApi
+function createViewTableCellElement( tableWalkerValue, tableAttributes, insertPosition, conversionApi, options ) {
+	const asWidget = options && options.asWidget;
+	const cellElementName = getCellElementName( tableWalkerValue, tableAttributes );
+
+	const cellElement = asWidget ?
+		Object(_ckeditor_ckeditor5_widget_src_utils__WEBPACK_IMPORTED_MODULE_3__["toWidgetEditable"])( conversionApi.writer.createEditableElement( cellElementName ), conversionApi.writer ) :
+		conversionApi.writer.createContainerElement( cellElementName );
+
+	const tableCell = tableWalkerValue.cell;
+
+	const isSingleParagraph = tableCell.childCount === 1 && tableCell.getChild( 0 ).name === 'paragraph';
+
+	conversionApi.writer.insert( insertPosition, cellElement );
+
+	if ( isSingleParagraph ) {
+		const innerParagraph = tableCell.getChild( 0 );
+		const paragraphInsertPosition = _ckeditor_ckeditor5_engine_src_view_position__WEBPACK_IMPORTED_MODULE_0__["default"].createAt( cellElement, 'end' );
+
+		conversionApi.consumable.consume( innerParagraph, 'insert' );
+
+		if ( options.asWidget ) {
+			const containerName = [ ...innerParagraph.getAttributeKeys() ].length ? 'p' : 'span';
+
+			const fakeParagraph = conversionApi.writer.createContainerElement( containerName );
+
+			conversionApi.mapper.bindElements( innerParagraph, fakeParagraph );
+			conversionApi.writer.insert( paragraphInsertPosition, fakeParagraph );
+
+			conversionApi.mapper.bindElements( tableCell, cellElement );
+		} else {
+			conversionApi.mapper.bindElements( tableCell, cellElement );
+			conversionApi.mapper.bindElements( innerParagraph, cellElement );
+		}
+	} else {
+		conversionApi.mapper.bindElements( tableCell, cellElement );
+	}
+}
+
+// Creates or returns an existing `<tr>` element from the view.
+//
+// @param {module:engine/view/element~Element} tableRow
+// @param {Number} rowIndex
+// @param {module:engine/view/element~Element} tableSection
+// @param {Object} conversionApi
+// @returns {module:engine/view/element~Element}
+function getOrCreateTr( tableRow, rowIndex, tableSection, conversionApi ) {
+	let trElement = conversionApi.mapper.toViewElement( tableRow );
+
+	if ( !trElement ) {
+		// Will always consume since we're converting <tableRow> element from a parent <table>.
+		conversionApi.consumable.consume( tableRow, 'insert' );
+
+		trElement = conversionApi.writer.createContainerElement( 'tr' );
+		conversionApi.mapper.bindElements( tableRow, trElement );
+
+		const headingRows = tableRow.parent.getAttribute( 'headingRows' ) || 0;
+		const offset = headingRows > 0 && rowIndex >= headingRows ? rowIndex - headingRows : rowIndex;
+
+		const position = _ckeditor_ckeditor5_engine_src_view_position__WEBPACK_IMPORTED_MODULE_0__["default"].createAt( tableSection, offset );
+		conversionApi.writer.insert( position, trElement );
+	}
+
+	return trElement;
+}
+
+// Returns `th` for heading cells and `td` for other cells for the current table walker value.
+//
+// @param {module:table/tablewalker~TableWalkerValue} tableWalkerValue
+// @param {{headingColumns, headingRows}} tableAttributes
+// @returns {String}
+function getCellElementName( tableWalkerValue, tableAttributes ) {
+	const { row, column } = tableWalkerValue;
+	const { headingColumns, headingRows } = tableAttributes;
+
+	// Column heading are all tableCells in the first `columnHeading` rows.
+	const isColumnHeading = headingRows && headingRows > row;
+
+	// So a whole row gets <th> element.
+	if ( isColumnHeading ) {
+		return 'th';
+	}
+
+	// Row heading are tableCells which columnIndex is lower then headingColumns.
+	const isRowHeading = headingColumns && headingColumns > column;
+
+	return isRowHeading ? 'th' : 'td';
+}
+
+// Returns the table section name for the current table walker value.
+//
+// @param {Number} row
+// @param {{headingColumns, headingRows}} tableAttributes
+// @returns {String}
+function getSectionName( row, tableAttributes ) {
+	return row < tableAttributes.headingRows ? 'thead' : 'tbody';
+}
+
+// Creates or returns an existing `<tbody>` or `<thead>` element witch caching.
+//
+// @param {String} sectionName
+// @param {module:engine/view/element~Element} viewTable
+// @param {Object} conversionApi
+// @param {Object} cachedTableSection An object that stores cached elements.
+// @returns {module:engine/view/containerelement~ContainerElement}
+function getOrCreateTableSection( sectionName, viewTable, conversionApi ) {
+	const viewTableSection = getExistingTableSectionElement( sectionName, viewTable );
+
+	return viewTableSection ? viewTableSection : createTableSection( sectionName, viewTable, conversionApi );
+}
+
+// Finds an existing `<tbody>` or `<thead>` element or returns undefined.
+//
+// @param {String} sectionName
+// @param {module:engine/view/element~Element} tableElement
+// @param {Object} conversionApi
+function getExistingTableSectionElement( sectionName, tableElement ) {
+	for ( const tableSection of tableElement.getChildren() ) {
+		if ( tableSection.name == sectionName ) {
+			return tableSection;
+		}
+	}
+}
+
+// Creates a table section at the end of the table.
+//
+// @param {String} sectionName
+// @param {module:engine/view/element~Element} tableElement
+// @param {Object} conversionApi
+// @returns {module:engine/view/containerelement~ContainerElement}
+function createTableSection( sectionName, tableElement, conversionApi ) {
+	const tableChildElement = conversionApi.writer.createContainerElement( sectionName );
+
+	conversionApi.writer.insert( _ckeditor_ckeditor5_engine_src_view_position__WEBPACK_IMPORTED_MODULE_0__["default"].createAt( tableElement, sectionName == 'tbody' ? 'end' : 'start' ), tableChildElement );
+
+	return tableChildElement;
+}
+
+// Removes an existing `<tbody>` or `<thead>` element if it is empty.
+//
+// @param {String} sectionName
+// @param {module:engine/view/element~Element} tableElement
+// @param {Object} conversionApi
+function removeTableSectionIfEmpty( sectionName, tableElement, conversionApi ) {
+	const tableSection = getExistingTableSectionElement( sectionName, tableElement );
+
+	if ( tableSection && tableSection.childCount === 0 ) {
+		conversionApi.writer.remove( _ckeditor_ckeditor5_engine_src_view_range__WEBPACK_IMPORTED_MODULE_1__["default"].createOn( tableSection ) );
+	}
+}
+
+// Moves view table rows associated with passed model rows to the provided table section element.
+//
+// **Note** This method will skip not converted table rows.
+//
+// @param {Array.<module:engine/model/element~Element>} rowsToMove
+// @param {module:engine/view/element~Element} viewTableSection
+// @param {Object} conversionApi
+// @param {Number|'end'|'before'|'after'} [offset=0] Offset or one of the flags.
+function moveViewRowsToTableSection( rowsToMove, viewTableSection, conversionApi, offset ) {
+	for ( const tableRow of rowsToMove ) {
+		const viewTableRow = conversionApi.mapper.toViewElement( tableRow );
+
+		// View table row might be not yet converted - skip it as it will be properly created by cell converter later on.
+		if ( viewTableRow ) {
+			conversionApi.writer.move( _ckeditor_ckeditor5_engine_src_view_range__WEBPACK_IMPORTED_MODULE_1__["default"].createOn( viewTableRow ), _ckeditor_ckeditor5_engine_src_view_position__WEBPACK_IMPORTED_MODULE_0__["default"].createAt( viewTableSection, offset ) );
+		}
+	}
+}
+
+// Properly finds '<table>' element inside `<figure>` widget.
+//
+// @param {module:engine/view/element~Element} viewFigure
+function getViewTable( viewFigure ) {
+	for ( const child of viewFigure.getChildren() ) {
+		if ( child.name === 'table' ) {
+			return child;
+		}
+	}
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/src/converters/table-cell-content-post-fixer.js":
+/*!************************************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/src/converters/table-cell-content-post-fixer.js ***!
+  \************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return injectTableCellContentPostFixer; });
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module table/converters/table-cell-content-post-fixer
+ */
+
+/**
+ * Injects a table cell post-fixer into the model.
+ *
+ * The role of the table post-fixer is to ensure that the table cells have the correct content
+ * after a {@link module:engine/model/model~Model#change `change()`} block was executed.
+ *
+ * A table cells must contains at least one block as a child. The empty table cell will have empty `<paragraph>` as a child.
+ *
+ *        <table>
+ *            <tableRow>
+ *                <tableCell></tableCell>
+ *            </tableRow>
+ *        </table>
+ *
+ * Will be fixed to:
+ *
+ *        <table>
+ *            <tableRow>
+ *                <tableCell><paragraph></paragraph></tableCell>
+ *            </tableRow>
+ *        </table>
+ *
+ * @param {module:engine/model/model~Model} model
+ */
+function injectTableCellContentPostFixer( model ) {
+	model.document.registerPostFixer( writer => tableCellContentsPostFixer( writer, model ) );
+}
+
+// The table cell contents post-fixer.
+//
+// @param {module:engine/model/writer~Writer} writer
+// @param {module:engine/model/model~Model} model
+function tableCellContentsPostFixer( writer, model ) {
+	const changes = model.document.differ.getChanges();
+
+	let wasFixed = false;
+
+	for ( const entry of changes ) {
+		// Enforce paragraph in tableCell even after other feature remove its contents.
+		if ( entry.type == 'remove' && entry.position.parent.is( 'tableCell' ) ) {
+			wasFixed = fixTableCellContent( entry.position.parent, writer ) || wasFixed;
+		}
+
+		// Analyze table cells on insertion.
+		if ( entry.type == 'insert' ) {
+			if ( entry.name == 'table' ) {
+				wasFixed = fixTable( entry.position.nodeAfter, writer ) || wasFixed;
+			}
+
+			if ( entry.name == 'tableRow' ) {
+				wasFixed = fixTableRow( entry.position.nodeAfter, writer ) || wasFixed;
+			}
+
+			if ( entry.name == 'tableCell' ) {
+				wasFixed = fixTableCellContent( entry.position.nodeAfter, writer ) || wasFixed;
+			}
+		}
+	}
+
+	return wasFixed;
+}
+
+// Fixes all table cells in a table.
+//
+// @param {module:engine/model/element~Element} table
+// @param {module:engine/model/writer~Writer} writer
+function fixTable( table, writer ) {
+	let wasFixed = false;
+
+	for ( const row of table.getChildren() ) {
+		wasFixed = fixTableRow( row, writer ) || wasFixed;
+	}
+
+	return wasFixed;
+}
+
+// Fixes all table cells in a table row.
+//
+// @param {module:engine/model/element~Element} tableRow
+// @param {module:engine/model/writer~Writer} writer
+function fixTableRow( tableRow, writer ) {
+	let wasFixed = false;
+
+	for ( const tableCell of tableRow.getChildren() ) {
+		wasFixed = fixTableCellContent( tableCell, writer ) || wasFixed;
+	}
+
+	return wasFixed;
+}
+
+// Fixes all table cell content by adding paragraph to a table cell without any child.
+//
+// @param {module:engine/model/element~Element} table
+// @param {module:engine/model/writer~Writer} writer
+function fixTableCellContent( tableCell, writer ) {
+	if ( tableCell.childCount == 0 ) {
+		writer.insertElement( 'paragraph', tableCell );
+
+		return true;
+	}
+
+	return false;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/src/converters/table-layout-post-fixer.js":
+/*!******************************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/src/converters/table-layout-post-fixer.js ***!
+  \******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return injectTableLayoutPostFixer; });
+/* harmony import */ var _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-engine/src/model/position */ "./node_modules/@ckeditor/ckeditor5-engine/src/model/position.js");
+/* harmony import */ var _commands_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../commands/utils */ "./node_modules/@ckeditor/ckeditor5-table/src/commands/utils.js");
+/* harmony import */ var _tablewalker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../tablewalker */ "./node_modules/@ckeditor/ckeditor5-table/src/tablewalker.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module table/converters/table-layout-post-fixer
+ */
+
+
+
+
+
+/**
+ * Injects a table layout post-fixer into the model.
+ *
+ * The role of the table layout post-fixer is to ensure that the table rows have the correct structure
+ * after a {@link module:engine/model/model~Model#change `change()`} block was executed.
+ *
+ * The correct structure means that:
+ *
+ * * All table rows have the same size.
+ * * None of a table cells that extend vertically beyond their section (either header or body).
+ * * A table cell has always at least one element as child.
+ *
+ * If the table structure is not correct, the post-fixer will automatically correct it in two steps:
+ *
+ * 1. It will clip table cells that extends beyond it section.
+ * 2. It will add empty table cells to those rows which are narrower then the widest table row.
+ *
+ * ## Clipping overlapping table cells
+ *
+ * Such situation may occur when pasting a table (or part of a table) to the editor from external sources.
+ *
+ * For example, see the following table which has the cell (FOO) with the rowspan attribute (2):
+ *
+ *		<table headingRows="1">
+ *			<tableRow>
+ *				<tableCell rowspan="2"><paragraph>FOO</paragraph></tableCell>
+ *				<tableCell colspan="2"><paragraph>BAR</paragraph></tableCell>
+ *			</tableRow>
+ *			<tableRow>
+ *				<tableCell><paragraph>BAZ</paragraph></tableCell>
+ *				<tableCell><paragraph>XYZ</paragraph></tableCell>
+ *			</tableRow>
+ *		</table>
+ *
+ * will be rendered in the view as:
+ *
+ *		<table>
+ *			<thead>
+ *				<tr>
+ *					<td rowspan="2">FOO</td>
+ *					<td colspan="2">BAR</td>
+ *				</tr>
+ *			</thead>
+ *			<tbody>
+ *				<tr>
+ *					<td>BAZ</td>
+ *					<td>XYZ</td>
+ *				</tr>
+ *			</tbody>
+ *		</table>
+ *
+ * In the above example the table will be rendered as a table with two rows - one in the header and second one in the body.
+ * The table cell (FOO) cannot span over multiple rows as it would expand from the header to the body section.
+ * The `rowspan` attribute must be changed to (1). The value (1) is a default value of the `rowspan` attribute
+ * so the `rowspan` attribute will be removed from the model.
+ *
+ * The table cell with BAZ contents will be in the first column of the table.
+ *
+ * ## Adding missing table cells
+ *
+ * The table post-fixer will insert empty table cells to equalize table rows sizes (number of columns).
+ * The size of a table row is calculated by counting column spans of table cells - both horizontal (from the same row) and
+ * vertical (from rows above).
+ *
+ * In the above example, the table row in the body section of the table is narrower then the row from the header - it has two cells
+ * with the default colspan (1). The header row has one cell with colspan (1) and second with colspan (2).
+ * The table cell (FOO) does not expand beyond the head section (and as such will be fixed in the first step of this post-fixer).
+ * The post-fixer will add a missing table cell to the row in the body section of the table.
+ *
+ * The table from the above example will be fixed and rendered to the view as below:
+ *
+ *		<table>
+ *			<thead>
+ *				<tr>
+ *					<td rowspan="2">FOO</td>
+ *					<td colspan="2">BAR</td>
+ *				</tr>
+ *			</thead>
+ *			<tbody>
+ *				<tr>
+ *					<td>BAZ</td>
+ *					<td>XYZ</td>
+ *				</tr>
+ *			</tbody>
+ *		</table>
+ *
+ * ## Collaboration & Undo - Expectations vs post-fixer results
+ *
+ * The table post-fixer only ensures proper structure without deeper analysis of the nature of a change. As such, it might lead
+ * to a structure which was not intended by the user changes. In particular, it will also fix undo steps (in conjunction with collaboration)
+ * in which editor content might not return to the original state.
+ *
+ * This will usually happen when one or more users changes size of the table.
+ *
+ * As en example see a table below:
+ *
+ *		<table>
+ *			<tbody>
+ *				<tr>
+ *					<td>11</td>
+ *					<td>12</td>
+ *				</tr>
+ *				<tr>
+ *					<td>21</td>
+ *					<td>22</td>
+ *				</tr>
+ *			</tbody>
+ *		</table>
+ *
+ * and user actions:
+ *
+ * 1. Both user have table with two rows and two columns.
+ * 2. User A adds a column at the end of the table - this will insert empty table cells to two rows.
+ * 3. User B adds a row at the end of the table- this will insert a row with two empty table cells.
+ * 4. Both users will have a table as below:
+ *
+ *
+ *		<table>
+ *			<tbody>
+ *				<tr>
+ *					<td>11</td>
+ *					<td>12</td>
+ *					<td>(empty, inserted by A)</td>
+ *				</tr>
+ *				<tr>
+ *					<td>21</td>
+ *					<td>22</td>
+ *					<td>(empty, inserted by A)</td>
+ *				</tr>
+ *				<tr>
+ *					<td>(empty, inserted by B)</td>
+ *					<td>(empty, inserted by B)</td>
+ *				</tr>
+ *			</tbody>
+ *		</table>
+ *
+ * The last row is shorter then others so table post-fixer will add empty row to tha last row:
+ *
+ *		<table>
+ *			<tbody>
+ *				<tr>
+ *					<td>11</td>
+ *					<td>12</td>
+ *					<td>(empty, inserted by A)</td>
+ *				</tr>
+ *				<tr>
+ *					<td>21</td>
+ *					<td>22</td>
+ *					<td>(empty, inserted by A)</td>
+ *				</tr>
+ *				<tr>
+ *					<td>(empty, inserted by B)</td>
+ *					<td>(empty, inserted by B)</td>
+ *					<td>(empty, inserted by a post-fixer)</td>
+ *				</tr>
+ *			</tbody>
+ *		</table>
+ *
+ * Unfortunately undo doesn't know the nature of changes and depending which user will apply post-fixer changes undoing them might lead to
+ * broken table. If User B will undo inserting column to a table the undo engine will undo only operations of
+ * inserting empty cells to rows from initial table state (row 1 & 2) but the cell in post-fixed row will remain:
+ *
+ *		<table>
+ *			<tbody>
+ *				<tr>
+ *					<td>11</td>
+ *					<td>12</td>
+ *				</tr>
+ *				<tr>
+ *					<td>21</td>
+ *					<td>22</td>
+ *				</tr>
+ *				<tr>
+ *					<td>(empty, inserted by B)</td>
+ *					<td>(empty, inserted by B)</td>
+ *					<td>(empty, inserted by a post-fixer)</td>
+ *				</tr>
+ *			</tbody>
+ *		</table>
+ *
+ * After undo the table post-fixer will detect that two rows are shorter then other and will fix table to:
+ *
+ *		<table>
+ *			<tbody>
+ *				<tr>
+ *					<td>11</td>
+ *					<td>12</td>
+ *					<td>(empty, inserted by a post-fixer after undo)</td>
+ *				</tr>
+ *				<tr>
+ *					<td>21</td>
+ *					<td>22</td>
+ *					<td>(empty, inserted by a post-fixer after undo)</td>
+ *				</tr>
+ *				<tr>
+ *					<td>(empty, inserted by B)</td>
+ *					<td>(empty, inserted by B)</td>
+ *					<td>(empty, inserted by a post-fixer)</td>
+ *				</tr>
+ *			</tbody>
+ *		</table>
+ * @param {module:engine/model/model~Model} model
+ */
+function injectTableLayoutPostFixer( model ) {
+	model.document.registerPostFixer( writer => tableLayoutPostFixer( writer, model ) );
+}
+
+// The table layout post-fixer.
+//
+// @param {module:engine/model/writer~Writer} writer
+// @param {module:engine/model/model~Model} model
+function tableLayoutPostFixer( writer, model ) {
+	const changes = model.document.differ.getChanges();
+
+	let wasFixed = false;
+
+	// Do not analyze the same table more then once - may happen for multiple changes in the same table.
+	const analyzedTables = new Set();
+
+	for ( const entry of changes ) {
+		let table;
+
+		if ( entry.name == 'table' && entry.type == 'insert' ) {
+			table = entry.position.nodeAfter;
+		}
+
+		// Fix table on adding/removing table cells and rows.
+		if ( entry.name == 'tableRow' || entry.name == 'tableCell' ) {
+			table = Object(_commands_utils__WEBPACK_IMPORTED_MODULE_1__["findAncestor"])( 'table', entry.position );
+		}
+
+		// Fix table on any table's attribute change - including attributes of table cells.
+		if ( isTableAttributeEntry( entry ) ) {
+			table = Object(_commands_utils__WEBPACK_IMPORTED_MODULE_1__["findAncestor"])( 'table', entry.range.start );
+		}
+
+		if ( table && !analyzedTables.has( table ) ) {
+			// Step 1: correct rowspans of table cells if necessary.
+			// The wasFixed flag should be true if any of tables in batch was fixed - might be more then one.
+			wasFixed = fixTableCellsRowspan( table, writer ) || wasFixed;
+			// Step 2: fix table rows sizes.
+			wasFixed = fixTableRowsSizes( table, writer ) || wasFixed;
+
+			analyzedTables.add( table );
+		}
+	}
+
+	return wasFixed;
+}
+
+// Fixes the invalid value of the rowspan attribute because a table cell cannot vertically extend beyond the table section it belongs to.
+//
+// @param {module:engine/model/element~Element} table
+// @param {module:engine/model/writer~Writer} writer
+// @returns {Boolean} Returns true if table was fixed.
+function fixTableCellsRowspan( table, writer ) {
+	let wasFixed = false;
+
+	const cellsToTrim = findCellsToTrim( table );
+
+	if ( cellsToTrim.length ) {
+		wasFixed = true;
+
+		for ( const data of cellsToTrim ) {
+			Object(_commands_utils__WEBPACK_IMPORTED_MODULE_1__["updateNumericAttribute"])( 'rowspan', data.rowspan, data.cell, writer, 1 );
+		}
+	}
+
+	return wasFixed;
+}
+
+// Makes all table rows in a table the same size.
+//
+// @param {module:engine/model/element~Element} table
+// @param {module:engine/model/writer~Writer} writer
+// @returns {Boolean} Returns true if table was fixed.
+function fixTableRowsSizes( table, writer ) {
+	let wasFixed = false;
+
+	const rowsLengths = getRowsLengths( table );
+	const tableSize = rowsLengths[ 0 ];
+
+	const isValid = Object.values( rowsLengths ).every( length => length === tableSize );
+
+	if ( !isValid ) {
+		const maxColumns = Object.values( rowsLengths ).reduce( ( prev, current ) => current > prev ? current : prev, 0 );
+
+		for ( const [ rowIndex, size ] of Object.entries( rowsLengths ) ) {
+			const columnsToInsert = maxColumns - size;
+
+			if ( columnsToInsert ) {
+				for ( let i = 0; i < columnsToInsert; i++ ) {
+					Object(_commands_utils__WEBPACK_IMPORTED_MODULE_1__["createEmptyTableCell"])( writer, _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_0__["default"].createAt( table.getChild( rowIndex ), 'end' ) );
+				}
+
+				wasFixed = true;
+			}
+		}
+	}
+
+	return wasFixed;
+}
+
+// Searches for the table cells that extends beyond the table section to which they belong to. It will return an array of objects
+// that holds table cells to be trimmed and correct value of a rowspan attribute to set.
+//
+// @param {module:engine/model/element~Element} table
+// @returns {Array.<{{cell, rowspan}}>}
+function findCellsToTrim( table ) {
+	const headingRows = parseInt( table.getAttribute( 'headingRows' ) || 0 );
+	const maxRows = table.childCount;
+
+	const cellsToTrim = [];
+
+	for ( const { row, rowspan, cell } of new _tablewalker__WEBPACK_IMPORTED_MODULE_2__["default"]( table ) ) {
+		// Skip cells that do not expand over its row.
+		if ( rowspan < 2 ) {
+			continue;
+		}
+
+		const isInHeader = row < headingRows;
+
+		// Row limit is either end of header section or whole table as table body is after the header.
+		const rowLimit = isInHeader ? headingRows : maxRows;
+
+		// If table cell expands over its limit reduce it height to proper value.
+		if ( row + rowspan > rowLimit ) {
+			const newRowspan = rowLimit - row;
+
+			cellsToTrim.push( { cell, rowspan: newRowspan } );
+		}
+	}
+
+	return cellsToTrim;
+}
+
+// Returns an object with lengths of rows assigned to the corresponding row index.
+//
+// @param {module:engine/model/element~Element} table
+// @returns {Object}
+function getRowsLengths( table ) {
+	const lengths = {};
+
+	for ( const { row } of new _tablewalker__WEBPACK_IMPORTED_MODULE_2__["default"]( table, { includeSpanned: true } ) ) {
+		if ( !lengths[ row ] ) {
+			lengths[ row ] = 0;
+		}
+
+		lengths[ row ] += 1;
+	}
+
+	return lengths;
+}
+
+// Checks if the differ entry for an attribute change is one of table's attributes.
+//
+// @param entry
+// @returns {Boolean}
+function isTableAttributeEntry( entry ) {
+	const isAttributeType = entry.type === 'attribute';
+	const key = entry.attributeKey;
+
+	return isAttributeType && ( key === 'headingRows' || key === 'colspan' || key === 'rowspan' );
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/src/converters/tablecell-post-fixer.js":
+/*!***************************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/src/converters/tablecell-post-fixer.js ***!
+  \***************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return injectTableCellPostFixer; });
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module table/converters/tablecell-post-fixer
+ */
+
+/**
+ * Injects a table cell post-fixer into the editing controller.
+ *
+ * The role of the table cell post-fixer is to ensure that the table cell contents in the editing view are properly converted.
+ *
+ * This post-fixer will ensure that after model changes in the editing view:
+ * * single paragraphs are rendered as `<span>
+ * * single paragraphs with one or more attributes are rendered as `<p>`
+ * * single paragraphs in table cell with other block elements are rendered as `<p>`
+ * * paragraphs in table cells with other block elements (including other paragraphs) are rendered as `<p>`.
+ *
+ * In the model each table cell has always at least one block element inside. If no other block was defined (empty table cell) the table
+ * feature will insert empty `<paragraph>`. Similarly text nodes will be wrapped in paragraphs. Rendering in the data pipeline differs
+ * from rendering in the editing pipeline - text nodes in single `<paragraph>` are rendered in the data pipeline as direct children
+ * of the `<td>` or `<th>` elements. In other cases `<paragraph>` elements are rendered as `<p>` blocks.
+ *
+ * To ensure proper mappings between model and view elements and positions in the editing pipeline the table feature will always render
+ * an element in the view: `<span>` for single or empty `<paragraph>` and `<p>` otherwise.
+ *
+ * Example:
+ *
+ *		<table>
+ *			<tableRow>
+ *				<tableCell><paragraph></paragraph></tableCell>
+ *				<tableCell><paragraph>foo</paragraph></tableCell>
+ *				<tableCell><paragraph baz="bar">foo</paragraph></tableCell>
+ *				<tableCell><heading2>bar</heading2><paragraph>baz</paragraph></tableCell>
+ *			</tableRow>
+ *		</table>
+ *
+ * The editor will render in the data pipeline:
+ *
+ *		<figure>
+ *			<table>
+ *				<tbody>
+ *					<tr>
+ *						<td></td>
+ *						<td>foo</td>
+ *						<td><p baz="bar">foo</p></td>
+ *						<td><h3>bar</h3><p>baz</p></td>
+ *					</tr>
+ *				</tbody>
+ *			</table>
+ *		</figure>
+ *
+ * and in the editing view (without widget markup):
+ *
+ *		<figure>
+ *			<table>
+ *				<tbody>
+ *					<tr>
+ *						<td><span></span></td>
+ *						<td><span>foo</span></td>
+ *						<td><p baz="bar">foo</p></td>
+ *						<td><h3>bar</h3><p>baz</p></td>
+ *					</tr>
+ *				</tbody>
+ *			</table>
+ *		</figure>
+ *
+ * @param {module:engine/model/model~Model} model
+ * @param {module:engine/controller/editingcontroller~EditingController} editing
+ */
+function injectTableCellPostFixer( model, editing ) {
+	editing.view.document.registerPostFixer( writer => tableCellPostFixer( writer, model, editing.mapper, editing.view ) );
+}
+
+// The table cell post-fixer.
+//
+// @param {module:engine/view/writer~Writer} writer
+// @param {module:engine/model/model~Model} model
+// @param {module:engine/conversion/mapper~Mapper} mapper
+function tableCellPostFixer( writer, model, mapper, view ) {
+	let wasFixed = false;
+
+	const elementsToCheck = getElementsToCheck( view );
+
+	for ( const element of elementsToCheck ) {
+		wasFixed = ensureProperElementName( element, mapper, writer ) || wasFixed;
+	}
+
+	// Selection in the view might not be updated to renamed elements. Happens mostly when other feature inserts paragraph to the table cell
+	// (ie. when deleting table cell contents) and sets selection to it while table-post fixer changes view <p> to <span> element.
+	// The view.selection would have outdated nodes.
+	if ( wasFixed ) {
+		updateRangesInViewSelection( model.document.selection, mapper, writer );
+	}
+
+	return wasFixed;
+}
+
+// Returns view elements changed in current view.change() block.
+//
+// **Note**: Currently it uses private property of the view: _renderer to get changed view elements to check.
+//
+// @param {module:engine/view/view~View} view
+function getElementsToCheck( view ) {
+	const elementsWithChangedAttributes = Array.from( view._renderer.markedAttributes )
+		.filter( el => !!el.parent )
+		.filter( isSpanOrP )
+		.filter( el => isTdOrTh( el.parent ) );
+
+	const changedChildren = Array.from( view._renderer.markedChildren )
+		.filter( el => !!el.parent )
+		.filter( isTdOrTh )
+		.reduce( ( prev, element ) => {
+			const childrenToCheck = Array.from( element.getChildren() ).filter( isSpanOrP );
+
+			return [ ...prev, ...childrenToCheck ];
+		}, [] );
+
+	return [ ...elementsWithChangedAttributes, ...changedChildren ];
+}
+
+// This method checks if view element for model's <paragraph> was properly converter.
+// Paragraph should be either
+// - span: for single paragraph with no attributes.
+// - p   : in other cases.
+function ensureProperElementName( currentViewElement, mapper, writer ) {
+	const modelParagraph = mapper.toModelElement( currentViewElement );
+	const expectedViewElementName = getExpectedElementName( modelParagraph.parent, modelParagraph );
+
+	if ( currentViewElement.name !== expectedViewElementName ) {
+		// Unbind current view element as it should be cleared from mapper.
+		mapper.unbindViewElement( currentViewElement );
+
+		const renamedViewElement = writer.rename( expectedViewElementName, currentViewElement );
+
+		// Bind paragraph inside table cell to the renamed view element.
+		mapper.bindElements( modelParagraph, renamedViewElement );
+
+		return true;
+	}
+
+	return false;
+}
+
+// Expected view element name depends on model elements:
+// - <paragraph> with any attribute set should be rendered as <p>
+// - all <paragraphs> in <tableCell> that has more then one children should be rendered as <p>
+// - an only <paragraph> child with no attributes should be rendered as <span>
+//
+// @param {module:engine/model/element~Element} tableCell
+// @param {module:engine/model/element~Element} paragraph
+// @returns {String}
+function getExpectedElementName( tableCell, paragraph ) {
+	const isOnlyChild = tableCell.childCount > 1;
+	const hasAttributes = !![ ...paragraph.getAttributes() ].length;
+
+	return ( isOnlyChild || hasAttributes ) ? 'p' : 'span';
+}
+
+// Method to filter out <span> and <p> elements.
+//
+// @param {module:engine/view/element~Element} element
+function isSpanOrP( element ) {
+	return element.is( 'p' ) || element.is( 'span' );
+}
+
+// Method to filter out <td> and <th> elements.
+//
+// @param {module:engine/view/element~Element} element
+function isTdOrTh( element ) {
+	return element.is( 'td' ) || element.is( 'th' );
+}
+
+// Resets view selections based on model selection.
+function updateRangesInViewSelection( selection, mapper, writer ) {
+	const fixedRanges = Array.from( selection.getRanges() )
+		.map( range => mapper.toViewRange( range ) );
+
+	writer.setSelection( fixedRanges, { backward: selection.isBackward } );
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/src/converters/upcasttable.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/src/converters/upcasttable.js ***!
+  \******************************************************************************/
+/*! exports provided: default, upcastTableCell */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return upcastTable; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "upcastTableCell", function() { return upcastTableCell; });
+/* harmony import */ var _ckeditor_ckeditor5_engine_src_model_range__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-engine/src/model/range */ "./node_modules/@ckeditor/ckeditor5-engine/src/model/range.js");
+/* harmony import */ var _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ckeditor/ckeditor5-engine/src/model/position */ "./node_modules/@ckeditor/ckeditor5-engine/src/model/position.js");
+/* harmony import */ var _commands_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../commands/utils */ "./node_modules/@ckeditor/ckeditor5-table/src/commands/utils.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module table/converters/upcasttable
+ */
+
+
+
+
+
+/**
+ * View table element to model table element conversion helper.
+ *
+ * This conversion helper converts the table element as well as table rows.
+ *
+ * @returns {Function} Conversion helper.
+ */
+function upcastTable() {
+	return dispatcher => {
+		dispatcher.on( 'element:table', ( evt, data, conversionApi ) => {
+			const viewTable = data.viewItem;
+
+			// When element was already consumed then skip it.
+			if ( !conversionApi.consumable.test( viewTable, { name: true } ) ) {
+				return;
+			}
+
+			const { rows, headingRows, headingColumns } = scanTable( viewTable );
+
+			// Only set attributes if values is greater then 0.
+			const attributes = {};
+
+			if ( headingColumns ) {
+				attributes.headingColumns = headingColumns;
+			}
+
+			if ( headingRows ) {
+				attributes.headingRows = headingRows;
+			}
+
+			const table = conversionApi.writer.createElement( 'table', attributes );
+
+			// Insert element on allowed position.
+			const splitResult = conversionApi.splitToAllowedParent( table, data.modelCursor );
+
+			// When there is no split result it means that we can't insert element to model tree, so let's skip it.
+			if ( !splitResult ) {
+				return;
+			}
+
+			conversionApi.writer.insert( table, splitResult.position );
+			conversionApi.consumable.consume( viewTable, { name: true } );
+
+			if ( rows.length ) {
+				// Upcast table rows in proper order (heading rows first).
+				rows.forEach( row => conversionApi.convertItem( row, _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_1__["default"].createAt( table, 'end' ) ) );
+			} else {
+				// Create one row and one table cell for empty table.
+				const row = conversionApi.writer.createElement( 'tableRow' );
+				conversionApi.writer.insert( row, _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_1__["default"].createAt( table, 'end' ) );
+
+				Object(_commands_utils__WEBPACK_IMPORTED_MODULE_2__["createEmptyTableCell"])( conversionApi.writer, _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_1__["default"].createAt( row, 'end' ) );
+			}
+
+			// Set conversion result range.
+			data.modelRange = new _ckeditor_ckeditor5_engine_src_model_range__WEBPACK_IMPORTED_MODULE_0__["default"](
+				// Range should start before inserted element
+				_ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_1__["default"].createBefore( table ),
+				// Should end after but we need to take into consideration that children could split our
+				// element, so we need to move range after parent of the last converted child.
+				// before: <allowed>[]</allowed>
+				// after: <allowed>[<converted><child></child></converted><child></child><converted>]</converted></allowed>
+				_ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_1__["default"].createAfter( table )
+			);
+
+			// Now we need to check where the modelCursor should be.
+			// If we had to split parent to insert our element then we want to continue conversion inside split parent.
+			//
+			// before: <allowed><notAllowed>[]</notAllowed></allowed>
+			// after:  <allowed><notAllowed></notAllowed><converted></converted><notAllowed>[]</notAllowed></allowed>
+			if ( splitResult.cursorParent ) {
+				data.modelCursor = _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_1__["default"].createAt( splitResult.cursorParent );
+
+				// Otherwise just continue after inserted element.
+			} else {
+				data.modelCursor = data.modelRange.end;
+			}
+		} );
+	};
+}
+
+function upcastTableCell( elementName ) {
+	return dispatcher => {
+		dispatcher.on( `element:${ elementName }`, ( evt, data, conversionApi ) => {
+			const viewTableCell = data.viewItem;
+
+			// When element was already consumed then skip it.
+			if ( !conversionApi.consumable.test( viewTableCell, { name: true } ) ) {
+				return;
+			}
+
+			const tableCell = conversionApi.writer.createElement( 'tableCell' );
+
+			// Insert element on allowed position.
+			const splitResult = conversionApi.splitToAllowedParent( tableCell, data.modelCursor );
+
+			// When there is no split result it means that we can't insert element to model tree, so let's skip it.
+			if ( !splitResult ) {
+				return;
+			}
+
+			conversionApi.writer.insert( tableCell, splitResult.position );
+			conversionApi.consumable.consume( viewTableCell, { name: true } );
+
+			const modelCursor = _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_1__["default"].createAt( tableCell );
+			conversionApi.convertChildren( viewTableCell, modelCursor );
+
+			// Ensure a paragraph in the model for empty table cells.
+			if ( !tableCell.childCount ) {
+				conversionApi.writer.insertElement( 'paragraph', modelCursor );
+			}
+
+			// Set conversion result range.
+			data.modelRange = new _ckeditor_ckeditor5_engine_src_model_range__WEBPACK_IMPORTED_MODULE_0__["default"](
+				// Range should start before inserted element
+				_ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_1__["default"].createBefore( tableCell ),
+				// Should end after but we need to take into consideration that children could split our
+				// element, so we need to move range after parent of the last converted child.
+				// before: <allowed>[]</allowed>
+				// after: <allowed>[<converted><child></child></converted><child></child><converted>]</converted></allowed>
+				_ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_1__["default"].createAfter( tableCell )
+			);
+
+			// Continue after inserted element.
+			data.modelCursor = data.modelRange.end;
+		} );
+	};
+}
+
+// Scans table rows and extracts required metadata from the table:
+//
+// headingRows    - the number of rows that goes as table header.
+// headingColumns - max number of row headings.
+// rows           - sorted `<tr>`s as they should go into the model - ie. if `<thead>` is inserted after `<tbody>` in the view.
+//
+// @param {module:engine/view/element~Element} viewTable
+// @returns {{headingRows, headingColumns, rows}}
+function scanTable( viewTable ) {
+	const tableMeta = {
+		headingRows: 0,
+		headingColumns: 0
+	};
+
+	// The `<tbody>` and <thead> sections in the DOM do not have to be in order `<thead>` -> `<tbody>` and there might be more then one of
+	// them.
+	// As the model does not have those sections, rows from different sections must be sorted.
+	// For example, below is a valid HTML table:
+	//
+	//		<table>
+	//			<tbody><tr><td>2</td></tr></tbody>
+	//			<thead><tr><td>1</td></tr></thead>
+	//			<tbody><tr><td>3</td></tr></tbody>
+	//		</table>
+	//
+	// But browsers will render rows in order as: 1 as heading and 2 and 3 as (body).
+	const headRows = [];
+	const bodyRows = [];
+
+	// Currently the editor does not support more then one <thead> section.
+	// Only the first <thead> from the view will be used as heading rows and others will be converted to body rows.
+	let firstTheadElement;
+
+	for ( const tableChild of Array.from( viewTable.getChildren() ) ) {
+		// Only <thead>, <tbody> & <tfoot> from allowed table children can have <tr>s.
+		// The else is for future purposes (mainly <caption>).
+		if ( tableChild.name === 'tbody' || tableChild.name === 'thead' || tableChild.name === 'tfoot' ) {
+			// Save the first <thead> in the table as table header - all other ones will be converted to table body rows.
+			if ( tableChild.name === 'thead' && !firstTheadElement ) {
+				firstTheadElement = tableChild;
+			}
+
+			for ( const tr of Array.from( tableChild.getChildren() ) ) {
+				// This <tr> is a child of a first <thead> element.
+				if ( tr.parent.name === 'thead' && tr.parent === firstTheadElement ) {
+					tableMeta.headingRows++;
+					headRows.push( tr );
+				} else {
+					bodyRows.push( tr );
+					// For other rows check how many column headings this row has.
+
+					const headingCols = scanRowForHeadingColumns( tr, tableMeta, firstTheadElement );
+
+					if ( headingCols > tableMeta.headingColumns ) {
+						tableMeta.headingColumns = headingCols;
+					}
+				}
+			}
+		}
+	}
+
+	tableMeta.rows = [ ...headRows, ...bodyRows ];
+
+	return tableMeta;
+}
+
+// Scans `<tr>` and its children for metadata:
+// - For heading row:
+//     - either adds this row to heading or body rows.
+//     - updates number of heading rows.
+// - For body rows:
+//     - calculates the number of column headings.
+//
+// @param {module:engine/view/element~Element} tr
+// @returns {Number}
+function scanRowForHeadingColumns( tr ) {
+	let headingColumns = 0;
+	let index = 0;
+
+	// Filter out empty text nodes from tr children.
+	const children = Array.from( tr.getChildren() )
+		.filter( child => child.name === 'th' || child.name === 'td' );
+
+	// Count starting adjacent <th> elements of a <tr>.
+	while ( index < children.length && children[ index ].name === 'th' ) {
+		const th = children[ index ];
+
+		// Adjust columns calculation by the number of spanned columns.
+		const colspan = parseInt( th.getAttribute( 'colspan' ) || 1 );
+
+		headingColumns = headingColumns + colspan;
+		index++;
+	}
+
+	return headingColumns;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/src/table.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/src/table.js ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Table; });
+/* harmony import */ var _ckeditor_ckeditor5_core_src_plugin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-core/src/plugin */ "./node_modules/@ckeditor/ckeditor5-core/src/plugin.js");
+/* harmony import */ var _tableediting__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tableediting */ "./node_modules/@ckeditor/ckeditor5-table/src/tableediting.js");
+/* harmony import */ var _tableui__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tableui */ "./node_modules/@ckeditor/ckeditor5-table/src/tableui.js");
+/* harmony import */ var _ckeditor_ckeditor5_widget_src_widget__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ckeditor/ckeditor5-widget/src/widget */ "./node_modules/@ckeditor/ckeditor5-widget/src/widget.js");
+/* harmony import */ var _theme_table_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../theme/table.css */ "./node_modules/@ckeditor/ckeditor5-table/theme/table.css");
+/* harmony import */ var _theme_table_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_theme_table_css__WEBPACK_IMPORTED_MODULE_4__);
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module table/table
+ */
+
+
+
+
+
+
+
+
+
+/**
+ * The table plugin.
+ *
+ * For a detailed overview, check the {@glink features/table Table feature documentation}.
+ *
+ * This is a "glue" plugin which loads the {@link module:table/tableediting~TableEditing table editing feature}
+ * and {@link module:table/tableui~TableUI table UI feature}.
+ *
+ * @extends module:core/plugin~Plugin
+ */
+class Table extends _ckeditor_ckeditor5_core_src_plugin__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * @inheritDoc
+	 */
+	static get requires() {
+		return [ _tableediting__WEBPACK_IMPORTED_MODULE_1__["default"], _tableui__WEBPACK_IMPORTED_MODULE_2__["default"], _ckeditor_ckeditor5_widget_src_widget__WEBPACK_IMPORTED_MODULE_3__["default"] ];
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	static get pluginName() {
+		return 'Table';
+	}
+}
+
+/**
+ * The configuration of the table features. Used by the table features in the `@ckeditor/ckeditor5-table` package.
+ *
+ *		ClassicEditor
+ *			.create( editorElement, {
+ * 				table: ... // Table feature options.
+ *			} )
+ *			.then( ... )
+ *			.catch( ... );
+ *
+ * See {@link module:core/editor/editorconfig~EditorConfig all editor options}.
+ *
+ * @interface TableConfig
+ */
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/src/tableediting.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/src/tableediting.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TableEditing; });
+/* harmony import */ var _ckeditor_ckeditor5_core_src_plugin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-core/src/plugin */ "./node_modules/@ckeditor/ckeditor5-core/src/plugin.js");
+/* harmony import */ var _ckeditor_ckeditor5_engine_src_conversion_upcast_converters__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ckeditor/ckeditor5-engine/src/conversion/upcast-converters */ "./node_modules/@ckeditor/ckeditor5-engine/src/conversion/upcast-converters.js");
+/* harmony import */ var _ckeditor_ckeditor5_engine_src_model_range__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ckeditor/ckeditor5-engine/src/model/range */ "./node_modules/@ckeditor/ckeditor5-engine/src/model/range.js");
+/* harmony import */ var _converters_upcasttable__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./converters/upcasttable */ "./node_modules/@ckeditor/ckeditor5-table/src/converters/upcasttable.js");
+/* harmony import */ var _converters_downcast__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./converters/downcast */ "./node_modules/@ckeditor/ckeditor5-table/src/converters/downcast.js");
+/* harmony import */ var _commands_inserttablecommand__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./commands/inserttablecommand */ "./node_modules/@ckeditor/ckeditor5-table/src/commands/inserttablecommand.js");
+/* harmony import */ var _commands_insertrowcommand__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./commands/insertrowcommand */ "./node_modules/@ckeditor/ckeditor5-table/src/commands/insertrowcommand.js");
+/* harmony import */ var _commands_insertcolumncommand__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./commands/insertcolumncommand */ "./node_modules/@ckeditor/ckeditor5-table/src/commands/insertcolumncommand.js");
+/* harmony import */ var _commands_splitcellcommand__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./commands/splitcellcommand */ "./node_modules/@ckeditor/ckeditor5-table/src/commands/splitcellcommand.js");
+/* harmony import */ var _commands_mergecellcommand__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./commands/mergecellcommand */ "./node_modules/@ckeditor/ckeditor5-table/src/commands/mergecellcommand.js");
+/* harmony import */ var _commands_removerowcommand__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./commands/removerowcommand */ "./node_modules/@ckeditor/ckeditor5-table/src/commands/removerowcommand.js");
+/* harmony import */ var _commands_removecolumncommand__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./commands/removecolumncommand */ "./node_modules/@ckeditor/ckeditor5-table/src/commands/removecolumncommand.js");
+/* harmony import */ var _commands_setheaderrowcommand__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./commands/setheaderrowcommand */ "./node_modules/@ckeditor/ckeditor5-table/src/commands/setheaderrowcommand.js");
+/* harmony import */ var _commands_setheadercolumncommand__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./commands/setheadercolumncommand */ "./node_modules/@ckeditor/ckeditor5-table/src/commands/setheadercolumncommand.js");
+/* harmony import */ var _commands_utils__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./commands/utils */ "./node_modules/@ckeditor/ckeditor5-table/src/commands/utils.js");
+/* harmony import */ var _src_tableutils__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../src/tableutils */ "./node_modules/@ckeditor/ckeditor5-table/src/tableutils.js");
+/* harmony import */ var _converters_table_layout_post_fixer__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./converters/table-layout-post-fixer */ "./node_modules/@ckeditor/ckeditor5-table/src/converters/table-layout-post-fixer.js");
+/* harmony import */ var _converters_table_cell_content_post_fixer__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./converters/table-cell-content-post-fixer */ "./node_modules/@ckeditor/ckeditor5-table/src/converters/table-cell-content-post-fixer.js");
+/* harmony import */ var _converters_tablecell_post_fixer__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./converters/tablecell-post-fixer */ "./node_modules/@ckeditor/ckeditor5-table/src/converters/tablecell-post-fixer.js");
+/* harmony import */ var _theme_tableediting_css__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../theme/tableediting.css */ "./node_modules/@ckeditor/ckeditor5-table/theme/tableediting.css");
+/* harmony import */ var _theme_tableediting_css__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_theme_tableediting_css__WEBPACK_IMPORTED_MODULE_19__);
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module table/tableediting
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * The table editing feature.
+ *
+ * @extends module:core/plugin~Plugin
+ */
+class TableEditing extends _ckeditor_ckeditor5_core_src_plugin__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * @inheritDoc
+	 */
+	init() {
+		const editor = this.editor;
+		const model = editor.model;
+		const schema = model.schema;
+		const conversion = editor.conversion;
+
+		schema.register( 'table', {
+			allowWhere: '$block',
+			allowAttributes: [ 'headingRows', 'headingColumns' ],
+			isLimit: true,
+			isObject: true
+		} );
+
+		schema.register( 'tableRow', {
+			allowIn: 'table',
+			isLimit: true
+		} );
+
+		schema.register( 'tableCell', {
+			allowIn: 'tableRow',
+			allowAttributes: [ 'colspan', 'rowspan' ],
+			isLimit: true
+		} );
+
+		// Allow all $block content inside table cell.
+		schema.extend( '$block', { allowIn: 'tableCell' } );
+
+		// Disallow table in table.
+		schema.addChildCheck( ( context, childDefinition ) => {
+			if ( childDefinition.name == 'table' && Array.from( context.getNames() ).includes( 'table' ) ) {
+				return false;
+			}
+		} );
+
+		// Disallow image and media in table cell.
+		schema.addChildCheck( ( context, childDefinition ) => {
+			if ( !Array.from( context.getNames() ).includes( 'table' ) ) {
+				return;
+			}
+
+			if ( childDefinition.name == 'image' || childDefinition.name == 'media' ) {
+				return false;
+			}
+		} );
+
+		// Table conversion.
+		conversion.for( 'upcast' ).add( Object(_converters_upcasttable__WEBPACK_IMPORTED_MODULE_3__["default"])() );
+
+		conversion.for( 'editingDowncast' ).add( Object(_converters_downcast__WEBPACK_IMPORTED_MODULE_4__["downcastInsertTable"])( { asWidget: true } ) );
+		conversion.for( 'dataDowncast' ).add( Object(_converters_downcast__WEBPACK_IMPORTED_MODULE_4__["downcastInsertTable"])() );
+
+		// Table row conversion.
+		conversion.for( 'upcast' ).add( Object(_ckeditor_ckeditor5_engine_src_conversion_upcast_converters__WEBPACK_IMPORTED_MODULE_1__["upcastElementToElement"])( { model: 'tableRow', view: 'tr' } ) );
+
+		conversion.for( 'editingDowncast' ).add( Object(_converters_downcast__WEBPACK_IMPORTED_MODULE_4__["downcastInsertRow"])( { asWidget: true } ) );
+		conversion.for( 'dataDowncast' ).add( Object(_converters_downcast__WEBPACK_IMPORTED_MODULE_4__["downcastInsertRow"])() );
+		conversion.for( 'downcast' ).add( Object(_converters_downcast__WEBPACK_IMPORTED_MODULE_4__["downcastRemoveRow"])() );
+
+		// Table cell conversion.
+		conversion.for( 'upcast' ).add( Object(_converters_upcasttable__WEBPACK_IMPORTED_MODULE_3__["upcastTableCell"])( 'td' ) );
+		conversion.for( 'upcast' ).add( Object(_converters_upcasttable__WEBPACK_IMPORTED_MODULE_3__["upcastTableCell"])( 'th' ) );
+
+		conversion.for( 'editingDowncast' ).add( Object(_converters_downcast__WEBPACK_IMPORTED_MODULE_4__["downcastInsertCell"])( { asWidget: true } ) );
+		conversion.for( 'dataDowncast' ).add( Object(_converters_downcast__WEBPACK_IMPORTED_MODULE_4__["downcastInsertCell"])() );
+
+		// Table attributes conversion.
+		conversion.attributeToAttribute( { model: 'colspan', view: 'colspan' } );
+		conversion.attributeToAttribute( { model: 'rowspan', view: 'rowspan' } );
+
+		// Table heading rows and cols conversion.
+		conversion.for( 'editingDowncast' ).add( Object(_converters_downcast__WEBPACK_IMPORTED_MODULE_4__["downcastTableHeadingColumnsChange"])( { asWidget: true } ) );
+		conversion.for( 'dataDowncast' ).add( Object(_converters_downcast__WEBPACK_IMPORTED_MODULE_4__["downcastTableHeadingColumnsChange"])() );
+		conversion.for( 'editingDowncast' ).add( Object(_converters_downcast__WEBPACK_IMPORTED_MODULE_4__["downcastTableHeadingRowsChange"])( { asWidget: true } ) );
+		conversion.for( 'dataDowncast' ).add( Object(_converters_downcast__WEBPACK_IMPORTED_MODULE_4__["downcastTableHeadingRowsChange"])() );
+
+		Object(_converters_tablecell_post_fixer__WEBPACK_IMPORTED_MODULE_18__["default"])( editor.model, editor.editing );
+
+		// Define all the commands.
+		editor.commands.add( 'insertTable', new _commands_inserttablecommand__WEBPACK_IMPORTED_MODULE_5__["default"]( editor ) );
+		editor.commands.add( 'insertTableRowAbove', new _commands_insertrowcommand__WEBPACK_IMPORTED_MODULE_6__["default"]( editor, { order: 'above' } ) );
+		editor.commands.add( 'insertTableRowBelow', new _commands_insertrowcommand__WEBPACK_IMPORTED_MODULE_6__["default"]( editor, { order: 'below' } ) );
+		editor.commands.add( 'insertTableColumnBefore', new _commands_insertcolumncommand__WEBPACK_IMPORTED_MODULE_7__["default"]( editor, { order: 'before' } ) );
+		editor.commands.add( 'insertTableColumnAfter', new _commands_insertcolumncommand__WEBPACK_IMPORTED_MODULE_7__["default"]( editor, { order: 'after' } ) );
+
+		editor.commands.add( 'removeTableRow', new _commands_removerowcommand__WEBPACK_IMPORTED_MODULE_10__["default"]( editor ) );
+		editor.commands.add( 'removeTableColumn', new _commands_removecolumncommand__WEBPACK_IMPORTED_MODULE_11__["default"]( editor ) );
+
+		editor.commands.add( 'splitTableCellVertically', new _commands_splitcellcommand__WEBPACK_IMPORTED_MODULE_8__["default"]( editor, { direction: 'vertically' } ) );
+		editor.commands.add( 'splitTableCellHorizontally', new _commands_splitcellcommand__WEBPACK_IMPORTED_MODULE_8__["default"]( editor, { direction: 'horizontally' } ) );
+
+		editor.commands.add( 'mergeTableCellRight', new _commands_mergecellcommand__WEBPACK_IMPORTED_MODULE_9__["default"]( editor, { direction: 'right' } ) );
+		editor.commands.add( 'mergeTableCellLeft', new _commands_mergecellcommand__WEBPACK_IMPORTED_MODULE_9__["default"]( editor, { direction: 'left' } ) );
+		editor.commands.add( 'mergeTableCellDown', new _commands_mergecellcommand__WEBPACK_IMPORTED_MODULE_9__["default"]( editor, { direction: 'down' } ) );
+		editor.commands.add( 'mergeTableCellUp', new _commands_mergecellcommand__WEBPACK_IMPORTED_MODULE_9__["default"]( editor, { direction: 'up' } ) );
+
+		editor.commands.add( 'setTableColumnHeader', new _commands_setheadercolumncommand__WEBPACK_IMPORTED_MODULE_13__["default"]( editor ) );
+		editor.commands.add( 'setTableRowHeader', new _commands_setheaderrowcommand__WEBPACK_IMPORTED_MODULE_12__["default"]( editor ) );
+
+		Object(_converters_table_layout_post_fixer__WEBPACK_IMPORTED_MODULE_16__["default"])( model );
+		Object(_converters_table_cell_content_post_fixer__WEBPACK_IMPORTED_MODULE_17__["default"])( model );
+
+		// Handle tab key navigation.
+		this.editor.keystrokes.set( 'Tab', ( ...args ) => this._handleTabOnSelectedTable( ...args ), { priority: 'low' } );
+		this.editor.keystrokes.set( 'Tab', this._getTabHandler( true ), { priority: 'low' } );
+		this.editor.keystrokes.set( 'Shift+Tab', this._getTabHandler( false ), { priority: 'low' } );
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	static get requires() {
+		return [ _src_tableutils__WEBPACK_IMPORTED_MODULE_15__["default"] ];
+	}
+
+	/**
+	 * Handles {@link module:engine/view/document~Document#event:keydown keydown} events for the <kbd>Tab</kbd> key executed
+	 * when the table widget is selected.
+	 *
+	 * @private
+	 * @param {module:utils/eventinfo~EventInfo} eventInfo
+	 * @param {module:engine/view/observer/domeventdata~DomEventData} domEventData
+	 */
+	_handleTabOnSelectedTable( domEventData, cancel ) {
+		const editor = this.editor;
+		const selection = editor.model.document.selection;
+
+		if ( !selection.isCollapsed && selection.rangeCount === 1 && selection.getFirstRange().isFlat ) {
+			const selectedElement = selection.getSelectedElement();
+
+			if ( !selectedElement || !selectedElement.is( 'table' ) ) {
+				return;
+			}
+
+			cancel();
+
+			editor.model.change( writer => {
+				writer.setSelection( _ckeditor_ckeditor5_engine_src_model_range__WEBPACK_IMPORTED_MODULE_2__["default"].createIn( selectedElement.getChild( 0 ).getChild( 0 ) ) );
+			} );
+		}
+	}
+
+	/**
+	 * Returns a handler for {@link module:engine/view/document~Document#event:keydown keydown} events for the <kbd>Tab</kbd> key executed
+	 * inside table cell.
+	 *
+	 * @private
+	 * @param {Boolean} isForward Whether this handler will move selection to the next cell or previous.
+	 */
+	_getTabHandler( isForward ) {
+		const editor = this.editor;
+
+		return ( domEventData, cancel ) => {
+			const selection = editor.model.document.selection;
+
+			const firstPosition = selection.getFirstPosition();
+
+			const tableCell = Object(_commands_utils__WEBPACK_IMPORTED_MODULE_14__["findAncestor"])( 'tableCell', firstPosition );
+
+			if ( !tableCell ) {
+				return;
+			}
+
+			cancel();
+
+			const tableRow = tableCell.parent;
+			const table = tableRow.parent;
+
+			const currentRowIndex = table.getChildIndex( tableRow );
+			const currentCellIndex = tableRow.getChildIndex( tableCell );
+
+			const isFirstCellInRow = currentCellIndex === 0;
+
+			if ( !isForward && isFirstCellInRow && currentRowIndex === 0 ) {
+				// It's the first cell of a table - don't do anything (stay in current position).
+				return;
+			}
+
+			const isLastCellInRow = currentCellIndex === tableRow.childCount - 1;
+			const isLastRow = currentRowIndex === table.childCount - 1;
+
+			if ( isForward && isLastRow && isLastCellInRow ) {
+				editor.plugins.get( _src_tableutils__WEBPACK_IMPORTED_MODULE_15__["default"] ).insertRows( table, { at: table.childCount } );
+			}
+
+			let cellToFocus;
+
+			// Move to first cell in next row.
+			if ( isForward && isLastCellInRow ) {
+				const nextRow = table.getChild( currentRowIndex + 1 );
+
+				cellToFocus = nextRow.getChild( 0 );
+			}
+			// Move to last cell in a previous row.
+			else if ( !isForward && isFirstCellInRow ) {
+				const previousRow = table.getChild( currentRowIndex - 1 );
+
+				cellToFocus = previousRow.getChild( previousRow.childCount - 1 );
+			}
+			// Move to next/previous cell.
+			else {
+				cellToFocus = tableRow.getChild( currentCellIndex + ( isForward ? 1 : -1 ) );
+			}
+
+			editor.model.change( writer => {
+				writer.setSelection( _ckeditor_ckeditor5_engine_src_model_range__WEBPACK_IMPORTED_MODULE_2__["default"].createIn( cellToFocus ) );
+			} );
+		};
+	}
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/src/tabletoolbar.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/src/tabletoolbar.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TableToolbar; });
+/* harmony import */ var _ckeditor_ckeditor5_core_src_plugin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-core/src/plugin */ "./node_modules/@ckeditor/ckeditor5-core/src/plugin.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./node_modules/@ckeditor/ckeditor5-table/src/utils.js");
+/* harmony import */ var _ckeditor_ckeditor5_widget_src_widgettoolbarrepository__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ckeditor/ckeditor5-widget/src/widgettoolbarrepository */ "./node_modules/@ckeditor/ckeditor5-widget/src/widgettoolbarrepository.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module table/tabletoolbar
+ */
+
+
+
+
+
+/**
+ * The table toolbar class. It creates toolbars for the table feature and its content (for now only for a table cell content).
+ *
+ * Table toolbar shows up when a table widget is selected. Its components (e.g. buttons) are created based on the
+ * {@link module:table/table~TableConfig#toolbar `table.tableToolbar` configuration option}.
+ *
+ * Table content toolbar shows up when the selection is inside the content of a table. It creates its component based on the
+ * {@link module:table/table~TableConfig#contentToolbar `table.contentToolbar` configuration option}.
+ *
+ * Note that the old {@link module:table/table~TableConfig#toolbar `table.toolbar` configuration option} is deprecated
+ * and will be removed in the next major release.
+ *
+ * @extends module:core/plugin~Plugin
+ */
+class TableToolbar extends _ckeditor_ckeditor5_core_src_plugin__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * @inheritDoc
+	 */
+	static get requires() {
+		return [ _ckeditor_ckeditor5_widget_src_widgettoolbarrepository__WEBPACK_IMPORTED_MODULE_2__["default"] ];
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	static get pluginName() {
+		return 'TableToolbar';
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	afterInit() {
+		const editor = this.editor;
+		const widgetToolbarRepository = editor.plugins.get( _ckeditor_ckeditor5_widget_src_widgettoolbarrepository__WEBPACK_IMPORTED_MODULE_2__["default"] );
+
+		const tableContentToolbarItems = editor.config.get( 'table.contentToolbar' );
+		const deprecatedTableContentToolbarItems = editor.config.get( 'table.toolbar' );
+
+		const tableToolbarItems = editor.config.get( 'table.tableToolbar' );
+
+		if ( deprecatedTableContentToolbarItems ) {
+			// eslint-disable-next-line
+			console.warn(
+				'`config.table.toolbar` is deprecated and will be removed in the next major release.' +
+				' Use `config.table.contentToolbar` instead.'
+			);
+		}
+
+		if ( tableContentToolbarItems || deprecatedTableContentToolbarItems ) {
+			widgetToolbarRepository.register( 'tableContent', {
+				items: tableContentToolbarItems || deprecatedTableContentToolbarItems,
+				visibleWhen: _utils__WEBPACK_IMPORTED_MODULE_1__["isTableContentSelected"],
+			} );
+		}
+
+		if ( tableToolbarItems ) {
+			widgetToolbarRepository.register( 'table', {
+				items: tableToolbarItems,
+				visibleWhen: _utils__WEBPACK_IMPORTED_MODULE_1__["isTableWidgetSelected"],
+			} );
+		}
+	}
+}
+
+/**
+ * Items to be placed in the table content toolbar.
+ *
+ * **Note:** This configuration option is deprecated! Use {@link module:table/table~TableConfig#contentToolbar} instead.
+ *
+ * Read more about configuring toolbar in {@link module:core/editor/editorconfig~EditorConfig#toolbar}.
+ *
+ * @deprecated
+ * @member {Array.<String>} module:table/table~TableConfig#toolbar
+ */
+
+/**
+ * Items to be placed in the table content toolbar.
+ * The {@link module:table/tabletoolbar~TableToolbar} plugin is required to make this toolbar working.
+ *
+ * Assuming that you use the {@link module:table/tableui~TableUI} feature, the following toolbar items will be available
+ * in {@link module:ui/componentfactory~ComponentFactory}:
+ *
+ * * `'tableRow'`,
+ * * `'tableColumn'`,
+ * * `'mergeTableCells'`.
+ *
+ * You can thus configure the toolbar like this:
+ *
+ *		const tableConfig = {
+ *			contentToolbar: [ 'tableRow', 'tableColumn', 'mergeTableCells' ]
+ *		};
+ *
+ * Of course, the same buttons can also be used in the
+ * {@link module:core/editor/editorconfig~EditorConfig#toolbar main editor toolbar}.
+ *
+ * Read more about configuring toolbar in {@link module:core/editor/editorconfig~EditorConfig#toolbar}.
+ *
+ * @member {Array.<String>} module:table/table~TableConfig#contentToolbar
+ */
+
+/**
+ * Items to be placed in the table toolbar.
+ * The {@link module:table/tabletoolbar~TableToolbar} plugin is required to make this toolbar working.
+ *
+ * You can thus configure the toolbar like this:
+ *
+ *		const tableConfig = {
+ *			tableToolbar: [ 'blockQuote' ]
+ *		};
+ *
+ * Of course, the same buttons can also be used in the
+ * {@link module:core/editor/editorconfig~EditorConfig#toolbar main editor toolbar}.
+ *
+ * Read more about configuring toolbar in {@link module:core/editor/editorconfig~EditorConfig#toolbar}.
+ *
+ * @member {Array.<String>} module:table/table~TableConfig#tableToolbar
+ */
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/src/tableui.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/src/tableui.js ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TableUI; });
+/* harmony import */ var _ckeditor_ckeditor5_core_src_plugin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-core/src/plugin */ "./node_modules/@ckeditor/ckeditor5-core/src/plugin.js");
+/* harmony import */ var _ckeditor_ckeditor5_ui_src_dropdown_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ckeditor/ckeditor5-ui/src/dropdown/utils */ "./node_modules/@ckeditor/ckeditor5-ui/src/dropdown/utils.js");
+/* harmony import */ var _ckeditor_ckeditor5_ui_src_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ckeditor/ckeditor5-ui/src/model */ "./node_modules/@ckeditor/ckeditor5-ui/src/model.js");
+/* harmony import */ var _ckeditor_ckeditor5_utils_src_collection__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ckeditor/ckeditor5-utils/src/collection */ "./node_modules/@ckeditor/ckeditor5-utils/src/collection.js");
+/* harmony import */ var _ui_inserttableview__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ui/inserttableview */ "./node_modules/@ckeditor/ckeditor5-table/src/ui/inserttableview.js");
+/* harmony import */ var _theme_icons_table_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../theme/icons/table.svg */ "./node_modules/@ckeditor/ckeditor5-table/theme/icons/table.svg");
+/* harmony import */ var _theme_icons_table_svg__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_theme_icons_table_svg__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _theme_icons_table_column_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../theme/icons/table-column.svg */ "./node_modules/@ckeditor/ckeditor5-table/theme/icons/table-column.svg");
+/* harmony import */ var _theme_icons_table_column_svg__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_theme_icons_table_column_svg__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _theme_icons_table_row_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../theme/icons/table-row.svg */ "./node_modules/@ckeditor/ckeditor5-table/theme/icons/table-row.svg");
+/* harmony import */ var _theme_icons_table_row_svg__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_theme_icons_table_row_svg__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _theme_icons_table_merge_cell_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../theme/icons/table-merge-cell.svg */ "./node_modules/@ckeditor/ckeditor5-table/theme/icons/table-merge-cell.svg");
+/* harmony import */ var _theme_icons_table_merge_cell_svg__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_theme_icons_table_merge_cell_svg__WEBPACK_IMPORTED_MODULE_8__);
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module table/tableui
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * The table UI plugin. It introduces:
+ *
+ * * The `'insertTable'` dropdown,
+ * * The `'tableColumn'` dropdown,
+ * * The `'tableRow'` dropdown,
+ * * The `'mergeTableCells'` dropdown.
+ *
+ * The `'tableColumn'`, `'tableRow'`, `'mergeTableCells'` dropdowns work best with {@link module:table/tabletoolbar~TableToolbar}.
+ *
+ * @extends module:core/plugin~Plugin
+ */
+class TableUI extends _ckeditor_ckeditor5_core_src_plugin__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * @inheritDoc
+	 */
+	init() {
+		const editor = this.editor;
+		const t = this.editor.t;
+
+		editor.ui.componentFactory.add( 'insertTable', locale => {
+			const command = editor.commands.get( 'insertTable' );
+			const dropdownView = Object(_ckeditor_ckeditor5_ui_src_dropdown_utils__WEBPACK_IMPORTED_MODULE_1__["createDropdown"])( locale );
+
+			dropdownView.bind( 'isEnabled' ).to( command );
+
+			// Decorate dropdown's button.
+			dropdownView.buttonView.set( {
+				icon: _theme_icons_table_svg__WEBPACK_IMPORTED_MODULE_5___default.a,
+				label: t( 'Insert table' ),
+				tooltip: true
+			} );
+
+			// Prepare custom view for dropdown's panel.
+			const insertTableView = new _ui_inserttableview__WEBPACK_IMPORTED_MODULE_4__["default"]( locale );
+			dropdownView.panelView.children.add( insertTableView );
+
+			insertTableView.delegate( 'execute' ).to( dropdownView );
+
+			dropdownView.buttonView.on( 'open', () => {
+				// Reset the chooser before showing it to the user.
+				insertTableView.rows = 0;
+				insertTableView.columns = 0;
+			} );
+
+			dropdownView.on( 'execute', () => {
+				editor.execute( 'insertTable', { rows: insertTableView.rows, columns: insertTableView.columns } );
+				editor.editing.view.focus();
+			} );
+
+			return dropdownView;
+		} );
+
+		editor.ui.componentFactory.add( 'tableColumn', locale => {
+			const options = [
+				{
+					type: 'switchbutton',
+					model: {
+						commandName: 'setTableColumnHeader',
+						label: t( 'Header column' ),
+						bindIsOn: true
+					}
+				},
+				{ type: 'separator' },
+				{
+					type: 'button',
+					model: {
+						commandName: 'insertTableColumnBefore',
+						label: t( 'Insert column before' )
+					}
+				},
+				{
+					type: 'button',
+					model: {
+						commandName: 'insertTableColumnAfter',
+						label: t( 'Insert column after' )
+					}
+				},
+				{
+					type: 'button',
+					model: {
+						commandName: 'removeTableColumn',
+						label: t( 'Delete column' )
+					}
+				}
+			];
+
+			return this._prepareDropdown( t( 'Column' ), _theme_icons_table_column_svg__WEBPACK_IMPORTED_MODULE_6___default.a, options, locale );
+		} );
+
+		editor.ui.componentFactory.add( 'tableRow', locale => {
+			const options = [
+				{
+					type: 'switchbutton',
+					model: {
+						commandName: 'setTableRowHeader',
+						label: t( 'Header row' ),
+						bindIsOn: true
+					}
+				},
+				{ type: 'separator' },
+				{
+					type: 'button',
+					model: {
+						commandName: 'insertTableRowBelow',
+						label: t( 'Insert row below' )
+					}
+				},
+				{
+					type: 'button',
+					model: {
+						commandName: 'insertTableRowAbove',
+						label: t( 'Insert row above' )
+					}
+				},
+				{
+					type: 'button',
+					model: {
+						commandName: 'removeTableRow',
+						label: t( 'Delete row' )
+					}
+				}
+			];
+
+			return this._prepareDropdown( t( 'Row' ), _theme_icons_table_row_svg__WEBPACK_IMPORTED_MODULE_7___default.a, options, locale );
+		} );
+
+		editor.ui.componentFactory.add( 'mergeTableCells', locale => {
+			const options = [
+				{
+					type: 'button',
+					model: {
+						commandName: 'mergeTableCellUp',
+						label: t( 'Merge cell up' )
+					}
+				},
+				{
+					type: 'button',
+					model: {
+						commandName: 'mergeTableCellRight',
+						label: t( 'Merge cell right' )
+					}
+				},
+				{
+					type: 'button',
+					model: {
+						commandName: 'mergeTableCellDown',
+						label: t( 'Merge cell down' )
+					}
+				},
+				{
+					type: 'button',
+					model: {
+						commandName: 'mergeTableCellLeft',
+						label: t( 'Merge cell left' )
+					}
+				},
+				{ type: 'separator' },
+				{
+					type: 'button',
+					model: {
+						commandName: 'splitTableCellVertically',
+						label: t( 'Split cell vertically' )
+					}
+				},
+				{
+					type: 'button',
+					model: {
+						commandName: 'splitTableCellHorizontally',
+						label: t( 'Split cell horizontally' )
+					}
+				}
+			];
+
+			return this._prepareDropdown( t( 'Merge cells' ), _theme_icons_table_merge_cell_svg__WEBPACK_IMPORTED_MODULE_8___default.a, options, locale );
+		} );
+	}
+
+	/**
+	 * Creates a dropdown view from the set of options.
+	 *
+	 * @private
+	 * @param {String} label The dropdown button label.
+	 * @param {String} icon An icon for the dropdown button.
+	 * @param {Array.<module:ui/dropdown/utils~ListDropdownItemDefinition>} options The list of options for the dropdown.
+	 * @param {module:utils/locale~Locale} locale
+	 * @returns {module:ui/dropdown/dropdownview~DropdownView}
+	 */
+	_prepareDropdown( label, icon, options, locale ) {
+		const editor = this.editor;
+
+		const dropdownView = Object(_ckeditor_ckeditor5_ui_src_dropdown_utils__WEBPACK_IMPORTED_MODULE_1__["createDropdown"])( locale );
+		const commands = [];
+
+		// Prepare dropdown list items for list dropdown.
+		const itemDefinitions = new _ckeditor_ckeditor5_utils_src_collection__WEBPACK_IMPORTED_MODULE_3__["default"]();
+
+		for ( const option of options ) {
+			addListOption( option, editor, commands, itemDefinitions );
+		}
+
+		Object(_ckeditor_ckeditor5_ui_src_dropdown_utils__WEBPACK_IMPORTED_MODULE_1__["addListToDropdown"])( dropdownView, itemDefinitions );
+
+		// Decorate dropdown's button.
+		dropdownView.buttonView.set( {
+			label,
+			icon,
+			tooltip: true
+		} );
+
+		// Make dropdown button disabled when all options are disabled.
+		dropdownView.bind( 'isEnabled' ).toMany( commands, 'isEnabled', ( ...areEnabled ) => {
+			return areEnabled.some( isEnabled => isEnabled );
+		} );
+
+		this.listenTo( dropdownView, 'execute', evt => {
+			editor.execute( evt.source.commandName );
+			editor.editing.view.focus();
+		} );
+
+		return dropdownView;
+	}
+}
+
+// Adds an option to a list view.
+//
+// @param {module:table/tableui~DropdownOption} option Configuration option.
+// @param {module:core/editor/editor~Editor} editor
+// @param {Array.<module:core/command~Command>} commands List of commands to update.
+// @param {Iterable.<module:ui/dropdown/utils~ListDropdownItemDefinition>} itemDefinitions
+// Collection of dropdown items to update with given option.
+function addListOption( option, editor, commands, itemDefinitions ) {
+	const model = option.model = new _ckeditor_ckeditor5_ui_src_model__WEBPACK_IMPORTED_MODULE_2__["default"]( option.model );
+	const { commandName, bindIsOn } = option.model;
+
+	if ( option.type !== 'separator' ) {
+		const command = editor.commands.get( commandName );
+
+		commands.push( command );
+
+		model.set( { commandName } );
+
+		model.bind( 'isEnabled' ).to( command );
+
+		if ( bindIsOn ) {
+			model.bind( 'isOn' ).to( command, 'value' );
+		}
+	}
+
+	model.set( {
+		withText: true
+	} );
+
+	itemDefinitions.add( option );
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/src/tableutils.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/src/tableutils.js ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TableUtils; });
+/* harmony import */ var _ckeditor_ckeditor5_core_src_plugin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-core/src/plugin */ "./node_modules/@ckeditor/ckeditor5-core/src/plugin.js");
+/* harmony import */ var _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ckeditor/ckeditor5-engine/src/model/position */ "./node_modules/@ckeditor/ckeditor5-engine/src/model/position.js");
+/* harmony import */ var _tablewalker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tablewalker */ "./node_modules/@ckeditor/ckeditor5-table/src/tablewalker.js");
+/* harmony import */ var _commands_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./commands/utils */ "./node_modules/@ckeditor/ckeditor5-table/src/commands/utils.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module table/tableutils
+ */
+
+
+
+
+
+
+
+/**
+ * The table utilities plugin.
+ *
+ * @extends module:core/plugin~Plugin
+ */
+class TableUtils extends _ckeditor_ckeditor5_core_src_plugin__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * @inheritDoc
+	 */
+	static get pluginName() {
+		return 'TableUtils';
+	}
+
+	/**
+	 * Returns the table cell location as an object with table row and table column indexes.
+	 *
+	 * For instance in the table below:
+	 *
+	 *		    0   1   2   3
+	 *		  +---+---+---+---+
+	 *		0 | a     | b | c |
+	 *		  +       +   +---+
+	 *		1 |       |   | d |
+	 *		  +---+---+   +---+
+	 *		2 | e     |   | f |
+	 *		  +---+---+---+---+
+	 *
+	 * the method will return:
+	 *
+	 *		const cellA = table.getNodeByPath( [ 0, 0 ] );
+	 *		editor.plugins.get( 'TableUtils' ).getCellLocation( cellA );
+	 *		// will return { row: 0, column: 0 }
+	 *
+	 *		const cellD = table.getNodeByPath( [ 1, 0 ] );
+	 *		editor.plugins.get( 'TableUtils' ).getCellLocation( cellD );
+	 *		// will return { row: 1, column: 3 }
+	 *
+	 * @param {module:engine/model/element~Element} tableCell
+	 * @returns {Object} Returns a `{row, column}` object.
+	 */
+	getCellLocation( tableCell ) {
+		const tableRow = tableCell.parent;
+		const table = tableRow.parent;
+
+		const rowIndex = table.getChildIndex( tableRow );
+
+		const tableWalker = new _tablewalker__WEBPACK_IMPORTED_MODULE_2__["default"]( table, { startRow: rowIndex, endRow: rowIndex } );
+
+		for ( const { cell, row, column } of tableWalker ) {
+			if ( cell === tableCell ) {
+				return { row, column };
+			}
+		}
+	}
+
+	/**
+	 * Creates an empty table with proper structure. The table needs to be inserted into the model,
+	 * ie. using {@link module:engine/model/model~Model#insertContent} function.
+	 *
+	 *		model.change( ( writer ) => {
+	 *			// Create a table of 2 rows and 7 columns:
+	 *			const table = tableUtils.createTable( writer, 2, 7);
+	 *
+	 *			// Insert table to the model at the best position taking current selection:
+	 *			model.insertContent( table );
+	 *		}
+	 *
+	 * @param {module:engine/model/writer~Writer} writer The model writer.
+	 * @param {Number} rows The number of rows to create.
+	 * @param {Number} columns The number of columns to create.
+	 * @returns {module:engine/model/element~Element} The created table element.
+	 */
+	createTable( writer, rows, columns ) {
+		const table = writer.createElement( 'table' );
+
+		createEmptyRows( writer, table, 0, rows, columns );
+
+		return table;
+	}
+
+	/**
+	 * Inserts rows into a table.
+	 *
+	 *		editor.plugins.get( 'TableUtils' ).insertRows( table, { at: 1, rows: 2 } );
+	 *
+	 * Assuming the table on the left, the above code will transform it to the table on the right:
+	 *
+	 *		row index
+	 *		  0 +---+---+---+       `at` = 1,      +---+---+---+ 0
+	 *		    | a | b | c |       `rows` = 2,    | a | b | c |
+	 *		  1 +   +---+---+   <-- insert here    +   +---+---+ 1
+	 *		    |   | d | e |                      |   |   |   |
+	 *		  2 +   +---+---+       will give:     +   +---+---+ 2
+	 *		    |   | f | g |                      |   |   |   |
+	 *		  3 +---+---+---+                      +   +---+---+ 3
+	 *		                                       |   | d | e |
+	 *		                                       +---+---+---+ 4
+	 *		                                       +   + f | g |
+	 *		                                       +---+---+---+ 5
+	 *
+	 * @param {module:engine/model/element~Element} table The table model element where the rows will be inserted.
+	 * @param {Object} options
+	 * @param {Number} [options.at=0] Row index at which the rows will be inserted.
+	 * @param {Number} [options.rows=1] The number of rows to insert.
+	 */
+	insertRows( table, options = {} ) {
+		const model = this.editor.model;
+
+		const insertAt = options.at || 0;
+		const rowsToInsert = options.rows || 1;
+
+		model.change( writer => {
+			const headingRows = table.getAttribute( 'headingRows' ) || 0;
+
+			// Inserting rows inside heading section requires to update `headingRows` attribute as the heading section will grow.
+			if ( headingRows > insertAt ) {
+				writer.setAttribute( 'headingRows', headingRows + rowsToInsert, table );
+			}
+
+			// Inserting at the end and at the beginning of a table doesn't require to calculate anything special.
+			if ( insertAt === 0 || insertAt === table.childCount ) {
+				createEmptyRows( writer, table, insertAt, rowsToInsert, this.getColumns( table ) );
+
+				return;
+			}
+
+			// Iterate over all rows above inserted rows in order to check for rowspanned cells.
+			const tableIterator = new _tablewalker__WEBPACK_IMPORTED_MODULE_2__["default"]( table, { endRow: insertAt } );
+
+			// Will hold number of cells needed to insert in created rows.
+			// The number might be different then table cell width when there are rowspanned cells.
+			let cellsToInsert = 0;
+
+			for ( const { row, rowspan, colspan, cell } of tableIterator ) {
+				const isBeforeInsertedRow = row < insertAt;
+				const overlapsInsertedRow = row + rowspan > insertAt;
+
+				if ( isBeforeInsertedRow && overlapsInsertedRow ) {
+					// This cell overlaps inserted rows so we need to expand it further.
+					writer.setAttribute( 'rowspan', rowspan + rowsToInsert, cell );
+				}
+
+				// Calculate how many cells to insert based on the width of cells in a row at insert position.
+				// It might be lower then table width as some cells might overlaps inserted row.
+				// In the table above the cell 'a' overlaps inserted row so only two empty cells are need to be created.
+				if ( row === insertAt ) {
+					cellsToInsert += colspan;
+				}
+			}
+
+			createEmptyRows( writer, table, insertAt, rowsToInsert, cellsToInsert );
+		} );
+	}
+
+	/**
+	 * Inserts columns into a table.
+	 *
+	 *		editor.plugins.get( 'TableUtils' ).insertColumns( table, { at: 1, columns: 2 } );
+	 *
+	 * Assuming the table on the left, the above code will transform it to the table on the right:
+	 *
+	 *		0   1   2   3                   0   1   2   3   4   5
+	 *		+---+---+---+                   +---+---+---+---+---+
+	 *		| a     | b |                   | a             | b |
+	 *		+       +---+                   +               +---+
+	 *		|       | c |                   |               | c |
+	 *		+---+---+---+     will give:    +---+---+---+---+---+
+	 *		| d | e | f |                   | d |   |   | e | f |
+	 *		+---+   +---+                   +---+---+---+  +---+
+	 *		| g |   | h |                   | g |   |   |   | h |
+	 *		+---+---+---+                   +---+---+---+---+---+
+	 *		| i         |                   | i                 |
+	 *		+---+---+---+                   +---+---+---+---+---+
+	 *		    ^---- insert here, `at` = 1, `columns` = 2
+	 *
+	 * @param {module:engine/model/element~Element} table The table model element where the columns will be inserted.
+	 * @param {Object} options
+	 * @param {Number} [options.at=0] Column index at which the columns will be inserted.
+	 * @param {Number} [options.columns=1] The number of columns to insert.
+	 */
+	insertColumns( table, options = {} ) {
+		const model = this.editor.model;
+
+		const insertAt = options.at || 0;
+		const columnsToInsert = options.columns || 1;
+
+		model.change( writer => {
+			const headingColumns = table.getAttribute( 'headingColumns' );
+
+			// Inserting columns inside heading section requires to update `headingColumns` attribute as the heading section will grow.
+			if ( insertAt < headingColumns ) {
+				writer.setAttribute( 'headingColumns', headingColumns + columnsToInsert, table );
+			}
+
+			const tableColumns = this.getColumns( table );
+
+			// Inserting at the end and at the beginning of a table doesn't require to calculate anything special.
+			if ( insertAt === 0 || tableColumns === insertAt ) {
+				for ( const tableRow of table.getChildren() ) {
+					createCells( columnsToInsert, writer, _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_1__["default"].createAt( tableRow, insertAt ? 'end' : 0 ) );
+				}
+
+				return;
+			}
+
+			const tableWalker = new _tablewalker__WEBPACK_IMPORTED_MODULE_2__["default"]( table, { column: insertAt, includeSpanned: true } );
+
+			for ( const { row, column, cell, colspan, rowspan, cellIndex } of tableWalker ) {
+				// When iterating over column the table walker outputs either:
+				// - cells at given column index (cell "e" from method docs),
+				// - spanned columns (spanned cell from row between cells "g" and "h" - spanned by "e", only if `includeSpanned: true`),
+				// - or a cell from the same row which spans over this column (cell "a").
+
+				if ( column !== insertAt ) {
+					// If column is different than `insertAt`, it is a cell that spans over an inserted column (cell "a" & "i").
+					// For such cells expand them by a number of columns inserted.
+					writer.setAttribute( 'colspan', colspan + columnsToInsert, cell );
+
+					// The `includeSpanned` option will output the "empty"/spanned column so skip this row already.
+					tableWalker.skipRow( row );
+
+					// This cell will overlap cells in rows below so skip them also (because of `includeSpanned` option) - (cell "a")
+					if ( rowspan > 1 ) {
+						for ( let i = row + 1; i < row + rowspan; i++ ) {
+							tableWalker.skipRow( i );
+						}
+					}
+				} else {
+					// It's either cell at this column index or spanned cell by a rowspanned cell from row above.
+					// In table above it's cell "e" and a spanned position from row below (empty cell between cells "g" and "h")
+					const insertPosition = _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_1__["default"].createFromParentAndOffset( table.getChild( row ), cellIndex );
+
+					createCells( columnsToInsert, writer, insertPosition );
+				}
+			}
+		} );
+	}
+
+	/**
+	 * Divides a table cell vertically into several ones.
+	 *
+	 * The cell will be visually split into more cells by updating colspans of other cells in a column
+	 * and inserting cells (columns) after that cell.
+	 *
+	 * In the table below, if cell "a" is split to 3 cells:
+	 *
+	 *		+---+---+---+
+	 *		| a | b | c |
+	 *		+---+---+---+
+	 *		| d | e | f |
+	 *		+---+---+---+
+	 *
+	 * it will result in the table below:
+	 *
+	 *		+---+---+---+---+---+
+	 *		| a |   |   | b | c |
+	 *		+---+---+---+---+---+
+	 *		| d         | e | f |
+	 *		+---+---+---+---+---+
+	 *
+	 * So cell "d" will get its `colspan` updated to `3` and 2 cells will be added (2 columns will be created).
+	 *
+	 * Splitting a cell that already has a `colspan` attribute set will distribute the cell `colspan` evenly and the remainder
+	 * will be left to the original cell:
+	 *
+	 *		+---+---+---+
+	 *		| a         |
+	 *		+---+---+---+
+	 *		| b | c | d |
+	 *		+---+---+---+
+	 *
+	 * Splitting cell "a" with `colspan=3` to 2 cells will create 1 cell with a `colspan=a` and cell "a" that will have `colspan=2`:
+	 *
+	 *		+---+---+---+
+	 *		| a     |   |
+	 *		+---+---+---+
+	 *		| b | c | d |
+	 *		+---+---+---+
+	 *
+	 * @param {module:engine/model/element~Element} tableCell
+	 * @param {Number} numberOfCells
+	 */
+	splitCellVertically( tableCell, numberOfCells = 2 ) {
+		const model = this.editor.model;
+		const tableRow = tableCell.parent;
+		const table = tableRow.parent;
+
+		const rowspan = parseInt( tableCell.getAttribute( 'rowspan' ) || 1 );
+		const colspan = parseInt( tableCell.getAttribute( 'colspan' ) || 1 );
+
+		model.change( writer => {
+			// First check - the cell spans over multiple rows so before doing anything else just split this cell.
+			if ( colspan > 1 ) {
+				// Get spans of new (inserted) cells and span to update of split cell.
+				const { newCellsSpan, updatedSpan } = breakSpanEvenly( colspan, numberOfCells );
+
+				Object(_commands_utils__WEBPACK_IMPORTED_MODULE_3__["updateNumericAttribute"])( 'colspan', updatedSpan, tableCell, writer );
+
+				// Each inserted cell will have the same attributes:
+				const newCellsAttributes = {};
+
+				// Do not store default value in the model.
+				if ( newCellsSpan > 1 ) {
+					newCellsAttributes.colspan = newCellsSpan;
+				}
+
+				// Copy rowspan of split cell.
+				if ( rowspan > 1 ) {
+					newCellsAttributes.rowspan = rowspan;
+				}
+
+				const cellsToInsert = colspan > numberOfCells ? numberOfCells - 1 : colspan - 1;
+				createCells( cellsToInsert, writer, _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_1__["default"].createAfter( tableCell ), newCellsAttributes );
+			}
+
+			// Second check - the cell has colspan of 1 or we need to create more cells then the currently one spans over.
+			if ( colspan < numberOfCells ) {
+				const cellsToInsert = numberOfCells - colspan;
+
+				// First step: expand cells on the same column as split cell.
+				const tableMap = [ ...new _tablewalker__WEBPACK_IMPORTED_MODULE_2__["default"]( table ) ];
+
+				// Get the column index of split cell.
+				const { column: splitCellColumn } = tableMap.find( ( { cell } ) => cell === tableCell );
+
+				// Find cells which needs to be expanded vertically - those on the same column or those that spans over split cell's column.
+				const cellsToUpdate = tableMap.filter( ( { cell, colspan, column } ) => {
+					const isOnSameColumn = cell !== tableCell && column === splitCellColumn;
+					const spansOverColumn = ( column < splitCellColumn && column + colspan > splitCellColumn );
+
+					return isOnSameColumn || spansOverColumn;
+				} );
+
+				// Expand cells vertically.
+				for ( const { cell, colspan } of cellsToUpdate ) {
+					writer.setAttribute( 'colspan', colspan + cellsToInsert, cell );
+				}
+
+				// Second step: create columns after split cell.
+
+				// Each inserted cell will have the same attributes:
+				const newCellsAttributes = {};
+
+				// Do not store default value in the model.
+
+				// Copy rowspan of split cell.
+				if ( rowspan > 1 ) {
+					newCellsAttributes.rowspan = rowspan;
+				}
+
+				createCells( cellsToInsert, writer, _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_1__["default"].createAfter( tableCell ), newCellsAttributes );
+
+				const headingColumns = table.getAttribute( 'headingColumns' ) || 0;
+
+				// Update heading section if split cell is in heading section.
+				if ( headingColumns > splitCellColumn ) {
+					Object(_commands_utils__WEBPACK_IMPORTED_MODULE_3__["updateNumericAttribute"])( 'headingColumns', headingColumns + cellsToInsert, table, writer );
+				}
+			}
+		} );
+	}
+
+	/**
+	 * Divides a table cell horizontally into several ones.
+	 *
+	 * The cell will be visually split into more cells by updating rowspans of other cells in the row and inserting rows with a single cell
+	 * below.
+	 *
+	 * If in the table below cell "b" is split to 3 cells:
+	 *
+	 *		+---+---+---+
+	 *		| a | b | c |
+	 *		+---+---+---+
+	 *		| d | e | f |
+	 *		+---+---+---+
+	 *
+	 * It will result in the table below:
+	 *
+	 *		+---+---+---+
+	 *		| a | b | c |
+	 *		+   +---+   +
+	 *		|   |   |   |
+	 *		+   +---+   +
+	 *		|   |   |   |
+	 *		+---+---+---+
+	 *		| d | e | f |
+	 *		+---+---+---+
+	 *
+	 * So cells "a" and "b" will get their `rowspan` updated to `3` and 2 rows with a single cell will be added.
+	 *
+	 * Splitting a cell that already has a `rowspan` attribute set will distribute the cell `rowspan` evenly and the remainder
+	 * will be left to the original cell:
+	 *
+	 *		+---+---+---+
+	 *		| a | b | c |
+	 *		+   +---+---+
+	 *		|   | d | e |
+	 *		+   +---+---+
+	 *		|   | f | g |
+	 *		+   +---+---+
+	 *		|   | h | i |
+	 *		+---+---+---+
+	 *
+	 * Splitting cell "a" with `rowspan=4` to 3 cells will create 2 cells with a `rowspan=1` and cell "a" will have `rowspan=2`:
+	 *
+	 *		+---+---+---+
+	 *		| a | b | c |
+	 *		+   +---+---+
+	 *		|   | d | e |
+	 *		+---+---+---+
+	 *		|   | f | g |
+	 *		+---+---+---+
+	 *		|   | h | i |
+	 *		+---+---+---+
+	 *
+	 * @param {module:engine/model/element~Element} tableCell
+	 * @param {Number} numberOfCells
+	 */
+	splitCellHorizontally( tableCell, numberOfCells = 2 ) {
+		const model = this.editor.model;
+
+		const tableRow = tableCell.parent;
+		const table = tableRow.parent;
+		const splitCellRow = table.getChildIndex( tableRow );
+
+		const rowspan = parseInt( tableCell.getAttribute( 'rowspan' ) || 1 );
+		const colspan = parseInt( tableCell.getAttribute( 'colspan' ) || 1 );
+
+		model.change( writer => {
+			// First check - the cell spans over multiple rows so before doing anything else just split this cell.
+			if ( rowspan > 1 ) {
+				// Cache table map before updating table.
+				const tableMap = [ ...new _tablewalker__WEBPACK_IMPORTED_MODULE_2__["default"]( table, {
+					startRow: splitCellRow,
+					endRow: splitCellRow + rowspan - 1,
+					includeSpanned: true
+				} ) ];
+
+				// Get spans of new (inserted) cells and span to update of split cell.
+				const { newCellsSpan, updatedSpan } = breakSpanEvenly( rowspan, numberOfCells );
+
+				Object(_commands_utils__WEBPACK_IMPORTED_MODULE_3__["updateNumericAttribute"])( 'rowspan', updatedSpan, tableCell, writer );
+
+				const { column: cellColumn } = tableMap.find( ( { cell } ) => cell === tableCell );
+
+				// Each inserted cell will have the same attributes:
+				const newCellsAttributes = {};
+
+				// Do not store default value in the model.
+				if ( newCellsSpan > 1 ) {
+					newCellsAttributes.rowspan = newCellsSpan;
+				}
+
+				// Copy colspan of split cell.
+				if ( colspan > 1 ) {
+					newCellsAttributes.colspan = colspan;
+				}
+
+				for ( const { column, row, cellIndex } of tableMap ) {
+					// As both newly created cells and the split cell might have rowspan,
+					// the insertion of new cells must go to appropriate rows:
+					//
+					// 1. It's a row after split cell + it's height.
+					const isAfterSplitCell = row >= splitCellRow + updatedSpan;
+					// 2. Is on the same column.
+					const isOnSameColumn = column === cellColumn;
+					// 3. And it's row index is after previous cell height.
+					const isInEvenlySplitRow = ( row + splitCellRow + updatedSpan ) % newCellsSpan === 0;
+
+					if ( isAfterSplitCell && isOnSameColumn && isInEvenlySplitRow ) {
+						const position = _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_1__["default"].createFromParentAndOffset( table.getChild( row ), cellIndex );
+
+						createCells( 1, writer, position, newCellsAttributes );
+					}
+				}
+			}
+
+			// Second check - the cell has rowspan of 1 or we need to create more cells than the current cell spans over.
+			if ( rowspan < numberOfCells ) {
+				// We already split the cell in check one so here we split to the remaining number of cells only.
+				const cellsToInsert = numberOfCells - rowspan;
+
+				// This check is needed since we need to check if there are any cells from previous rows than spans over this cell's row.
+				const tableMap = [ ...new _tablewalker__WEBPACK_IMPORTED_MODULE_2__["default"]( table, { startRow: 0, endRow: splitCellRow } ) ];
+
+				// First step: expand cells.
+				for ( const { cell, rowspan, row } of tableMap ) {
+					// Expand rowspan of cells that are either:
+					// - on the same row as current cell,
+					// - or are below split cell row and overlaps that row.
+					if ( cell !== tableCell && row + rowspan > splitCellRow ) {
+						const rowspanToSet = rowspan + cellsToInsert;
+
+						writer.setAttribute( 'rowspan', rowspanToSet, cell );
+					}
+				}
+
+				// Second step: create rows with single cell below split cell.
+				const newCellsAttributes = {};
+
+				// Copy colspan of split cell.
+				if ( colspan > 1 ) {
+					newCellsAttributes.colspan = colspan;
+				}
+
+				createEmptyRows( writer, table, splitCellRow + 1, cellsToInsert, 1, newCellsAttributes );
+
+				// Update heading section if split cell is in heading section.
+				const headingRows = table.getAttribute( 'headingRows' ) || 0;
+
+				if ( headingRows > splitCellRow ) {
+					Object(_commands_utils__WEBPACK_IMPORTED_MODULE_3__["updateNumericAttribute"])( 'headingRows', headingRows + cellsToInsert, table, writer );
+				}
+			}
+		} );
+	}
+
+	/**
+	 * Returns the number of columns for a given table.
+	 *
+	 *		editor.plugins.get( 'TableUtils' ).getColumns( table );
+	 *
+	 * @param {module:engine/model/element~Element} table The table to analyze.
+	 * @returns {Number}
+	 */
+	getColumns( table ) {
+		// Analyze first row only as all the rows should have the same width.
+		const row = table.getChild( 0 );
+
+		return [ ...row.getChildren() ].reduce( ( columns, row ) => {
+			const columnWidth = parseInt( row.getAttribute( 'colspan' ) || 1 );
+
+			return columns + columnWidth;
+		}, 0 );
+	}
+}
+
+// Creates empty rows at the given index in an existing table.
+//
+// @param {module:engine/model/writer~Writer} writer
+// @param {module:engine/model/element~Element} table
+// @param {Number} insertAt Row index of row insertion.
+// @param {Number} rows Number of rows to create.
+// @param {Number} tableCellToInsert Number of cells to insert in each row.
+function createEmptyRows( writer, table, insertAt, rows, tableCellToInsert, attributes = {} ) {
+	for ( let i = 0; i < rows; i++ ) {
+		const tableRow = writer.createElement( 'tableRow' );
+
+		writer.insert( tableRow, table, insertAt );
+
+		createCells( tableCellToInsert, writer, _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_1__["default"].createAt( tableRow, 'end' ), attributes );
+	}
+}
+
+// Creates cells at a given position.
+//
+// @param {Number} columns Number of columns to create
+// @param {module:engine/model/writer~Writer} writer
+// @param {module:engine/model/position~Position} insertPosition
+function createCells( cells, writer, insertPosition, attributes = {} ) {
+	for ( let i = 0; i < cells; i++ ) {
+		Object(_commands_utils__WEBPACK_IMPORTED_MODULE_3__["createEmptyTableCell"])( writer, insertPosition, attributes );
+	}
+}
+
+// Evenly distributes the span of a cell to a number of provided cells.
+// The resulting spans will always be integer values.
+//
+// For instance breaking a span of 7 into 3 cells will return:
+//
+//		{ newCellsSpan: 2, updatedSpan: 3 }
+//
+// as two cells will have a span of 2 and the remainder will go the first cell so its span will change to 3.
+//
+// @param {Number} span Span value do break.
+// @param {Number} numberOfCells Number of resulting spans.
+// @returns {{newCellsSpan: Number, updatedSpan: Number}}
+function breakSpanEvenly( span, numberOfCells ) {
+	if ( span < numberOfCells ) {
+		return { newCellsSpan: 1, updatedSpan: 1 };
+	}
+
+	const newCellsSpan = Math.floor( span / numberOfCells );
+	const updatedSpan = ( span - newCellsSpan * numberOfCells ) + newCellsSpan;
+
+	return { newCellsSpan, updatedSpan };
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/src/tablewalker.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/src/tablewalker.js ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TableWalker; });
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module table/tablewalker
+ */
+
+/**
+ * Table iterator class. It allows to iterate over table cells. For each cell the iterator yields
+ * {@link module:table/tablewalker~TableWalkerValue} with proper table cell attributes.
+ */
+class TableWalker {
+	/**
+	 * Creates an instance of the table walker.
+	 *
+	 *
+	 * The table walker iterates internally by traversing the table from row index = 0 and column index = 0.
+	 * It walks row by row and column by column in order to output values defined in the constructor.
+	 * By default it will output only those locations that are occupied by a cell. To include also spanned rows and columns,
+	 * pass the `includeSpanned` option to the constructor.
+	 *
+	 * The most important values of the iterator are column and row indexes of a cell.
+	 *
+	 * To iterate over a given row:
+	 *
+	 *		const tableWalker = new TableWalker( table, { startRow: 1, endRow: 2 } );
+	 *
+	 *		for ( const cellInfo of tableWalker ) {
+	 *			console.log( 'A cell at row ' + cellInfo.row + ' and column ' + cellInfo.column );
+	 *		}
+	 *
+	 * For instance the code above for the following table:
+	 *
+	 *		+----+----+----+----+----+----+
+	 *		| 00      | 02 | 03      | 05 |
+	 *		|         +----+----+----+----+
+	 *		|         | 12      | 14 | 15 |
+	 *		|         +----+----+----+----+
+	 *		|         | 22                |
+	 *		|----+----+                   +
+	 *		| 31 | 32 |                   |
+	 *		+----+----+----+----+----+----+
+	 *
+	 * will log in the console:
+	 *
+	 *		'A cell at row 1 and column 2'
+	 *		'A cell at row 1 and column 4'
+	 *		'A cell at row 1 and column 5'
+	 *		'A cell at row 2 and column 2'
+	 *
+	 * To also iterate over spanned cells:
+	 *
+	 *		const tableWalker = new TableWalker( table, { startRow: 1, endRow: 1, includeSpanned: true } );
+	 *
+	 *		for ( const cellInfo of tableWalker ) {
+	 *			console.log( 'Cell at ' + cellInfo.row + ' x ' + cellInfo.column + ' : ' + ( cellInfo.cell ? 'has data' : 'is spanned' ) );
+	 *		}
+	 *
+	 * will log in the console for the table from previous example:
+	 *
+	 *		'Cell at 1 x 0 : is spanned'
+	 *		'Cell at 1 x 1 : is spanned'
+	 *		'Cell at 1 x 2 : has data'
+	 *		'Cell at 1 x 3 : is spanned'
+	 *		'Cell at 1 x 4 : has data'
+	 *		'Cell at 1 x 5 : has data'
+	 *
+	 * @constructor
+	 * @param {module:engine/model/element~Element} table A table over which the walker iterates.
+	 * @param {Object} [options={}] An object with configuration.
+	 * @param {Number} [options.column] A column index for which this iterator will output cells.
+	 * @param {Number} [options.startRow=0] A row index for which this iterator should start.
+	 * @param {Number} [options.endRow] A row index for which this iterator should end.
+	 * @param {Boolean} [options.includeSpanned] Also return values for spanned cells.
+	 */
+	constructor( table, options = {} ) {
+		/**
+		 * The walker's table element.
+		 *
+		 * @readonly
+		 * @member {module:engine/model/element~Element}
+		 */
+		this.table = table;
+
+		/**
+		 * A row index on which this iterator will start.
+		 *
+		 * @readonly
+		 * @member {Number}
+		 */
+		this.startRow = options.startRow || 0;
+
+		/**
+		 * A row index on which this iterator will end.
+		 *
+		 * @readonly
+		 * @member {Number}
+		 */
+		this.endRow = typeof options.endRow == 'number' ? options.endRow : undefined;
+
+		/**
+		 * Enables output of spanned cells that are normally not yielded.
+		 *
+		 * @readonly
+		 * @member {Boolean}
+		 */
+		this.includeSpanned = !!options.includeSpanned;
+
+		/**
+		 * If set, the table walker will only output cells of a given column or cells that overlap it.
+		 *
+		 * @readonly
+		 * @member {Number}
+		 */
+		this.column = typeof options.column == 'number' ? options.column : undefined;
+
+		/**
+		 * Row indexes to skip from the iteration.
+		 *
+		 * @readonly
+		 * @member {Set<Number>}
+		 * @private
+		 */
+		this._skipRows = new Set();
+
+		/**
+		 * The current row index.
+		 *
+		 * @readonly
+		 * @member {Number}
+		 * @private
+		 */
+		this._row = 0;
+
+		/**
+		 * The current column index.
+		 *
+		 * @readonly
+		 * @member {Number}
+		 * @private
+		 */
+		this._column = 0;
+
+		/**
+		 * The cell index in a parent row. For spanned cells when {@link #includeSpanned} is set to `true`,
+		 * this represents the index of the next table cell.
+		 *
+		 * @readonly
+		 * @member {Number}
+		 * @private
+		 */
+		this._cell = 0;
+
+		/**
+		 * Holds a map of spanned cells in a table.
+		 *
+		 * @readonly
+		 * @member {Map<Number, Map.<Number, Number>>}
+		 * @private
+		 */
+		this._spannedCells = new Map();
+	}
+
+	/**
+	 * Iterable interface.
+	 *
+	 * @returns {Iterable.<module:table/tablewalker~TableWalkerValue>}
+	 */
+	[ Symbol.iterator ]() {
+		return this;
+	}
+
+	/**
+	 * Gets the next table walker's value.
+	 *
+	 * @returns {module:table/tablewalker~TableWalkerValue} The next table walker's value.
+	 */
+	next() {
+		const row = this.table.getChild( this._row );
+
+		// Iterator is done when no row (table end) or the row is after #endRow.
+		if ( !row || this._isOverEndRow() ) {
+			return { done: true };
+		}
+
+		// Spanned cell location handling.
+		if ( this._isSpanned( this._row, this._column ) ) {
+			// Current column must be kept as it will be updated before returning current value.
+			const currentColumn = this._column;
+			const outValue = this._formatOutValue( undefined, currentColumn );
+
+			// Advance to next column - always.
+			this._column++;
+
+			const skipCurrentValue = !this.includeSpanned || this._shouldSkipRow() || this._shouldSkipColumn( currentColumn, 1 );
+
+			// The current value will be returned only if #includedSpanned=true and also current row and column are not skipped.
+			return skipCurrentValue ? this.next() : outValue;
+		}
+
+		// The cell location is not spanned by other cells.
+		const cell = row.getChild( this._cell );
+
+		if ( !cell ) {
+			// If there are no more cells left in row advance to next row.
+			this._row++;
+			// And reset column & cell indexes.
+			this._column = 0;
+			this._cell = 0;
+
+			// Return next value.
+			return this.next();
+		}
+
+		// Read table cell attributes.
+		const colspan = parseInt( cell.getAttribute( 'colspan' ) || 1 );
+		const rowspan = parseInt( cell.getAttribute( 'rowspan' ) || 1 );
+
+		// Record this cell spans if it's not 1x1 cell.
+		if ( colspan > 1 || rowspan > 1 ) {
+			this._recordSpans( this._row, this._column, rowspan, colspan );
+		}
+
+		// Current column must be kept as it will be updated before returning current value.
+		const currentColumn = this._column;
+		const outValue = this._formatOutValue( cell, currentColumn, rowspan, colspan );
+
+		// Advance to next column before returning value.
+		this._column++;
+
+		// Advance to next cell in a parent row before returning value.
+		this._cell++;
+
+		const skipCurrentValue = this._shouldSkipRow() || this._shouldSkipColumn( currentColumn, colspan );
+
+		// The current value will be returned only if current row & column are not skipped.
+		return skipCurrentValue ? this.next() : outValue;
+	}
+
+	/**
+	 * Marks a row to skip in the next iteration. It will also skip cells from the current row if there are any cells from the current row
+	 * to output.
+	 *
+	 * @param {Number} row Row index to skip.
+	 */
+	skipRow( row ) {
+		this._skipRows.add( row );
+	}
+
+	/**
+	 * Checks if the current row is over {@link #endRow}.
+	 *
+	 * @returns {Boolean}
+	 * @private
+	 */
+	_isOverEndRow() {
+		// If {@link #endRow) is defined skip all rows above it.
+		return this.endRow !== undefined && this._row > this.endRow;
+	}
+
+	/**
+	 * A common method for formatting the iterator's output value.
+	 *
+	 * @param {module:engine/model/element~Element|undefined} cell The table cell to output. It might be undefined for spanned cell
+	 * locations.
+	 * @param {Number} column Column index (use the cached value)
+	 * @param {Number} rowspan Rowspan of the current cell.
+	 * @param {Number} colspan Colspan of the current cell.
+	 * @returns {{done: boolean, value: {cell: *, row: Number, column: *, rowspan: *, colspan: *, cellIndex: Number}}}
+	 * @private
+	 */
+	_formatOutValue( cell, column, rowspan = 1, colspan = 1 ) {
+		return {
+			done: false,
+			value: {
+				cell,
+				row: this._row,
+				column,
+				rowspan,
+				colspan,
+				cellIndex: this._cell
+			}
+		};
+	}
+
+	/**
+	 * Checks if the current row should be skipped.
+	 *
+	 * @returns {Boolean}
+	 * @private
+	 */
+	_shouldSkipRow() {
+		const rowIsBelowStartRow = this._row < this.startRow;
+		const rowIsMarkedAsSkipped = this._skipRows.has( this._row );
+
+		return rowIsBelowStartRow || rowIsMarkedAsSkipped;
+	}
+
+	/**
+	 * Checks if the current column should be skipped.
+	 *
+	 * @param {Number} column
+	 * @param {Number} colspan
+	 * @returns {Boolean}
+	 * @private
+	 */
+	_shouldSkipColumn( column, colspan ) {
+		if ( this.column === undefined ) {
+			// The {@link #column} is not defined so output all columns.
+			return false;
+		}
+
+		// When outputting cells from given column we skip:
+		// - Cells that are not on that column.
+		const isCurrentColumn = column === this.column;
+		// - CSells that are before given column and they overlaps given column.
+		const isPreviousThatOverlapsColumn = column < this.column && column + colspan > this.column;
+
+		return !isCurrentColumn && !isPreviousThatOverlapsColumn;
+	}
+
+	/**
+	 * Checks if the current cell location (row x column) is spanned by another cell.
+	 *
+	 * @param {Number} row Row index of a cell location to check.
+	 * @param {Number} column Column index of a cell location to check.
+	 * @returns {Boolean}
+	 * @private
+	 */
+	_isSpanned( row, column ) {
+		if ( !this._spannedCells.has( row ) ) {
+			// No spans for given row.
+			return false;
+		}
+
+		const rowSpans = this._spannedCells.get( row );
+
+		// If spans for given rows has entry for column it means that this location if spanned by other cell.
+		return rowSpans.has( column );
+	}
+
+	/**
+	 * Updates spanned cells map relative to the current cell location and its span dimensions.
+	 *
+	 * @param {Number} row Row index of a cell.
+	 * @param {Number} column Column index of a cell.
+	 * @param {Number} rowspan Cell height.
+	 * @param {Number} colspan Cell width.
+	 * @private
+	 */
+	_recordSpans( row, column, rowspan, colspan ) {
+		// This will update all cell locations after current column - ie a cell has colspan set.
+		for ( let columnToUpdate = column + 1; columnToUpdate <= column + colspan - 1; columnToUpdate++ ) {
+			this._markSpannedCell( row, columnToUpdate );
+		}
+
+		// This will update all rows below current up to row's height.
+		for ( let rowToUpdate = row + 1; rowToUpdate < row + rowspan; rowToUpdate++ ) {
+			for ( let columnToUpdate = column; columnToUpdate <= column + colspan - 1; columnToUpdate++ ) {
+				this._markSpannedCell( rowToUpdate, columnToUpdate );
+			}
+		}
+	}
+
+	/**
+	 * Marks the cell location as spanned by another cell.
+	 *
+	 * @param {Number} row Row index of the cell location.
+	 * @param {Number} column Column index of the cell location.
+	 * @private
+	 */
+	_markSpannedCell( row, column ) {
+		if ( !this._spannedCells.has( row ) ) {
+			this._spannedCells.set( row, new Map() );
+		}
+
+		const rowSpans = this._spannedCells.get( row );
+
+		rowSpans.set( column, true );
+	}
+}
+
+/**
+ * An object returned by {@link module:table/tablewalker~TableWalker} when traversing table cells.
+ *
+ * @typedef {Object} module:table/tablewalker~TableWalkerValue
+ * @property {module:engine/model/element~Element} [cell] The current table cell. Might be empty if
+ * {@link module:table/tablewalker~TableWalker#includeSpanned} is set to `true`.
+ * @property {Number} row The row index of a cell.
+ * @property {Number} column The column index of a cell. Column index is adjusted to widths and heights of previous cells.
+ * @property {Number} [colspan] The `colspan` attribute of a cell. It is always defined even if the model attribute is not present. Not
+ * set if {@link module:table/tablewalker~TableWalker#includeSpanned} is set to `true`.
+ * @property {Number} [rowspan] The `rowspan` attribute of a cell. It is always defined even if the model attribute is not present. Not
+ * set if {@link module:table/tablewalker~TableWalker#includeSpanned} is set to `true`.
+ * @property {Number} cellIndex The index of the current cell in a parent row. When using the `includeSpanned` option it will indicate the
+ * next child index if #cell is empty (which indicates that the cell is spanned by another cell).
+ */
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/src/ui/inserttableview.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/src/ui/inserttableview.js ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return InsertTableView; });
+/* harmony import */ var _ckeditor_ckeditor5_ui_src_view__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-ui/src/view */ "./node_modules/@ckeditor/ckeditor5-ui/src/view.js");
+/* harmony import */ var _theme_inserttable_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../theme/inserttable.css */ "./node_modules/@ckeditor/ckeditor5-table/theme/inserttable.css");
+/* harmony import */ var _theme_inserttable_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_theme_inserttable_css__WEBPACK_IMPORTED_MODULE_1__);
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module table/ui/inserttableview
+ */
+
+
+
+
+
+/**
+ * The table size view.
+ *
+ * It renders a 10x10 grid to choose the inserted table size.
+ *
+ * @extends module:ui/view~View
+ * @implements module:ui/dropdown/dropdownpanelfocusable~DropdownPanelFocusable
+ */
+class InsertTableView extends _ckeditor_ckeditor5_ui_src_view__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * @inheritDoc
+	 */
+	constructor( locale ) {
+		super( locale );
+
+		const bind = this.bindTemplate;
+
+		/**
+		 * A collection of table size box items.
+		 *
+		 * @readonly
+		 * @member {module:ui/viewcollection~ViewCollection}
+		 */
+		this.items = this.createCollection();
+
+		/**
+		 * The currently selected number of rows of the new table.
+		 *
+		 * @observable
+		 * @member {Number} #rows
+		 */
+		this.set( 'rows', 0 );
+
+		/**
+		 * The currently selected number of columns of the new table.
+		 *
+		 * @observable
+		 * @member {Number} #columns
+		 */
+		this.set( 'columns', 0 );
+
+		/**
+		 * The label text displayed under the boxes.
+		 *
+		 * @observable
+		 * @member {String} #label
+		 */
+		this.bind( 'label' )
+			.to( this, 'columns', this, 'rows', ( columns, rows ) => `${ rows } x ${ columns }` );
+
+		this.setTemplate( {
+			tag: 'div',
+			attributes: {
+				class: [ 'ck' ]
+			},
+
+			children: [
+				{
+					tag: 'div',
+					attributes: {
+						class: [ 'ck-insert-table-dropdown__grid' ]
+					},
+					children: this.items
+				},
+				{
+					tag: 'div',
+					attributes: {
+						class: [ 'ck-insert-table-dropdown__label' ]
+					},
+					children: [
+						{
+							text: bind.to( 'label' )
+						}
+					]
+				}
+			],
+
+			on: {
+				mousedown: bind.to( evt => {
+					evt.preventDefault();
+				} ),
+
+				click: bind.to( () => {
+					this.fire( 'execute' );
+				} )
+			}
+		} );
+
+		// Add grid boxes to table selection view.
+		for ( let index = 0; index < 100; index++ ) {
+			const boxView = new TableSizeGridBoxView();
+
+			// Listen to box view 'over' event which indicates that mouse is over this box.
+			boxView.on( 'over', () => {
+				// Translate box index to the row & column index.
+				const row = Math.floor( index / 10 );
+				const column = index % 10;
+
+				// As row & column indexes are zero-based transform it to number of selected rows & columns.
+				this.set( 'rows', row + 1 );
+				this.set( 'columns', column + 1 );
+			} );
+
+			this.items.add( boxView );
+		}
+
+		this.on( 'change:columns', () => {
+			this._highlightGridBoxes();
+		} );
+
+		this.on( 'change:rows', () => {
+			this._highlightGridBoxes();
+		} );
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	focus() {
+		// The dropdown panel expects DropdownPanelFocusable interface on views passed to dropdown panel. See #30.
+		// The method should be implemented while working on keyboard support for this view. See #22.
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	focusLast() {
+		// The dropdown panel expects DropdownPanelFocusable interface on views passed to dropdown panel. See #30.
+		// The method should be implemented while working on keyboard support for this view. See #22.
+	}
+
+	/**
+	 * Highlights grid boxes depending on rows and columns selected.
+	 *
+	 * @private
+	 */
+	_highlightGridBoxes() {
+		const rows = this.rows;
+		const columns = this.columns;
+
+		this.items.map( ( boxView, index ) => {
+			// Translate box index to the row & column index.
+			const itemRow = Math.floor( index / 10 );
+			const itemColumn = index % 10;
+
+			// Grid box is highlighted when its row & column index belongs to selected number of rows & columns.
+			const isOn = itemRow < rows && itemColumn < columns;
+
+			boxView.set( 'isOn', isOn );
+		} );
+	}
+}
+
+/**
+ * A single grid box view element.
+ *
+ * This class is used to render the table size selection grid in {@link module:table/ui/inserttableview~InsertTableView}.
+ *
+ * @private
+ */
+class TableSizeGridBoxView extends _ckeditor_ckeditor5_ui_src_view__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * @inheritDoc
+	 */
+	constructor( locale ) {
+		super( locale );
+
+		const bind = this.bindTemplate;
+
+		/**
+		 * Controls whether the grid box view is "on".
+		 *
+		 * @observable
+		 * @member {Boolean} #isOn
+		 */
+		this.set( 'isOn', false );
+
+		this.setTemplate( {
+			tag: 'div',
+			attributes: {
+				class: [
+					'ck-insert-table-dropdown-grid-box',
+					bind.if( 'isOn', 'ck-on' )
+				]
+			},
+			on: {
+				mouseover: bind.to( 'over' )
+			}
+		} );
+	}
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/src/utils.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/src/utils.js ***!
+  \*************************************************************/
+/*! exports provided: toTableWidget, isTableWidget, isTableWidgetSelected, isTableContentSelected */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toTableWidget", function() { return toTableWidget; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isTableWidget", function() { return isTableWidget; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isTableWidgetSelected", function() { return isTableWidgetSelected; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isTableContentSelected", function() { return isTableContentSelected; });
+/* harmony import */ var _ckeditor_ckeditor5_widget_src_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-widget/src/utils */ "./node_modules/@ckeditor/ckeditor5-widget/src/utils.js");
+/* harmony import */ var _commands_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./commands/utils */ "./node_modules/@ckeditor/ckeditor5-table/src/commands/utils.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module table/utils
+ */
+
+
+
+
+const tableSymbol = Symbol( 'isTable' );
+
+/**
+ * Converts a given {@link module:engine/view/element~Element} to a table widget:
+ * * Adds a {@link module:engine/view/element~Element#_setCustomProperty custom property} allowing to recognize the table widget element.
+ * * Calls the {@link module:widget/utils~toWidget} function with the proper element's label creator.
+ *
+ * @param {module:engine/view/element~Element} viewElement
+ * @param {module:engine/view/downcastwriter~DowncastWriter} writer An instance of the view writer.
+ * @param {String} label The element's label. It will be concatenated with the table `alt` attribute if one is present.
+ * @returns {module:engine/view/element~Element}
+ */
+function toTableWidget( viewElement, writer ) {
+	writer.setCustomProperty( tableSymbol, true, viewElement );
+
+	return Object(_ckeditor_ckeditor5_widget_src_utils__WEBPACK_IMPORTED_MODULE_0__["toWidget"])( viewElement, writer, { hasSelectionHandler: true } );
+}
+
+/**
+ * Checks if a given view element is a table widget.
+ *
+ * @param {module:engine/view/element~Element} viewElement
+ * @returns {Boolean}
+ */
+function isTableWidget( viewElement ) {
+	return !!viewElement.getCustomProperty( tableSymbol ) && Object(_ckeditor_ckeditor5_widget_src_utils__WEBPACK_IMPORTED_MODULE_0__["isWidget"])( viewElement );
+}
+
+/**
+ * Checks if a table widget is the only selected element.
+ *
+ * @param {module:engine/view/selection~Selection|module:engine/view/documentselection~DocumentSelection} selection
+ * @returns {Boolean}
+ */
+function isTableWidgetSelected( selection ) {
+	const viewElement = selection.getSelectedElement();
+
+	return !!( viewElement && isTableWidget( viewElement ) );
+}
+
+/**
+ * Checks if a table widget content is selected.
+ *
+ * @param {module:engine/view/selection~Selection|module:engine/view/documentselection~DocumentSelection} selection
+ * @returns {Boolean}
+ */
+function isTableContentSelected( selection ) {
+	const parentTable = Object(_commands_utils__WEBPACK_IMPORTED_MODULE_1__["findAncestor"])( 'table', selection.getFirstPosition() );
+
+	return !!( parentTable && isTableWidget( parentTable.parent ) );
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/theme/icons/table-column.svg":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/theme/icons/table-column.svg ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><g fill=\"#333\" fill-rule=\"evenodd\"><path d=\"M2.5 1h15A1.5 1.5 0 0 1 19 2.5v15a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 1 17.5v-15A1.5 1.5 0 0 1 2.5 1zM2 2v16h16V2H2z\" opacity=\".6\"/><path d=\"M18 7v1H2V7h16zm0 5v1H2v-1h16z\" fill-rule=\"nonzero\" opacity=\".6\"/><path d=\"M14 1v18a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V1a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1zm-2 1H8v4h4V2zm0 6H8v4h4V8zm0 6H8v4h4v-4z\"/></g></svg>"
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/theme/icons/table-merge-cell.svg":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/theme/icons/table-merge-cell.svg ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><g fill=\"#333\" fill-rule=\"evenodd\"><path d=\"M2.5 1h15A1.5 1.5 0 0 1 19 2.5v15a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 1 17.5v-15A1.5 1.5 0 0 1 2.5 1zM2 2v16h16V2H2z\" opacity=\".6\"/><path d=\"M7 2h1v16H7V2zm5 0h1v7h-1V2zm6 5v1H2V7h16zM8 12v1H2v-1h6z\" fill-rule=\"nonzero\" opacity=\".6\"/><path d=\"M7 7h12a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1zm1 2v9h10V9H8z\"/></g></svg>"
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/theme/icons/table-row.svg":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/theme/icons/table-row.svg ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><g fill=\"#333\" fill-rule=\"evenodd\"><path d=\"M2.5 1h15A1.5 1.5 0 0 1 19 2.5v15a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 1 17.5v-15A1.5 1.5 0 0 1 2.5 1zM2 2v16h16V2H2z\" opacity=\".6\"/><path d=\"M7 2h1v16H7V2zm5 0h1v16h-1V2z\" fill-rule=\"nonzero\" opacity=\".6\"/><path d=\"M1 6h18a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1zm1 2v4h4V8H2zm6 0v4h4V8H8zm6 0v4h4V8h-4z\"/></g></svg>"
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/theme/icons/table.svg":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/theme/icons/table.svg ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<svg width=\"20\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M3 6v3h4V6H3zm0 4v3h4v-3H3zm0 4v3h4v-3H3zm5 3h4v-3H8v3zm5 0h4v-3h-4v3zm4-4v-3h-4v3h4zm0-4V6h-4v3h4zm1.5 8a1.5 1.5 0 0 1-1.5 1.5H3A1.5 1.5 0 0 1 1.5 17V4c.222-.863 1.068-1.5 2-1.5h13c.932 0 1.778.637 2 1.5v13zM12 13v-3H8v3h4zm0-4V6H8v3h4z\" fill=\"#333\" fill-rule=\"evenodd\"/></svg>"
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/theme/inserttable.css":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/theme/inserttable.css ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../postcss-loader/src??ref--5-1!./inserttable.css */ "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-table/theme/inserttable.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"singleton":true,"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/theme/table.css":
+/*!****************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/theme/table.css ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../postcss-loader/src??ref--5-1!./table.css */ "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-table/theme/table.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"singleton":true,"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-table/theme/tableediting.css":
+/*!***********************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-table/theme/tableediting.css ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../postcss-loader/src??ref--5-1!./tableediting.css */ "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-table/theme/tableediting.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"singleton":true,"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
 
 /***/ }),
 
@@ -42329,6 +48091,61 @@ function compareChildNodes( oldChild, newChild ) {
 
 /***/ }),
 
+/***/ "./node_modules/@ckeditor/ckeditor5-ui/src/bindings/clickoutsidehandler.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-ui/src/bindings/clickoutsidehandler.js ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return clickOutsideHandler; });
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module ui/bindings/clickoutsidehandler
+ */
+
+/* global document */
+
+/**
+ * Handles clicking **outside** of a specified set of elements, then fires an action.
+ *
+ * **Note**: Actually, the action is executed upon `mousedown`, not `click`. It prevents
+ * certain issues when the user keeps holding the mouse button and the UI cannot react
+ * properly.
+ *
+ * @param {Object} options Configuration options.
+ * @param {module:utils/dom/emittermixin~Emitter} options.emitter The emitter to which this behavior
+ * should be added.
+ * @param {Function} options.activator Function returning a `Boolean`, to determine whether the handler is active.
+ * @param {Array.<HTMLElement>} options.contextElements HTML elements that determine the scope of the
+ * handler. Clicking any of them or their descendants will **not** fire the callback.
+ * @param {Function} options.callback An action executed by the handler.
+ */
+function clickOutsideHandler( { emitter, activator, callback, contextElements } ) {
+	emitter.listenTo( document, 'mousedown', ( evt, { target } ) => {
+		if ( !activator() ) {
+			return;
+		}
+
+		for ( const contextElement of contextElements ) {
+			if ( contextElement.contains( target ) ) {
+				return;
+			}
+		}
+
+		callback();
+	} );
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/@ckeditor/ckeditor5-ui/src/bindings/preventdefault.js":
 /*!****************************************************************************!*\
   !*** ./node_modules/@ckeditor/ckeditor5-ui/src/bindings/preventdefault.js ***!
@@ -42664,6 +48481,121 @@ class ButtonView extends _view__WEBPACK_IMPORTED_MODULE_0__["default"] {
 
 /***/ }),
 
+/***/ "./node_modules/@ckeditor/ckeditor5-ui/src/button/switchbuttonview.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-ui/src/button/switchbuttonview.js ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return SwitchButtonView; });
+/* harmony import */ var _view__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../view */ "./node_modules/@ckeditor/ckeditor5-ui/src/view.js");
+/* harmony import */ var _buttonview__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./buttonview */ "./node_modules/@ckeditor/ckeditor5-ui/src/button/buttonview.js");
+/* harmony import */ var _theme_components_button_switchbutton_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../theme/components/button/switchbutton.css */ "./node_modules/@ckeditor/ckeditor5-ui/theme/components/button/switchbutton.css");
+/* harmony import */ var _theme_components_button_switchbutton_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_theme_components_button_switchbutton_css__WEBPACK_IMPORTED_MODULE_2__);
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module ui/button/switchbuttonview
+ */
+
+
+
+
+
+
+/**
+ * The switch button view class.
+ *
+ *		const view = new SwitchButtonView();
+ *
+ *		view.set( {
+ *			withText: true,
+ *			label: 'Switch me!'
+ *		} );
+ *
+ *		view.render();
+ *
+ *		document.body.append( view.element );
+ *
+ * @extends module:ui/buttonview~ButtonView
+ */
+class SwitchButtonView extends _buttonview__WEBPACK_IMPORTED_MODULE_1__["default"] {
+	/**
+	 * @inheritDoc
+	 */
+	constructor( locale ) {
+		super( locale );
+
+		/**
+		 * The toggle switch of the button.
+		 *
+		 * @readonly
+		 * @member {module:ui/view~View} #toggleSwitchView
+		 */
+		this.toggleSwitchView = this._createToggleView();
+
+		this.extendTemplate( {
+			attributes: {
+				class: 'ck-switchbutton'
+			}
+		} );
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	render() {
+		super.render();
+
+		this.children.add( this.toggleSwitchView );
+	}
+
+	/**
+	 * Creates a toggle child view.
+	 *
+	 * @private
+	 * @returns {module:ui/view~View}
+	 */
+	_createToggleView() {
+		const toggleSwitchView = new _view__WEBPACK_IMPORTED_MODULE_0__["default"]();
+
+		toggleSwitchView.setTemplate( {
+			tag: 'span',
+
+			attributes: {
+				class: [
+					'ck',
+					'ck-button__toggle'
+				],
+			},
+
+			children: [
+				{
+					tag: 'span',
+
+					attributes: {
+						class: [
+							'ck',
+							'ck-button__toggle__inner'
+						],
+					}
+				}
+			]
+		} );
+
+		return toggleSwitchView;
+	}
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/@ckeditor/ckeditor5-ui/src/componentfactory.js":
 /*!*********************************************************************!*\
   !*** ./node_modules/@ckeditor/ckeditor5-ui/src/componentfactory.js ***!
@@ -42817,6 +48749,813 @@ class ComponentFactory {
 function getNormalized( name ) {
 	return String( name ).toLowerCase();
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-ui/src/dropdown/button/dropdownbuttonview.js":
+/*!***************************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-ui/src/dropdown/button/dropdownbuttonview.js ***!
+  \***************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return DropdownButtonView; });
+/* harmony import */ var _button_buttonview__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../button/buttonview */ "./node_modules/@ckeditor/ckeditor5-ui/src/button/buttonview.js");
+/* harmony import */ var _theme_icons_dropdown_arrow_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../theme/icons/dropdown-arrow.svg */ "./node_modules/@ckeditor/ckeditor5-ui/theme/icons/dropdown-arrow.svg");
+/* harmony import */ var _theme_icons_dropdown_arrow_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_theme_icons_dropdown_arrow_svg__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _icon_iconview__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../icon/iconview */ "./node_modules/@ckeditor/ckeditor5-ui/src/icon/iconview.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module ui/dropdown/button/dropdownbuttonview
+ */
+
+
+
+
+
+
+/**
+ * The default dropdown button view class.
+ *
+ *		const view = new DropdownButtonView();
+ *
+ *		view.set( {
+ *			label: 'A button',
+ *			keystroke: 'Ctrl+B',
+ *			tooltip: true
+ *		} );
+ *
+ *		view.render();
+ *
+ *		document.body.append( view.element );
+ *
+ * Also see the {@link module:ui/dropdown/utils~createDropdown `createDropdown()` util}.
+ *
+ * @implements module:ui/dropdown/button/dropdownbutton~DropdownButton
+ * @extends module:ui/button/buttonview~ButtonView
+ */
+class DropdownButtonView extends _button_buttonview__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * @inheritDoc
+	 */
+	constructor( locale ) {
+		super( locale );
+
+		/**
+		 * An icon that displays arrow to indicate a dropdown button.
+		 *
+		 * @readonly
+		 * @member {module:ui/icon/iconview~IconView}
+		 */
+		this.arrowView = this._createArrowView();
+
+		this.extendTemplate( {
+			attributes: {
+				'aria-haspopup': true
+			}
+		} );
+
+		// The DropdownButton interface expects the open event upon which will open the dropdown.
+		this.delegate( 'execute' ).to( this, 'open' );
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	render() {
+		super.render();
+
+		this.children.add( this.arrowView );
+	}
+
+	/**
+	 * Creates a {@link module:ui/icon/iconview~IconView} instance as {@link #arrowView}.
+	 *
+	 * @private
+	 * @returns {module:ui/icon/iconview~IconView}
+	 */
+	_createArrowView() {
+		const arrowView = new _icon_iconview__WEBPACK_IMPORTED_MODULE_2__["default"]();
+
+		arrowView.content = _theme_icons_dropdown_arrow_svg__WEBPACK_IMPORTED_MODULE_1___default.a;
+
+		arrowView.extendTemplate( {
+			attributes: {
+				class: 'ck-dropdown__arrow'
+			}
+		} );
+
+		return arrowView;
+	}
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-ui/src/dropdown/dropdownpanelview.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-ui/src/dropdown/dropdownpanelview.js ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return DropdownPanelView; });
+/* harmony import */ var _view__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../view */ "./node_modules/@ckeditor/ckeditor5-ui/src/view.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module ui/dropdown/dropdownpanelview
+ */
+
+
+
+/**
+ * The dropdown panel view class.
+ *
+ * See {@link module:ui/dropdown/dropdownview~DropdownView} to learn about the common usage.
+ *
+ * @extends module:ui/view~View
+ */
+class DropdownPanelView extends _view__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * @inheritDoc
+	 */
+	constructor( locale ) {
+		super( locale );
+
+		const bind = this.bindTemplate;
+
+		/**
+		 * Controls whether the panel is visible.
+		 *
+		 * @observable
+		 * @member {Boolean} #isVisible
+		 */
+		this.set( 'isVisible', false );
+
+		/**
+		 * Collection of the child views in this panel.
+		 *
+		 * A common child type is the {@link module:ui/list/listview~ListView} and {@link module:ui/toolbar/toolbarview~ToolbarView}.
+		 * See {@link module:ui/dropdown/utils~addListToDropdown} and
+		 * {@link module:ui/dropdown/utils~addToolbarToDropdown} to learn more about child views of dropdowns.
+		 *
+		 * @readonly
+		 * @member {module:ui/viewcollection~ViewCollection}
+		 */
+		this.children = this.createCollection();
+
+		this.setTemplate( {
+			tag: 'div',
+
+			attributes: {
+				class: [
+					'ck',
+					'ck-reset',
+					'ck-dropdown__panel',
+					bind.if( 'isVisible', 'ck-dropdown__panel-visible' )
+				]
+			},
+
+			children: this.children,
+
+			on: {
+				// Drag and drop in the panel should not break the selection in the editor.
+				// https://github.com/ckeditor/ckeditor5-ui/issues/228
+				selectstart: bind.to( evt => evt.preventDefault() )
+			}
+		} );
+	}
+
+	/**
+	 * Focuses the view element or first item in view collection on opening dropdown's panel.
+	 *
+	 * See also {@link module:ui/dropdown/dropdownpanelfocusable~DropdownPanelFocusable}.
+	 */
+	focus() {
+		if ( this.children.length ) {
+			this.children.first.focus();
+		}
+	}
+
+	/**
+	 * Focuses the view element or last item in view collection on opening dropdown's panel.
+	 *
+	 * See also {@link module:ui/dropdown/dropdownpanelfocusable~DropdownPanelFocusable}.
+	 */
+	focusLast() {
+		if ( this.children.length ) {
+			const lastChild = this.children.last;
+
+			if ( typeof lastChild.focusLast === 'function' ) {
+				lastChild.focusLast();
+			} else {
+				lastChild.focus();
+			}
+		}
+	}
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-ui/src/dropdown/dropdownview.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-ui/src/dropdown/dropdownview.js ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return DropdownView; });
+/* harmony import */ var _view__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../view */ "./node_modules/@ckeditor/ckeditor5-ui/src/view.js");
+/* harmony import */ var _ckeditor_ckeditor5_utils_src_focustracker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ckeditor/ckeditor5-utils/src/focustracker */ "./node_modules/@ckeditor/ckeditor5-utils/src/focustracker.js");
+/* harmony import */ var _ckeditor_ckeditor5_utils_src_keystrokehandler__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ckeditor/ckeditor5-utils/src/keystrokehandler */ "./node_modules/@ckeditor/ckeditor5-utils/src/keystrokehandler.js");
+/* harmony import */ var _theme_components_dropdown_dropdown_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../theme/components/dropdown/dropdown.css */ "./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/dropdown.css");
+/* harmony import */ var _theme_components_dropdown_dropdown_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_theme_components_dropdown_dropdown_css__WEBPACK_IMPORTED_MODULE_3__);
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module ui/dropdown/dropdownview
+ */
+
+
+
+
+
+
+
+/**
+ * The dropdown view class. It manages the dropdown button and dropdown panel.
+ *
+ * In most cases, the easiest way to create a dropdown is by using the {@link module:ui/dropdown/utils~createDropdown}
+ * util:
+ *
+ *		const dropdown = createDropdown( locale );
+ *
+ *		// Configure dropdown's button properties:
+ *		dropdown.buttonView.set( {
+ *			label: 'A dropdown',
+ *			withText: true
+ *		} );
+ *
+ *		dropdown.render();
+ *
+ *		dropdown.panelView.element.textContent = 'Content of the panel';
+ *
+ *		// Will render a dropdown with a panel containing a "Content of the panel" text.
+ *		document.body.appendChild( dropdown.element );
+ *
+ * If you want to add a richer content to the dropdown panel, you can use the {@link module:ui/dropdown/utils~addListToDropdown}
+ * and {@link module:ui/dropdown/utils~addToolbarToDropdown} helpers. See more examples in
+ * {@link module:ui/dropdown/utils~createDropdown} documentation.
+ *
+ * If you want to create a completely custom dropdown, then you can compose it manually:
+ *
+ *		const button = new DropdownButtonView( locale );
+ *		const panel = new DropdownPanelView( locale );
+ *		const dropdown = new DropdownView( locale, button, panel );
+ *
+ *		button.set( {
+ *			label: 'A dropdown',
+ *			withText: true
+ *		} );
+ *
+ *		dropdown.render();
+ *
+ *		panel.element.textContent = 'Content of the panel';
+ *
+ *		// Will render a dropdown with a panel containing a "Content of the panel" text.
+ *		document.body.appendChild( dropdown.element );
+ *
+ * However, dropdown created this way will contain little behavior. You will need to implement handlers for actions
+ * such as {@link module:ui/bindings/clickoutsidehandler~clickOutsideHandler clicking outside an open dropdown}
+ * (which should close it) and support for arrow keys inside the panel. Therefore, unless you really know what
+ * you do and you really need to do it, it is recommended to use the {@link module:ui/dropdown/utils~createDropdown} helper.
+ *
+ * @extends module:ui/view~View
+ */
+class DropdownView extends _view__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * Creates an instance of the dropdown.
+	 *
+	 * Also see {@link #render}.
+	 *
+	 * @param {module:utils/locale~Locale} [locale] The localization services instance.
+	 * @param {module:ui/dropdown/button/dropdownbutton~DropdownButton} buttonView
+	 * @param {module:ui/dropdown/dropdownpanelview~DropdownPanelView} panelView
+	 */
+	constructor( locale, buttonView, panelView ) {
+		super( locale );
+
+		const bind = this.bindTemplate;
+
+		/**
+		 * Button of the dropdown view. Clicking the button opens the {@link #panelView}.
+		 *
+		 * @readonly
+		 * @member {module:ui/button/buttonview~ButtonView} #buttonView
+		 */
+		this.buttonView = buttonView;
+
+		/**
+		 * Panel of the dropdown. It opens when the {@link #buttonView} is
+		 * {@link module:ui/button/buttonview~ButtonView#event:execute executed} (i.e. clicked).
+		 *
+		 * Child views can be added to the panel's `children` collection:
+		 *
+		 *		dropdown.panelView.children.add( childView );
+		 *
+		 * See {@link module:ui/dropdown/dropdownpanelview~DropdownPanelView#children} and
+		 * {@link module:ui/viewcollection~ViewCollection#add}.
+		 *
+		 * @readonly
+		 * @member {module:ui/dropdown/dropdownpanelview~DropdownPanelView} #panelView
+		 */
+		this.panelView = panelView;
+
+		/**
+		 * Controls whether the dropdown view is open, i.e. shows or hides the {@link #panelView panel}.
+		 *
+		 * @observable
+		 * @member {Boolean} #isOpen
+		 */
+		this.set( 'isOpen', false );
+
+		/**
+		 * Controls whether the dropdown is enabled, i.e. it can be clicked and execute an action.
+		 *
+		 * See {@link module:ui/button/buttonview~ButtonView#isEnabled}.
+		 *
+		 * @observable
+		 * @member {Boolean} #isEnabled
+		 */
+		this.set( 'isEnabled', true );
+
+		/**
+		 * Tracks information about DOM focus in the dropdown.
+		 *
+		 * @readonly
+		 * @member {module:utils/focustracker~FocusTracker}
+		 */
+		this.focusTracker = new _ckeditor_ckeditor5_utils_src_focustracker__WEBPACK_IMPORTED_MODULE_1__["default"]();
+
+		/**
+		 * Instance of the {@link module:utils/keystrokehandler~KeystrokeHandler}. It manages
+		 * keystrokes of the dropdown:
+		 *
+		 * * <kbd>▼</kbd> opens the dropdown,
+		 * * <kbd>◀</kbd> and <kbd>Esc</kbd> closes the dropdown.
+		 *
+		 * @readonly
+		 * @member {module:utils/keystrokehandler~KeystrokeHandler}
+		 */
+		this.keystrokes = new _ckeditor_ckeditor5_utils_src_keystrokehandler__WEBPACK_IMPORTED_MODULE_2__["default"]();
+
+		this.setTemplate( {
+			tag: 'div',
+
+			attributes: {
+				class: [
+					'ck',
+					'ck-dropdown',
+					bind.if( 'isEnabled', 'ck-disabled', value => !value )
+				]
+			},
+
+			children: [
+				buttonView,
+				panelView
+			]
+		} );
+
+		buttonView.extendTemplate( {
+			attributes: {
+				class: [
+					'ck-dropdown__button',
+				]
+			}
+		} );
+
+		/**
+		 * A child {@link module:ui/list/listview~ListView list view} of the dropdown located
+		 * in its {@link module:ui/dropdown/dropdownview~DropdownView#panelView panel}.
+		 *
+		 * **Note**: Only supported when dropdown has list view added using {@link module:ui/dropdown/utils~addListToDropdown}.
+		 *
+		 * @readonly
+		 * @member {module:ui/list/listview~ListView} #listView
+		 */
+
+		/**
+		 * A child toolbar of the dropdown located in the
+		 * {@link module:ui/dropdown/dropdownview~DropdownView#panelView panel}.
+		 *
+		 * **Note**: Only supported when dropdown has list view added using {@link module:ui/dropdown/utils~addToolbarToDropdown}.
+		 *
+		 * @readonly
+		 * @member {module:ui/toolbar/toolbarview~ToolbarView} #toolbarView
+		 */
+
+		/**
+		 * Fired when the toolbar button or list item is executed.
+		 *
+		 * For {@link #listView} It fires when a child of some {@link module:ui/list/listitemview~ListItemView}
+		 * fired `execute`.
+		 *
+		 * For {@link #toolbarView} It fires when one of the buttons has been
+		 * {@link module:ui/button/buttonview~ButtonView#event:execute executed}.
+		 *
+		 * **Note**: Only supported when dropdown has list view added using {@link module:ui/dropdown/utils~addListToDropdown}
+		 * or {@link module:ui/dropdown/utils~addToolbarToDropdown}.
+		 *
+		 * @event execute
+		 */
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	render() {
+		super.render();
+
+		// Toggle the dropdown when its button has been clicked.
+		this.listenTo( this.buttonView, 'open', () => {
+			this.isOpen = !this.isOpen;
+		} );
+
+		// Toggle the visibility of the panel when the dropdown becomes open.
+		this.panelView.bind( 'isVisible' ).to( this, 'isOpen' );
+
+		// Listen for keystrokes coming from within #element.
+		this.keystrokes.listenTo( this.element );
+
+		// Register #element in the focus tracker.
+		this.focusTracker.add( this.element );
+
+		const closeDropdown = ( data, cancel ) => {
+			if ( this.isOpen ) {
+				this.buttonView.focus();
+				this.isOpen = false;
+				cancel();
+			}
+		};
+
+		// Open the dropdown panel using the arrow down key, just like with return or space.
+		this.keystrokes.set( 'arrowdown', ( data, cancel ) => {
+			// Don't open if the dropdown is disabled or already open.
+			if ( this.buttonView.isEnabled && !this.isOpen ) {
+				this.isOpen = true;
+				cancel();
+			}
+		} );
+
+		// Block the right arrow key (until nested dropdowns are implemented).
+		this.keystrokes.set( 'arrowright', ( data, cancel ) => {
+			if ( this.isOpen ) {
+				cancel();
+			}
+		} );
+
+		// Close the dropdown using the arrow left/escape key.
+		this.keystrokes.set( 'arrowleft', closeDropdown );
+		this.keystrokes.set( 'esc', closeDropdown );
+	}
+
+	/**
+	 * Focuses the {@link #buttonView}.
+	 */
+	focus() {
+		this.buttonView.focus();
+	}
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-ui/src/dropdown/utils.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-ui/src/dropdown/utils.js ***!
+  \*******************************************************************/
+/*! exports provided: createDropdown, addToolbarToDropdown, addListToDropdown */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createDropdown", function() { return createDropdown; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addToolbarToDropdown", function() { return addToolbarToDropdown; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addListToDropdown", function() { return addListToDropdown; });
+/* harmony import */ var _dropdownpanelview__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dropdownpanelview */ "./node_modules/@ckeditor/ckeditor5-ui/src/dropdown/dropdownpanelview.js");
+/* harmony import */ var _dropdownview__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dropdownview */ "./node_modules/@ckeditor/ckeditor5-ui/src/dropdown/dropdownview.js");
+/* harmony import */ var _button_dropdownbuttonview__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./button/dropdownbuttonview */ "./node_modules/@ckeditor/ckeditor5-ui/src/dropdown/button/dropdownbuttonview.js");
+/* harmony import */ var _toolbar_toolbarview__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../toolbar/toolbarview */ "./node_modules/@ckeditor/ckeditor5-ui/src/toolbar/toolbarview.js");
+/* harmony import */ var _list_listview__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../list/listview */ "./node_modules/@ckeditor/ckeditor5-ui/src/list/listview.js");
+/* harmony import */ var _list_listitemview__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../list/listitemview */ "./node_modules/@ckeditor/ckeditor5-ui/src/list/listitemview.js");
+/* harmony import */ var _list_listseparatorview__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../list/listseparatorview */ "./node_modules/@ckeditor/ckeditor5-ui/src/list/listseparatorview.js");
+/* harmony import */ var _button_buttonview__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../button/buttonview */ "./node_modules/@ckeditor/ckeditor5-ui/src/button/buttonview.js");
+/* harmony import */ var _button_switchbuttonview__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../button/switchbuttonview */ "./node_modules/@ckeditor/ckeditor5-ui/src/button/switchbuttonview.js");
+/* harmony import */ var _bindings_clickoutsidehandler__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../bindings/clickoutsidehandler */ "./node_modules/@ckeditor/ckeditor5-ui/src/bindings/clickoutsidehandler.js");
+/* harmony import */ var _theme_components_dropdown_toolbardropdown_css__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../theme/components/dropdown/toolbardropdown.css */ "./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/toolbardropdown.css");
+/* harmony import */ var _theme_components_dropdown_toolbardropdown_css__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_theme_components_dropdown_toolbardropdown_css__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _theme_components_dropdown_listdropdown_css__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../theme/components/dropdown/listdropdown.css */ "./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/listdropdown.css");
+/* harmony import */ var _theme_components_dropdown_listdropdown_css__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_theme_components_dropdown_listdropdown_css__WEBPACK_IMPORTED_MODULE_11__);
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module ui/dropdown/utils
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * A helper for creating dropdowns. It creates an instance of a {@link module:ui/dropdown/dropdownview~DropdownView dropdown},
+ * with a {@link module:ui/dropdown/button/dropdownbutton~DropdownButton button},
+ * {@link module:ui/dropdown/dropdownpanelview~DropdownPanelView panel} and all standard dropdown's behaviors.
+ *
+ * # Creating dropdowns
+ *
+ * By default, the default {@link module:ui/dropdown/button/dropdownbuttonview~DropdownButtonView} class is used as
+ * definition of the button:
+ *
+ *		const dropdown = createDropdown( model );
+ *
+ *		// Configure dropdown's button properties:
+ *		dropdown.buttonView.set( {
+ *			label: 'A dropdown',
+ *			withText: true
+ *		} );
+ *
+ *		dropdown.render();
+ *
+ *		// Will render a dropdown labeled "A dropdown" with an empty panel.
+ *		document.body.appendChild( dropdown.element );
+ *
+ * You can also provide other button views (they need to implement the
+ * {@link module:ui/dropdown/button/dropdownbutton~DropdownButton} interface). For instance, you can use
+ * {@link module:ui/dropdown/button/splitbuttonview~SplitButtonView} to create a dropdown with a split button.
+ *
+ *		const dropdown = createDropdown( model, SplitButtonView );
+ *
+ *		// Configure dropdown's button properties:
+ *		dropdown.buttonView.set( {
+ *			label: 'A dropdown',
+ *			withText: true
+ *		} );
+ *
+ *		dropdown.buttonView.on( 'execute', () => {
+ *			// Add the behavior of the "action part" of the split button.
+ *			// Split button consists of the "action part" and "arrow part".
+ *			// The arrow opens the dropdown while the action part can have some other behavior.
+ * 		} );
+ *
+ *		dropdown.render();
+ *
+ *		// Will render a dropdown labeled "A dropdown" with an empty panel.
+ *		document.body.appendChild( dropdown.element );
+ *
+ * # Adding content to the dropdown's panel
+ *
+ * The content of the panel can be inserted directly into the `dropdown.panelView.element`:
+ *
+ *		dropdown.panelView.element.textContent = 'Content of the panel';
+ *
+ * However, most of the time you will want to add there either a {@link module:ui/list/listview~ListView list of options}
+ * or a list of buttons (i.e. a {@link module:ui/toolbar/toolbarview~ToolbarView toolbar}).
+ * To simplify the task, you can use, respectively, {@link module:ui/dropdown/utils~addListToDropdown} or
+ * {@link module:ui/dropdown/utils~addToolbarToDropdown} utils.
+ *
+ * @param {module:utils/locale~Locale} locale The locale instance.
+ * @param {Function} ButtonClass The dropdown button view class. Needs to implement the
+ * {@link module:ui/dropdown/button/dropdownbutton~DropdownButton} interface.
+ * @returns {module:ui/dropdown/dropdownview~DropdownView} The dropdown view instance.
+ */
+function createDropdown( locale, ButtonClass = _button_dropdownbuttonview__WEBPACK_IMPORTED_MODULE_2__["default"] ) {
+	const buttonView = new ButtonClass( locale );
+
+	const panelView = new _dropdownpanelview__WEBPACK_IMPORTED_MODULE_0__["default"]( locale );
+	const dropdownView = new _dropdownview__WEBPACK_IMPORTED_MODULE_1__["default"]( locale, buttonView, panelView );
+
+	buttonView.bind( 'isEnabled' ).to( dropdownView );
+
+	if ( buttonView instanceof _button_dropdownbuttonview__WEBPACK_IMPORTED_MODULE_2__["default"] ) {
+		buttonView.bind( 'isOn' ).to( dropdownView, 'isOpen' );
+	} else {
+		buttonView.arrowView.bind( 'isOn' ).to( dropdownView, 'isOpen' );
+	}
+
+	addDefaultBehavior( dropdownView );
+
+	return dropdownView;
+}
+
+/**
+ * Adds an instance of {@link module:ui/toolbar/toolbarview~ToolbarView} to a dropdown.
+ *
+ *		const buttons = [];
+ *
+ *		// Either create a new ButtonView instance or create existing.
+ *		buttons.push( new ButtonView() );
+ *		buttons.push( editor.ui.componentFactory.get( 'someButton' ) );
+ *
+ *		const dropdown = createDropdown( locale );
+ *
+ *		addToolbarToDropdown( dropdown, buttons );
+ *
+ *		dropdown.toolbarView.isVertical = true;
+ *
+ *		// Will render a vertical button dropdown labeled "A button dropdown"
+ *		// with a button group in the panel containing two buttons.
+ *		dropdown.render()
+ *		document.body.appendChild( dropdown.element );
+ *
+ * See {@link module:ui/dropdown/utils~createDropdown} and {@link module:ui/toolbar/toolbarview~ToolbarView}.
+ *
+ * @param {module:ui/dropdown/dropdownview~DropdownView} dropdownView A dropdown instance to which `ToolbarView` will be added.
+ * @param {Iterable.<module:ui/button/buttonview~ButtonView>} buttons
+ */
+function addToolbarToDropdown( dropdownView, buttons ) {
+	const toolbarView = dropdownView.toolbarView = new _toolbar_toolbarview__WEBPACK_IMPORTED_MODULE_3__["default"]();
+
+	dropdownView.extendTemplate( {
+		attributes: {
+			class: [ 'ck-toolbar-dropdown' ]
+		}
+	} );
+
+	buttons.map( view => toolbarView.items.add( view ) );
+
+	dropdownView.panelView.children.add( toolbarView );
+	toolbarView.items.delegate( 'execute' ).to( dropdownView );
+}
+
+/**
+ * Adds an instance of {@link module:ui/list/listview~ListView} to a dropdown.
+ *
+ *		const items = new Collection();
+ *
+ *		items.add( {
+ *			type: 'button',
+ *			model: new Model( { label: 'First item', labelStyle: 'color: red' } )
+ *		} );
+ *
+ *		items.add( {
+ *			 type: 'button',
+ *			 model: new Model( { label: 'Second item', labelStyle: 'color: green', class: 'foo' } )
+ * 		} );
+ *
+ *		const dropdown = createDropdown( locale );
+ *
+ *		addListToDropdown( dropdown, items );
+ *
+ *		// Will render a dropdown with a list in the panel containing two items.
+ *		dropdown.render()
+ *		document.body.appendChild( dropdown.element );
+ *
+ * The `items` collection passed to this methods controls the presence and attributes of respective
+ * {@link module:ui/list/listitemview~ListItemView list items}.
+ *
+ *
+ * See {@link module:ui/dropdown/utils~createDropdown} and {@link module:list/list~List}.
+ *
+ * @param {module:ui/dropdown/dropdownview~DropdownView} dropdownView A dropdown instance to which `ListVIew` will be added.
+ * @param {Iterable.<module:ui/dropdown/utils~ListDropdownItemDefinition>} items
+ * A collection of the list item definitions to populate the list.
+ */
+function addListToDropdown( dropdownView, items ) {
+	const locale = dropdownView.locale;
+	const listView = dropdownView.listView = new _list_listview__WEBPACK_IMPORTED_MODULE_4__["default"]( locale );
+
+	listView.items.bindTo( items ).using( ( { type, model } ) => {
+		if ( type === 'separator' ) {
+			return new _list_listseparatorview__WEBPACK_IMPORTED_MODULE_6__["default"]( locale );
+		} else if ( type === 'button' || type === 'switchbutton' ) {
+			const listItemView = new _list_listitemview__WEBPACK_IMPORTED_MODULE_5__["default"]( locale );
+			let buttonView;
+
+			if ( type === 'button' ) {
+				buttonView = new _button_buttonview__WEBPACK_IMPORTED_MODULE_7__["default"]( locale );
+			} else {
+				buttonView = new _button_switchbuttonview__WEBPACK_IMPORTED_MODULE_8__["default"]( locale );
+			}
+
+			// Bind all model properties to the button view.
+			buttonView.bind( ...Object.keys( model ) ).to( model );
+			buttonView.delegate( 'execute' ).to( listItemView );
+
+			listItemView.children.add( buttonView );
+
+			return listItemView;
+		}
+	} );
+
+	dropdownView.panelView.children.add( listView );
+
+	listView.items.delegate( 'execute' ).to( dropdownView );
+}
+
+// Add a set of default behaviors to dropdown view.
+//
+// @param {module:ui/dropdown/dropdownview~DropdownView} dropdownView
+function addDefaultBehavior( dropdownView ) {
+	closeDropdownOnBlur( dropdownView );
+	closeDropdownOnExecute( dropdownView );
+	focusDropdownContentsOnArrows( dropdownView );
+}
+
+// Adds a behavior to a dropdownView that closes opened dropdown when user clicks outside the dropdown.
+//
+// @param {module:ui/dropdown/dropdownview~DropdownView} dropdownView
+function closeDropdownOnBlur( dropdownView ) {
+	dropdownView.on( 'render', () => {
+		Object(_bindings_clickoutsidehandler__WEBPACK_IMPORTED_MODULE_9__["default"])( {
+			emitter: dropdownView,
+			activator: () => dropdownView.isOpen,
+			callback: () => {
+				dropdownView.isOpen = false;
+			},
+			contextElements: [ dropdownView.element ]
+		} );
+	} );
+}
+
+// Adds a behavior to a dropdownView that closes the dropdown view on "execute" event.
+//
+// @param {module:ui/dropdown/dropdownview~DropdownView} dropdownView
+function closeDropdownOnExecute( dropdownView ) {
+	// Close the dropdown when one of the list items has been executed.
+	dropdownView.on( 'execute', evt => {
+		// Toggling a switch button view should not close the dropdown.
+		if ( evt.source instanceof _button_switchbuttonview__WEBPACK_IMPORTED_MODULE_8__["default"] ) {
+			return;
+		}
+
+		dropdownView.isOpen = false;
+	} );
+}
+
+// Adds a behavior to a dropdownView that focuses the dropdown's panel view contents on keystrokes.
+//
+// @param {module:ui/dropdown/dropdownview~DropdownView} dropdownView
+function focusDropdownContentsOnArrows( dropdownView ) {
+	// If the dropdown panel is already open, the arrow down key should focus the first child of the #panelView.
+	dropdownView.keystrokes.set( 'arrowdown', ( data, cancel ) => {
+		if ( dropdownView.isOpen ) {
+			dropdownView.panelView.focus();
+			cancel();
+		}
+	} );
+
+	// If the dropdown panel is already open, the arrow up key should focus the last child of the #panelView.
+	dropdownView.keystrokes.set( 'arrowup', ( data, cancel ) => {
+		if ( dropdownView.isOpen ) {
+			dropdownView.panelView.focusLast();
+			cancel();
+		}
+	} );
+}
+
+/**
+ * A definition of the list item used by the {@link module:ui/dropdown/utils~addListToDropdown}
+ * utility.
+ *
+ * @typedef {Object} module:ui/dropdown/utils~ListDropdownItemDefinition
+ *
+ * @property {String} type Either `'separator'`, `'button'` or `'switchbutton'`.
+ * @property {module:ui/model~Model} [model] Model of the item (when **not** `'separator'`).
+ * Its properties fuel the newly created list item (or its children, depending on the `type`).
+ */
 
 
 /***/ }),
@@ -43772,6 +50511,1333 @@ class LabelView extends _view__WEBPACK_IMPORTED_MODULE_0__["default"] {
 				}
 			]
 		} );
+	}
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-ui/src/list/listitemview.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-ui/src/list/listitemview.js ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ListItemView; });
+/* harmony import */ var _view__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../view */ "./node_modules/@ckeditor/ckeditor5-ui/src/view.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module ui/list/listitemview
+ */
+
+
+
+/**
+ * The list item view class.
+ *
+ * @extends module:ui/view~View
+ */
+class ListItemView extends _view__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * @inheritDoc
+	 */
+	constructor( locale ) {
+		super( locale );
+
+		/**
+		 * Collection of the child views inside of the list item {@link #element}.
+		 *
+		 * @readonly
+		 * @member {module:ui/viewcollection~ViewCollection}
+		 */
+		this.children = this.createCollection();
+
+		this.setTemplate( {
+			tag: 'li',
+
+			attributes: {
+				class: [
+					'ck',
+					'ck-list__item'
+				]
+			},
+
+			children: this.children
+		} );
+	}
+
+	/**
+	 * Focuses the list item.
+	 */
+	focus() {
+		this.children.first.focus();
+	}
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-ui/src/list/listseparatorview.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-ui/src/list/listseparatorview.js ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ListSeparatorView; });
+/* harmony import */ var _view__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../view */ "./node_modules/@ckeditor/ckeditor5-ui/src/view.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module ui/list/listseparatorview
+ */
+
+
+
+/**
+ * The list separator view class.
+ *
+ * @extends module:ui/view~View
+ */
+class ListSeparatorView extends _view__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * @inheritDoc
+	 */
+	constructor( locale ) {
+		super( locale );
+
+		this.setTemplate( {
+			tag: 'li',
+			attributes: {
+				class: [
+					'ck',
+					'ck-list__separator'
+				]
+			}
+		} );
+	}
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-ui/src/list/listview.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-ui/src/list/listview.js ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ListView; });
+/* harmony import */ var _view__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../view */ "./node_modules/@ckeditor/ckeditor5-ui/src/view.js");
+/* harmony import */ var _ckeditor_ckeditor5_utils_src_focustracker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ckeditor/ckeditor5-utils/src/focustracker */ "./node_modules/@ckeditor/ckeditor5-utils/src/focustracker.js");
+/* harmony import */ var _focuscycler__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../focuscycler */ "./node_modules/@ckeditor/ckeditor5-ui/src/focuscycler.js");
+/* harmony import */ var _ckeditor_ckeditor5_utils_src_keystrokehandler__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ckeditor/ckeditor5-utils/src/keystrokehandler */ "./node_modules/@ckeditor/ckeditor5-utils/src/keystrokehandler.js");
+/* harmony import */ var _theme_components_list_list_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../theme/components/list/list.css */ "./node_modules/@ckeditor/ckeditor5-ui/theme/components/list/list.css");
+/* harmony import */ var _theme_components_list_list_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_theme_components_list_list_css__WEBPACK_IMPORTED_MODULE_4__);
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module ui/list/listview
+ */
+
+
+
+
+
+
+
+
+/**
+ * The list view class.
+ *
+ * @extends module:ui/view~View
+ * @implements module:ui/dropdown/dropdownpanelfocusable~DropdownPanelFocusable
+ */
+class ListView extends _view__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * @inheritDoc
+	 */
+	constructor() {
+		super();
+
+		/**
+		 * Collection of the child list views.
+		 *
+		 * @readonly
+		 * @member {module:ui/viewcollection~ViewCollection}
+		 */
+		this.items = this.createCollection();
+
+		/**
+		 * Tracks information about DOM focus in the list.
+		 *
+		 * @readonly
+		 * @member {module:utils/focustracker~FocusTracker}
+		 */
+		this.focusTracker = new _ckeditor_ckeditor5_utils_src_focustracker__WEBPACK_IMPORTED_MODULE_1__["default"]();
+
+		/**
+		 * Instance of the {@link module:utils/keystrokehandler~KeystrokeHandler}.
+		 *
+		 * @readonly
+		 * @member {module:utils/keystrokehandler~KeystrokeHandler}
+		 */
+		this.keystrokes = new _ckeditor_ckeditor5_utils_src_keystrokehandler__WEBPACK_IMPORTED_MODULE_3__["default"]();
+
+		/**
+		 * Helps cycling over focusable {@link #items} in the list.
+		 *
+		 * @readonly
+		 * @protected
+		 * @member {module:ui/focuscycler~FocusCycler}
+		 */
+		this._focusCycler = new _focuscycler__WEBPACK_IMPORTED_MODULE_2__["default"]( {
+			focusables: this.items,
+			focusTracker: this.focusTracker,
+			keystrokeHandler: this.keystrokes,
+			actions: {
+				// Navigate list items backwards using the arrowup key.
+				focusPrevious: 'arrowup',
+
+				// Navigate toolbar items forwards using the arrowdown key.
+				focusNext: 'arrowdown',
+			}
+		} );
+
+		this.setTemplate( {
+			tag: 'ul',
+
+			attributes: {
+				class: [
+					'ck',
+					'ck-reset',
+					'ck-list'
+				]
+			},
+
+			children: this.items
+		} );
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	render() {
+		super.render();
+
+		// Items added before rendering should be known to the #focusTracker.
+		for ( const item of this.items ) {
+			this.focusTracker.add( item.element );
+		}
+
+		this.items.on( 'add', ( evt, item ) => {
+			this.focusTracker.add( item.element );
+		} );
+
+		this.items.on( 'remove', ( evt, item ) => {
+			this.focusTracker.remove( item.element );
+		} );
+
+		// Start listening for the keystrokes coming from #element.
+		this.keystrokes.listenTo( this.element );
+	}
+
+	/**
+	 * Focuses the first focusable in {@link #items}.
+	 */
+	focus() {
+		this._focusCycler.focusFirst();
+	}
+
+	/**
+	 * Focuses the last focusable in {@link #items}.
+	 */
+	focusLast() {
+		this._focusCycler.focusLast();
+	}
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-ui/src/model.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-ui/src/model.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Model; });
+/* harmony import */ var _ckeditor_ckeditor5_utils_src_mix__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-utils/src/mix */ "./node_modules/@ckeditor/ckeditor5-utils/src/mix.js");
+/* harmony import */ var _ckeditor_ckeditor5_utils_src_observablemixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ckeditor/ckeditor5-utils/src/observablemixin */ "./node_modules/@ckeditor/ckeditor5-utils/src/observablemixin.js");
+/* harmony import */ var lodash_es__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash-es */ "./node_modules/lodash-es/lodash.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module ui/model
+ */
+
+
+
+
+
+/**
+ * The base MVC model class.
+ *
+ * @mixes module:utils/observablemixin~ObservableMixin
+ */
+class Model {
+	/**
+	 * Creates a new Model instance.
+	 *
+	 * @param {Object} [attributes] The model state attributes to be defined during the instance creation.
+	 * @param {Object} [properties] The (out of state) properties to be appended to the instance during creation.
+	 */
+	constructor( attributes, properties ) {
+		// Extend this instance with the additional (out of state) properties.
+		if ( properties ) {
+			Object(lodash_es__WEBPACK_IMPORTED_MODULE_2__["extend"])( this, properties );
+		}
+
+		// Initialize the attributes.
+		if ( attributes ) {
+			this.set( attributes );
+		}
+	}
+}
+
+Object(_ckeditor_ckeditor5_utils_src_mix__WEBPACK_IMPORTED_MODULE_0__["default"])( Model, _ckeditor_ckeditor5_utils_src_observablemixin__WEBPACK_IMPORTED_MODULE_1__["default"] );
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-ui/src/panel/balloon/balloonpanelview.js":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-ui/src/panel/balloon/balloonpanelview.js ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return BalloonPanelView; });
+/* harmony import */ var _view__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../view */ "./node_modules/@ckeditor/ckeditor5-ui/src/view.js");
+/* harmony import */ var _ckeditor_ckeditor5_utils_src_dom_position__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ckeditor/ckeditor5-utils/src/dom/position */ "./node_modules/@ckeditor/ckeditor5-utils/src/dom/position.js");
+/* harmony import */ var _ckeditor_ckeditor5_utils_src_dom_isrange__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ckeditor/ckeditor5-utils/src/dom/isrange */ "./node_modules/@ckeditor/ckeditor5-utils/src/dom/isrange.js");
+/* harmony import */ var _ckeditor_ckeditor5_utils_src_dom_tounit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ckeditor/ckeditor5-utils/src/dom/tounit */ "./node_modules/@ckeditor/ckeditor5-utils/src/dom/tounit.js");
+/* harmony import */ var _ckeditor_ckeditor5_utils_src_dom_global__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ckeditor/ckeditor5-utils/src/dom/global */ "./node_modules/@ckeditor/ckeditor5-utils/src/dom/global.js");
+/* harmony import */ var lodash_es__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lodash-es */ "./node_modules/lodash-es/lodash.js");
+/* harmony import */ var _theme_components_panel_balloonpanel_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../theme/components/panel/balloonpanel.css */ "./node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/balloonpanel.css");
+/* harmony import */ var _theme_components_panel_balloonpanel_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_theme_components_panel_balloonpanel_css__WEBPACK_IMPORTED_MODULE_6__);
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module ui/panel/balloon/balloonpanelview
+ */
+
+
+
+
+
+
+
+
+
+
+const toPx = Object(_ckeditor_ckeditor5_utils_src_dom_tounit__WEBPACK_IMPORTED_MODULE_3__["default"])( 'px' );
+const defaultLimiterElement = _ckeditor_ckeditor5_utils_src_dom_global__WEBPACK_IMPORTED_MODULE_4__["default"].document.body;
+
+/**
+ * The balloon panel view class.
+ *
+ * A floating container which can
+ * {@link module:ui/panel/balloon/balloonpanelview~BalloonPanelView#pin pin} to any
+ * {@link module:utils/dom/position~Options#target target} in DOM and remain in that position
+ * e.g. when the web page is scrolled.
+ *
+ * The balloon panel can be used to display contextual, non-blocking UI like forms, toolbars and
+ * the like in its {@link module:ui/panel/balloon/balloonpanelview~BalloonPanelView#content} view
+ * collection.
+ *
+ * There is a number of {@link module:ui/panel/balloon/balloonpanelview~BalloonPanelView.defaultPositions}
+ * that the balloon can use, automatically switching from one to another when the viewport space becomes
+ * scarce to keep the balloon visible to the user as long as it is possible. The balloon will also
+ * accept any custom position set provided by the user compatible with the
+ * {@link module:utils/dom/position~Options options}.
+ *
+ *		const panel = new BalloonPanelView( locale );
+ *		const childView = new ChildView();
+ *		const positions = BalloonPanelView.defaultPositions;
+ *
+ *		panel.render();
+ *
+ *		// Add a child view to the panel's content collection.
+ *		panel.content.add( childView );
+ *
+ *		// Start pinning the panel to an element with the "target" id DOM.
+ *		// The balloon will remain pinned until unpin() is called.
+ *		panel.pin( {
+ *			target: document.querySelector( '#target' ),
+ *			positions: [
+ *				positions.northArrowSouth,
+ *				positions.southArrowNorth
+ *			]
+ *		} );
+ *
+ * @extends module:ui/view~View
+ */
+class BalloonPanelView extends _view__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * @inheritDoc
+	 */
+	constructor( locale ) {
+		super( locale );
+
+		const bind = this.bindTemplate;
+
+		/**
+		 * The absolute top position of the balloon panel in pixels.
+		 *
+		 * @observable
+		 * @default 0
+		 * @member {Number} #top
+		 */
+		this.set( 'top', 0 );
+
+		/**
+		 * The absolute left position of the balloon panel in pixels.
+		 *
+		 * @observable
+		 * @default 0
+		 * @member {Number} #left
+		 */
+		this.set( 'left', 0 );
+
+		/**
+		 * Balloon panel's current position. The position name is reflected in the CSS class set
+		 * to the balloon, i.e. `.ck-balloon-panel_arrow_nw` for "arrow_nw" position. The class
+		 * controls the minor aspects of the balloon's visual appearance like placement
+		 * of an {@link #withArrow arrow}. To support a new position, an additional CSS must be created.
+		 *
+		 * Default position names correspond with
+		 * {@link module:ui/panel/balloon/balloonpanelview~BalloonPanelView.defaultPositions}.
+		 *
+		 * See the {@link #attachTo} and {@link #pin} methods to learn about custom balloon positions.
+		 *
+		 * @observable
+		 * @default 'arrow_nw'
+		 * @member {'arrow_nw'|'arrow_ne'|'arrow_sw'|'arrow_se'} #position
+		 */
+		this.set( 'position', 'arrow_nw' );
+
+		/**
+		 * Controls whether the balloon panel is visible or not.
+		 *
+		 * @observable
+		 * @default false
+		 * @member {Boolean} #isVisible
+		 */
+		this.set( 'isVisible', false );
+
+		/**
+		 * Controls whether the balloon panel has an arrow. The presence of the arrow
+		 * is reflected in `ck-balloon-panel_with-arrow` CSS class.
+		 *
+		 * @observable
+		 * @default true
+		 * @member {Boolean} #withArrow
+		 */
+		this.set( 'withArrow', true );
+
+		/**
+		 * An additional CSS class added to the {@link #element}.
+		 *
+		 * @observable
+		 * @member {String} #className
+		 */
+		this.set( 'className' );
+
+		/**
+		 * A callback that starts pining the panel when {@link #isVisible} gets
+		 * `true`. Used by {@link #pin}.
+		 *
+		 * @private
+		 * @member {Function} #_pinWhenIsVisibleCallback
+		 */
+
+		/**
+		 * Collection of the child views which creates balloon panel contents.
+		 *
+		 * @readonly
+		 * @member {module:ui/viewcollection~ViewCollection}
+		 */
+		this.content = this.createCollection();
+
+		this.setTemplate( {
+			tag: 'div',
+			attributes: {
+				class: [
+					'ck',
+					'ck-balloon-panel',
+					bind.to( 'position', value => `ck-balloon-panel_${ value }` ),
+					bind.if( 'isVisible', 'ck-balloon-panel_visible' ),
+					bind.if( 'withArrow', 'ck-balloon-panel_with-arrow' ),
+					bind.to( 'className' )
+				],
+
+				style: {
+					top: bind.to( 'top', toPx ),
+					left: bind.to( 'left', toPx )
+				}
+			},
+
+			children: this.content
+		} );
+	}
+
+	/**
+	 * Shows the panel.
+	 *
+	 * See {@link #isVisible}.
+	 */
+	show() {
+		this.isVisible = true;
+	}
+
+	/**
+	 * Hides the panel.
+	 *
+	 * See {@link #isVisible}.
+	 */
+	hide() {
+		this.isVisible = false;
+	}
+
+	/**
+	 * Attaches the panel to a specified {@link module:utils/dom/position~Options#target} with a
+	 * smart positioning heuristics that choses from available positions to make sure the panel
+	 * is visible to the user i.e. within the limits of the viewport.
+	 *
+	 * This method accepts configuration {@link module:utils/dom/position~Options options}
+	 * to set the `target`, optional `limiter` and `positions` the balloon should chose from.
+	 *
+	 *		const panel = new BalloonPanelView( locale );
+	 *		const positions = BalloonPanelView.defaultPositions;
+	 *
+	 *		panel.render();
+	 *
+	 *		// Attach the panel to an element with the "target" id DOM.
+	 *		panel.attachTo( {
+	 *			target: document.querySelector( '#target' ),
+	 *			positions: [
+	 *				positions.northArrowSouth,
+	 *				positions.southArrowNorth
+	 *			]
+	 *		} );
+	 *
+	 * **Note**: Attaching the panel will also automatically {@link #show} it.
+	 *
+	 * **Note**: An attached panel will not follow its target when the window is scrolled or resized.
+	 * See the {@link #pin} method for more permanent positioning strategy.
+	 *
+	 * @param {module:utils/dom/position~Options} options Positioning options compatible with
+	 * {@link module:utils/dom/position~getOptimalPosition}. Default `positions` array is
+	 * {@link module:ui/panel/balloon/balloonpanelview~BalloonPanelView.defaultPositions}.
+	 */
+	attachTo( options ) {
+		this.show();
+
+		const defaultPositions = BalloonPanelView.defaultPositions;
+		const positionOptions = Object.assign( {}, {
+			element: this.element,
+			positions: [
+				defaultPositions.southArrowNorth,
+				defaultPositions.southArrowNorthWest,
+				defaultPositions.southArrowNorthEast,
+				defaultPositions.northArrowSouth,
+				defaultPositions.northArrowSouthWest,
+				defaultPositions.northArrowSouthEast
+			],
+			limiter: defaultLimiterElement,
+			fitInViewport: true
+		}, options );
+
+		const { top, left, name: position } = BalloonPanelView._getOptimalPosition( positionOptions );
+
+		Object.assign( this, { top, left, position } );
+	}
+
+	/**
+	 * Works the same way as the {@link #attachTo} method except that the position of the panel is
+	 * continuously updated when:
+	 *
+	 * * any ancestor of the {@link module:utils/dom/position~Options#target}
+	 * or {@link module:utils/dom/position~Options#limiter} is scrolled,
+	 * * the browser window gets resized or scrolled.
+	 *
+	 * Thanks to that, the panel always sticks to the {@link module:utils/dom/position~Options#target},
+	 * immune to the changing environment.
+	 *
+	 *		const panel = new BalloonPanelView( locale );
+	 *		const positions = BalloonPanelView.defaultPositions;
+	 *
+	 *		panel.render();
+	 *
+	 *		// Pin the panel to an element with the "target" id DOM.
+	 *		panel.pin( {
+	 *			target: document.querySelector( '#target' ),
+	 *			positions: [
+	 *				positions.northArrowSouth,
+	 *				positions.southArrowNorth
+	 *			]
+	 *		} );
+	 *
+	 * To leave the pinned state, use the {@link #unpin} method.
+	 *
+	 * **Note**: Pinning the panel will also automatically {@link #show} it.
+	 *
+	 * @param {module:utils/dom/position~Options} options Positioning options compatible with
+	 * {@link module:utils/dom/position~getOptimalPosition}. Default `positions` array is
+	 * {@link module:ui/panel/balloon/balloonpanelview~BalloonPanelView.defaultPositions}.
+	 */
+	pin( options ) {
+		this.unpin();
+
+		this._pinWhenIsVisibleCallback = () => {
+			if ( this.isVisible ) {
+				this._startPinning( options );
+			} else {
+				this._stopPinning();
+			}
+		};
+
+		this._startPinning( options );
+
+		// Control the state of the listeners depending on whether the panel is visible
+		// or not.
+		// TODO: Use on() (https://github.com/ckeditor/ckeditor5-utils/issues/144).
+		this.listenTo( this, 'change:isVisible', this._pinWhenIsVisibleCallback );
+	}
+
+	/**
+	 * Stops pinning the panel, as set up by {@link #pin}.
+	 */
+	unpin() {
+		if ( this._pinWhenIsVisibleCallback ) {
+			// Deactivate listeners attached by pin().
+			this._stopPinning();
+
+			// Deactivate the panel pin() control logic.
+			// TODO: Use off() (https://github.com/ckeditor/ckeditor5-utils/issues/144).
+			this.stopListening( this, 'change:isVisible', this._pinWhenIsVisibleCallback );
+
+			this._pinWhenIsVisibleCallback = null;
+
+			this.hide();
+		}
+	}
+
+	/**
+	 * Starts managing the pinned state of the panel. See {@link #pin}.
+	 *
+	 * @private
+	 * @param {module:utils/dom/position~Options} options Positioning options compatible with
+	 * {@link module:utils/dom/position~getOptimalPosition}.
+	 */
+	_startPinning( options ) {
+		this.attachTo( options );
+
+		const targetElement = getDomElement( options.target );
+		const limiterElement = options.limiter ? getDomElement( options.limiter ) : defaultLimiterElement;
+
+		// Then we need to listen on scroll event of eny element in the document.
+		this.listenTo( _ckeditor_ckeditor5_utils_src_dom_global__WEBPACK_IMPORTED_MODULE_4__["default"].document, 'scroll', ( evt, domEvt ) => {
+			const scrollTarget = domEvt.target;
+
+			// The position needs to be updated if the positioning target is within the scrolled element.
+			const isWithinScrollTarget = targetElement && scrollTarget.contains( targetElement );
+
+			// The position needs to be updated if the positioning limiter is within the scrolled element.
+			const isLimiterWithinScrollTarget = limiterElement && scrollTarget.contains( limiterElement );
+
+			// The positioning target and/or limiter can be a Rect, object etc..
+			// There's no way to optimize the listener then.
+			if ( isWithinScrollTarget || isLimiterWithinScrollTarget || !targetElement || !limiterElement ) {
+				this.attachTo( options );
+			}
+		}, { useCapture: true } );
+
+		// We need to listen on window resize event and update position.
+		this.listenTo( _ckeditor_ckeditor5_utils_src_dom_global__WEBPACK_IMPORTED_MODULE_4__["default"].window, 'resize', () => {
+			this.attachTo( options );
+		} );
+	}
+
+	/**
+	 * Stops managing the pinned state of the panel. See {@link #pin}.
+	 *
+	 * @private
+	 */
+	_stopPinning() {
+		this.stopListening( _ckeditor_ckeditor5_utils_src_dom_global__WEBPACK_IMPORTED_MODULE_4__["default"].document, 'scroll' );
+		this.stopListening( _ckeditor_ckeditor5_utils_src_dom_global__WEBPACK_IMPORTED_MODULE_4__["default"].window, 'resize' );
+	}
+}
+
+// Returns the DOM element for given object or null, if there's none,
+// e.g. when passed object is a Rect instance or so.
+//
+// @private
+// @param {*} object
+// @returns {HTMLElement|null}
+function getDomElement( object ) {
+	if ( Object(lodash_es__WEBPACK_IMPORTED_MODULE_5__["isElement"])( object ) ) {
+		return object;
+	}
+
+	if ( Object(_ckeditor_ckeditor5_utils_src_dom_isrange__WEBPACK_IMPORTED_MODULE_2__["default"])( object ) ) {
+		return object.commonAncestorContainer;
+	}
+
+	if ( typeof object == 'function' ) {
+		return getDomElement( object() );
+	}
+
+	return null;
+}
+
+/**
+ * A horizontal offset of the arrow tip from the edge of the balloon. Controlled by CSS.
+ *
+ *		 +-----|---------...
+ *		 |     |
+ *		 |     |
+ *		 |     |
+ *		 |     |
+ *		 +--+  |  +------...
+ *		     \ | /
+ *		      \|/
+ *	    >|-----|<---------------- horizontal offset
+ *
+ * @default 30
+ * @member {Number} module:ui/panel/balloon/balloonpanelview~BalloonPanelView.arrowHorizontalOffset
+ */
+BalloonPanelView.arrowHorizontalOffset = 25;
+
+/**
+ * A vertical offset of the arrow from the edge of the balloon. Controlled by CSS.
+ *
+ *		 +-------------...
+ *		 |
+ *		 |
+ *		 |                      /-- vertical offset
+ *		 |                     V
+ *		 +--+    +-----...    ---------
+ *		     \  /              |
+ *		      \/               |
+ *		-------------------------------
+ *		                       ^
+ *
+ * @default 15
+ * @member {Number} module:ui/panel/balloon/balloonpanelview~BalloonPanelView.arrowVerticalOffset
+ */
+BalloonPanelView.arrowVerticalOffset = 10;
+
+/**
+ * Function used to calculate the optimal position for the balloon.
+ *
+ * @protected
+ * @member {Function} module:ui/panel/balloon/balloonpanelview~BalloonPanelView._getOptimalPosition
+ */
+BalloonPanelView._getOptimalPosition = _ckeditor_ckeditor5_utils_src_dom_position__WEBPACK_IMPORTED_MODULE_1__["getOptimalPosition"];
+
+/**
+ * A default set of positioning functions used by the balloon panel view
+ * when attaching using {@link module:ui/panel/balloon/balloonpanelview~BalloonPanelView#attachTo} method.
+ *
+ * The available positioning functions are as follow:
+ *
+ * **North**
+ *
+ * * `northArrowSouth`
+ *
+ * 		+-----------------+
+ * 		|     Balloon     |
+ * 		+-----------------+
+ * 		         V
+ * 		    [ Target ]
+ *
+ * * `northArrowSouthEast`
+ *
+ * 		+-----------------+
+ * 		|     Balloon     |
+ * 		+-----------------+
+ * 		               V
+ * 		          [ Target ]
+ *
+ * * `northArrowSouthWest`
+ *
+ * 		  +-----------------+
+ * 		  |     Balloon     |
+ * 		  +-----------------+
+ * 		     V
+ * 		[ Target ]
+ *
+ * **North west**
+ *
+ * * `northWestArrowSouth`
+ *
+ * 		+-----------------+
+ * 		|     Balloon     |
+ * 		+-----------------+
+ * 		         V
+ * 		         [ Target ]
+ *
+ * * `northWestArrowSouthWest`
+ *
+ * 		+-----------------+
+ * 		|     Balloon     |
+ * 		+-----------------+
+ * 		   V
+ * 		   [ Target ]
+ *
+ * * `northWestArrowSouthEast`
+ *
+ * 		+-----------------+
+ * 		|     Balloon     |
+ * 		+-----------------+
+ * 		               V
+ * 		               [ Target ]
+ *
+ * **North east**
+ *
+ * * `northEastArrowSouth`
+ *
+ * 		+-----------------+
+ * 		|     Balloon     |
+ * 		+-----------------+
+ * 		         V
+ * 		[ Target ]
+ *
+ * * `northEastArrowSouthEast`
+ *
+ * 		+-----------------+
+ * 		|     Balloon     |
+ * 		+-----------------+
+ * 		               V
+ * 		      [ Target ]
+ *
+ * * `northEastArrowSouthWest`
+ *
+ * 		      +-----------------+
+ * 		      |     Balloon     |
+ * 		      +-----------------+
+ * 		         V
+ * 		[ Target ]
+ *
+ * **South**
+ *
+ * * `southArrowNorth`
+ *
+ *		    [ Target ]
+ *		         ^
+ *		+-----------------+
+ *		|     Balloon     |
+ *		+-----------------+
+ *
+ * * `southArrowNorthEast`
+ *
+ *		          [ Target ]
+ *		               ^
+ *		+-----------------+
+ *		|     Balloon     |
+ *		+-----------------+
+ *
+ * * `southArrowNorthWest`
+ *
+ *		[ Target ]
+ *		     ^
+ *		   +-----------------+
+ *		   |     Balloon     |
+ *		   +-----------------+
+ *
+ * **South west**
+ *
+ * * `southWestArrowNorth`
+ *
+ *		         [ Target ]
+ *		         ^
+ *		+-----------------+
+ *		|     Balloon     |
+ *		+-----------------+
+ *
+ * * `southWestArrowNorthWest`
+ *
+ *		  [ Target ]
+ *		  ^
+ *		+-----------------+
+ *		|     Balloon     |
+ *		+-----------------+
+ *
+ * * `southWestArrowNorthEast`
+ *
+ *		               [ Target ]
+ *		               ^
+ *		+-----------------+
+ *		|     Balloon     |
+ *		+-----------------+
+ *
+ * **South east**
+ *
+ * * `southEastArrowNorth`
+ *
+ *		[ Target ]
+ *		         ^
+ *		+-----------------+
+ *		|     Balloon     |
+ *		+-----------------+
+ *
+ * * `southEastArrowNorthEast`
+ *
+ *		       [ Target ]
+ *		                ^
+ *		+-----------------+
+ *		|     Balloon     |
+ *		+-----------------+
+ *
+ * * `southEastArrowNorthWest`
+ *
+ *		[ Target ]
+ *		         ^
+ *		       +-----------------+
+ *		       |     Balloon     |
+ *		       +-----------------+
+ *
+ * See {@link module:ui/panel/balloon/balloonpanelview~BalloonPanelView#attachTo}.
+ *
+ * Positioning functions must be compatible with {@link module:utils/dom/position~Position}.
+ *
+ * The name that position function returns will be reflected in balloon panel's class that
+ * controls the placement of the "arrow". See {@link #position} to learn more.
+ *
+ * @member {Object} module:ui/panel/balloon/balloonpanelview~BalloonPanelView.defaultPositions
+ */
+BalloonPanelView.defaultPositions = {
+	// ------- North
+
+	northArrowSouth: ( targetRect, balloonRect ) => ( {
+		top: getNorthTop( targetRect, balloonRect ),
+		left: targetRect.left + targetRect.width / 2 - balloonRect.width / 2,
+		name: 'arrow_s'
+	} ),
+
+	northArrowSouthEast: ( targetRect, balloonRect ) => ( {
+		top: getNorthTop( targetRect, balloonRect ),
+		left: targetRect.left + targetRect.width / 2 - balloonRect.width + BalloonPanelView.arrowHorizontalOffset,
+		name: 'arrow_se'
+	} ),
+
+	northArrowSouthWest: ( targetRect, balloonRect ) => ( {
+		top: getNorthTop( targetRect, balloonRect ),
+		left: targetRect.left + targetRect.width / 2 - BalloonPanelView.arrowHorizontalOffset,
+		name: 'arrow_sw'
+	} ),
+
+	// ------- North west
+
+	northWestArrowSouth: ( targetRect, balloonRect ) => ( {
+		top: getNorthTop( targetRect, balloonRect ),
+		left: targetRect.left - balloonRect.width / 2,
+		name: 'arrow_s'
+	} ),
+
+	northWestArrowSouthWest: ( targetRect, balloonRect ) => ( {
+		top: getNorthTop( targetRect, balloonRect ),
+		left: targetRect.left - BalloonPanelView.arrowHorizontalOffset,
+		name: 'arrow_sw'
+	} ),
+
+	northWestArrowSouthEast: ( targetRect, balloonRect ) => ( {
+		top: getNorthTop( targetRect, balloonRect ),
+		left: targetRect.left - balloonRect.width + BalloonPanelView.arrowHorizontalOffset,
+		name: 'arrow_se'
+	} ),
+
+	// ------- North east
+
+	northEastArrowSouth: ( targetRect, balloonRect ) => ( {
+		top: getNorthTop( targetRect, balloonRect ),
+		left: targetRect.right - balloonRect.width / 2,
+		name: 'arrow_s'
+	} ),
+
+	northEastArrowSouthEast: ( targetRect, balloonRect ) => ( {
+		top: getNorthTop( targetRect, balloonRect ),
+		left: targetRect.right - balloonRect.width + BalloonPanelView.arrowHorizontalOffset,
+		name: 'arrow_se'
+	} ),
+
+	northEastArrowSouthWest: ( targetRect, balloonRect ) => ( {
+		top: getNorthTop( targetRect, balloonRect ),
+		left: targetRect.right - BalloonPanelView.arrowHorizontalOffset,
+		name: 'arrow_sw'
+	} ),
+
+	// ------- South
+
+	southArrowNorth: ( targetRect, balloonRect ) => ( {
+		top: getSouthTop( targetRect, balloonRect ),
+		left: targetRect.left + targetRect.width / 2 - balloonRect.width / 2,
+		name: 'arrow_n'
+	} ),
+
+	southArrowNorthEast: ( targetRect, balloonRect ) => ( {
+		top: getSouthTop( targetRect, balloonRect ),
+		left: targetRect.left + targetRect.width / 2 - balloonRect.width + BalloonPanelView.arrowHorizontalOffset,
+		name: 'arrow_ne'
+	} ),
+
+	southArrowNorthWest: ( targetRect, balloonRect ) => ( {
+		top: getSouthTop( targetRect, balloonRect ),
+		left: targetRect.left + targetRect.width / 2 - BalloonPanelView.arrowHorizontalOffset,
+		name: 'arrow_nw'
+	} ),
+
+	// ------- South west
+
+	southWestArrowNorth: ( targetRect, balloonRect ) => ( {
+		top: getSouthTop( targetRect, balloonRect ),
+		left: targetRect.left - balloonRect.width / 2,
+		name: 'arrow_n'
+	} ),
+
+	southWestArrowNorthWest: ( targetRect, balloonRect ) => ( {
+		top: getSouthTop( targetRect, balloonRect ),
+		left: targetRect.left - BalloonPanelView.arrowHorizontalOffset,
+		name: 'arrow_nw'
+	} ),
+
+	southWestArrowNorthEast: ( targetRect, balloonRect ) => ( {
+		top: getSouthTop( targetRect, balloonRect ),
+		left: targetRect.left - balloonRect.width + BalloonPanelView.arrowHorizontalOffset,
+		name: 'arrow_ne'
+	} ),
+
+	// ------- South east
+
+	southEastArrowNorth: ( targetRect, balloonRect ) => ( {
+		top: getSouthTop( targetRect, balloonRect ),
+		left: targetRect.right - balloonRect.width / 2,
+		name: 'arrow_n'
+	} ),
+
+	southEastArrowNorthEast: ( targetRect, balloonRect ) => ( {
+		top: getSouthTop( targetRect, balloonRect ),
+		left: targetRect.right - balloonRect.width + BalloonPanelView.arrowHorizontalOffset,
+		name: 'arrow_ne'
+	} ),
+
+	southEastArrowNorthWest: ( targetRect, balloonRect ) => ( {
+		top: getSouthTop( targetRect, balloonRect ),
+		left: targetRect.right - BalloonPanelView.arrowHorizontalOffset,
+		name: 'arrow_nw'
+	} ),
+};
+
+// Returns the top coordinate for positions starting with `north*`.
+//
+// @private
+// @param {utils/dom/rect~Rect} targetRect A rect of the target.
+// @param {utils/dom/rect~Rect} elementRect A rect of the balloon.
+// @returns {Number}
+function getNorthTop( targetRect, balloonRect ) {
+	return targetRect.top - balloonRect.height - BalloonPanelView.arrowVerticalOffset;
+}
+
+// Returns the top coordinate for positions starting with `south*`.
+//
+// @private
+// @param {utils/dom/rect~Rect} targetRect A rect of the target.
+// @param {utils/dom/rect~Rect} elementRect A rect of the balloon.
+// @returns {Number}
+function getSouthTop( targetRect ) {
+	return targetRect.bottom + BalloonPanelView.arrowVerticalOffset;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-ui/src/panel/balloon/contextualballoon.js":
+/*!************************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-ui/src/panel/balloon/contextualballoon.js ***!
+  \************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ContextualBalloon; });
+/* harmony import */ var _ckeditor_ckeditor5_core_src_plugin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-core/src/plugin */ "./node_modules/@ckeditor/ckeditor5-core/src/plugin.js");
+/* harmony import */ var _balloonpanelview__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./balloonpanelview */ "./node_modules/@ckeditor/ckeditor5-ui/src/panel/balloon/balloonpanelview.js");
+/* harmony import */ var _ckeditor_ckeditor5_utils_src_ckeditorerror__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ckeditor/ckeditor5-utils/src/ckeditorerror */ "./node_modules/@ckeditor/ckeditor5-utils/src/ckeditorerror.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module ui/panel/balloon/contextualballoon
+ */
+
+
+
+
+
+/**
+ * Provides the common contextual balloon panel for the editor.
+ *
+ * This plugin allows reusing a single {@link module:ui/panel/balloon/balloonpanelview~BalloonPanelView} instance
+ * to display multiple contextual balloon panels in the editor.
+ *
+ * Child views of such a panel are stored in the stack and the last one in the stack is visible. When the
+ * visible view is removed from the stack, the previous view becomes visible, etc. If there are no more
+ * views in the stack, the balloon panel will hide.
+ *
+ * It simplifies managing the views and helps
+ * avoid the unnecessary complexity of handling multiple {@link module:ui/panel/balloon/balloonpanelview~BalloonPanelView}
+ * instances in the editor.
+ *
+ * @extends module:core/plugin~Plugin
+ */
+class ContextualBalloon extends _ckeditor_ckeditor5_core_src_plugin__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * @inheritDoc
+	 */
+	static get pluginName() {
+		return 'ContextualBalloon';
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	init() {
+		/**
+		 * The common balloon panel view.
+		 *
+		 * @readonly
+		 * @member {module:ui/panel/balloon/balloonpanelview~BalloonPanelView} #view
+		 */
+		this.view = new _balloonpanelview__WEBPACK_IMPORTED_MODULE_1__["default"]();
+
+		/**
+		 * The {@link module:utils/dom/position~Options#limiter position limiter}
+		 * for the {@link #view}, used when no `limiter` has been passed into {@link #add}
+		 * or {@link #updatePosition}.
+		 *
+		 * By default, a function, which obtains the farthest DOM
+		 * {@link module:engine/view/rooteditableelement~RootEditableElement}
+		 * of the {@link module:engine/view/document~Document#selection}.
+		 *
+		 * @member {module:utils/dom/position~Options#limiter} #positionLimiter
+		 */
+		this.positionLimiter = () => {
+			const view = this.editor.editing.view;
+			const viewDocument = view.document;
+			const editableElement = viewDocument.selection.editableElement;
+
+			if ( editableElement ) {
+				return view.domConverter.mapViewToDom( editableElement.root );
+			}
+
+			return null;
+		};
+
+		/**
+		 * Stack of the views injected into the balloon. Last one in the stack is displayed
+		 * as a content of {@link module:ui/panel/balloon/contextualballoon~ContextualBalloon#view}.
+		 *
+		 * @private
+		 * @member {Map} #_stack
+		 */
+		this._stack = new Map();
+
+		// Add balloon panel view to editor `body` collection and wait until view will be ready.
+		this.editor.ui.view.body.add( this.view );
+
+		// Editor should be focused when contextual balloon is focused.
+		this.editor.ui.focusTracker.add( this.view.element );
+	}
+
+	/**
+	 * Returns the currently visible view or `null` when there are no
+	 * views in the stack.
+	 *
+	 * @returns {module:ui/view~View|null}
+	 */
+	get visibleView() {
+		const item = this._stack.get( this.view.content.get( 0 ) );
+
+		return item ? item.view : null;
+	}
+
+	/**
+	 * Returns `true` when the given view is in the stack. Otherwise returns `false`.
+	 *
+	 * @param {module:ui/view~View} view
+	 * @returns {Boolean}
+	 */
+	hasView( view ) {
+		return this._stack.has( view );
+	}
+
+	/**
+	 * Adds a new view to the stack and makes it visible.
+	 *
+	 * @param {Object} data Configuration of the view.
+	 * @param {module:ui/view~View} [data.view] Content of the balloon.
+	 * @param {module:utils/dom/position~Options} [data.position] Positioning options.
+	 * @param {String} [data.balloonClassName] Additional css class for {@link #view} added when given view is visible.
+	 */
+	add( data ) {
+		if ( this.hasView( data.view ) ) {
+			/**
+			 * Trying to add configuration of the same view more than once.
+			 *
+			 * @error contextualballoon-add-view-exist
+			 */
+			throw new _ckeditor_ckeditor5_utils_src_ckeditorerror__WEBPACK_IMPORTED_MODULE_2__["default"]( 'contextualballoon-add-view-exist: Cannot add configuration of the same view twice.' );
+		}
+
+		// When adding view to the not empty balloon.
+		if ( this.visibleView ) {
+			// Remove displayed content from the view.
+			this.view.content.remove( this.visibleView );
+		}
+
+		// Add new view to the stack.
+		this._stack.set( data.view, data );
+
+		// And display it.
+		this._show( data );
+	}
+
+	/**
+	 * Removes the given view from the stack. If the removed view was visible,
+	 * then the view preceding it in the stack will become visible instead.
+	 * When there is no view in the stack then balloon will hide.
+	 *
+	 * @param {module:ui/view~View} view A view to be removed from the balloon.
+	 */
+	remove( view ) {
+		if ( !this.hasView( view ) ) {
+			/**
+			 * Trying to remove configuration of the view not defined in the stack.
+			 *
+			 * @error contextualballoon-remove-view-not-exist
+			 */
+			throw new _ckeditor_ckeditor5_utils_src_ckeditorerror__WEBPACK_IMPORTED_MODULE_2__["default"]( 'contextualballoon-remove-view-not-exist: Cannot remove configuration of not existing view.' );
+		}
+
+		// When visible view is being removed.
+		if ( this.visibleView === view ) {
+			// We need to remove it from the view content.
+			this.view.content.remove( view );
+
+			// And then remove from the stack.
+			this._stack.delete( view );
+
+			// Next we need to check if there is other view in stack to show.
+			const last = Array.from( this._stack.values() ).pop();
+
+			// If it is some other view.
+			if ( last ) {
+				// Just show it.
+				this._show( last );
+			} else {
+				// Hide the balloon panel.
+				this.view.hide();
+			}
+		} else {
+			// Just remove given view from the stack.
+			this._stack.delete( view );
+		}
+	}
+
+	/**
+	 * Updates the position of the balloon using position data of the first visible view in the stack.
+	 * When new position data is given then position data of currently visible panel will be updated.
+	 *
+	 * @param {module:utils/dom/position~Options} [position] position options.
+	 */
+	updatePosition( position ) {
+		if ( position ) {
+			this._stack.get( this.visibleView ).position = position;
+		}
+
+		this.view.pin( this._getBalloonPosition() );
+	}
+
+	/**
+	 * Sets the view as a content of the balloon and attaches balloon using position
+	 * options of the first view.
+	 *
+	 * @private
+	 * @param {Object} data Configuration.
+	 * @param {module:ui/view~View} [data.view] View to show in the balloon.
+	 * @param {String} [data.balloonClassName=''] Additional class name which will added to the {#_balloon} view.
+	 */
+	_show( { view, balloonClassName = '' } ) {
+		this.view.className = balloonClassName;
+
+		this.view.content.add( view );
+		this.view.pin( this._getBalloonPosition() );
+	}
+
+	/**
+	 * Returns position options of the last view in the stack.
+	 * This keeps the balloon in the same position when view is changed.
+	 *
+	 * @private
+	 * @returns {module:utils/dom/position~Options}
+	 */
+	_getBalloonPosition() {
+		let position = Array.from( this._stack.values() ).pop().position;
+
+		// Use the default limiter if none has been specified.
+		if ( position && !position.limiter ) {
+			// Don't modify the original options object.
+			position = Object.assign( {}, position, {
+				limiter: this.positionLimiter
+			} );
+		}
+
+		return position;
 	}
 }
 
@@ -47193,6 +55259,126 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/@ckeditor/ckeditor5-ui/theme/components/button/switchbutton.css":
+/*!**************************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-ui/theme/components/button/switchbutton.css ***!
+  \**************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../postcss-loader/src??ref--5-1!./switchbutton.css */ "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-ui/theme/components/button/switchbutton.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"singleton":true,"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/dropdown.css":
+/*!************************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/dropdown.css ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../postcss-loader/src??ref--5-1!./dropdown.css */ "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/dropdown.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"singleton":true,"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/listdropdown.css":
+/*!****************************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/listdropdown.css ***!
+  \****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../postcss-loader/src??ref--5-1!./listdropdown.css */ "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/listdropdown.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"singleton":true,"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/toolbardropdown.css":
+/*!*******************************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/toolbardropdown.css ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../postcss-loader/src??ref--5-1!./toolbardropdown.css */ "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/toolbardropdown.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"singleton":true,"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/@ckeditor/ckeditor5-ui/theme/components/editorui/editorui.css":
 /*!************************************************************************************!*\
   !*** ./node_modules/@ckeditor/ckeditor5-ui/theme/components/editorui/editorui.css ***!
@@ -47262,6 +55448,66 @@ if(false) {}
 
 
 var content = __webpack_require__(/*! !../../../../../postcss-loader/src??ref--5-1!./label.css */ "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-ui/theme/components/label/label.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"singleton":true,"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-ui/theme/components/list/list.css":
+/*!****************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-ui/theme/components/list/list.css ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../postcss-loader/src??ref--5-1!./list.css */ "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-ui/theme/components/list/list.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"singleton":true,"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/balloonpanel.css":
+/*!*************************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/balloonpanel.css ***!
+  \*************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../postcss-loader/src??ref--5-1!./balloonpanel.css */ "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/balloonpanel.css");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -47400,6 +55646,17 @@ var update = __webpack_require__(/*! ../../../../style-loader/lib/addStyles.js *
 if(content.locals) module.exports = content.locals;
 
 if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-ui/theme/icons/dropdown-arrow.svg":
+/*!****************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-ui/theme/icons/dropdown-arrow.svg ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<svg width=\"10\" height=\"10\" viewBox=\"0 0 10 10\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M.941 4.523a.75.75 0 1 1 1.06-1.06l3.006 3.005 3.005-3.005a.75.75 0 1 1 1.06 1.06l-3.549 3.55a.75.75 0 0 1-1.168-.136L.941 4.523z\" fill=\"#000\" fill-rule=\"evenodd\"/></svg>"
 
 /***/ }),
 
@@ -49888,6 +58145,49 @@ function getDataFromElement( el ) {
 
 /***/ }),
 
+/***/ "./node_modules/@ckeditor/ckeditor5-utils/src/dom/getpositionedancestor.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-utils/src/dom/getpositionedancestor.js ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return getPositionedAncestor; });
+/* harmony import */ var _global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./global */ "./node_modules/@ckeditor/ckeditor5-utils/src/dom/global.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module utils/dom/getpositionedancestor
+ */
+
+
+
+/**
+ * For a given element, returns the nearest ancestor element which CSS position is not "static".
+ *
+ * @param {HTMLElement} element Native DOM element to be checked.
+ * @returns {HTMLElement|null}
+ */
+function getPositionedAncestor( element ) {
+	while ( element && element.tagName.toLowerCase() != 'html' ) {
+		if ( _global__WEBPACK_IMPORTED_MODULE_0__["default"].window.getComputedStyle( element ).position != 'static' ) {
+			return element;
+		}
+
+		element = element.parentElement;
+	}
+
+	return null;
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/@ckeditor/ckeditor5-utils/src/dom/global.js":
 /*!******************************************************************!*\
   !*** ./node_modules/@ckeditor/ckeditor5-utils/src/dom/global.js ***!
@@ -50143,6 +58443,330 @@ function isWindow( obj ) {
 
 	return false;
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-utils/src/dom/position.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-utils/src/dom/position.js ***!
+  \********************************************************************/
+/*! exports provided: getOptimalPosition */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOptimalPosition", function() { return getOptimalPosition; });
+/* harmony import */ var _global__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./global */ "./node_modules/@ckeditor/ckeditor5-utils/src/dom/global.js");
+/* harmony import */ var _rect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rect */ "./node_modules/@ckeditor/ckeditor5-utils/src/dom/rect.js");
+/* harmony import */ var _getpositionedancestor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getpositionedancestor */ "./node_modules/@ckeditor/ckeditor5-utils/src/dom/getpositionedancestor.js");
+/* harmony import */ var _getborderwidths__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getborderwidths */ "./node_modules/@ckeditor/ckeditor5-utils/src/dom/getborderwidths.js");
+/* harmony import */ var lodash_es__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash-es */ "./node_modules/lodash-es/lodash.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module utils/dom/position
+ */
+
+
+
+
+
+
+
+/**
+ * Calculates the `position: absolute` coordinates of a given element so it can be positioned with respect to the
+ * target in the visually most efficient way, taking various restrictions like viewport or limiter geometry
+ * into consideration.
+ *
+ *		// The element which is to be positioned.
+ *		const element = document.body.querySelector( '#toolbar' );
+ *
+ *		// A target to which the element is positioned relatively.
+ *		const target = document.body.querySelector( '#container' );
+ *
+ *		// Finding the optimal coordinates for the positioning.
+ *		const { left, top, name } = getOptimalPosition( {
+ *			element: element,
+ *			target: target,
+ *
+ * 			// The algorithm will chose among these positions to meet the requirements such
+ * 			// as "limiter" element or "fitInViewport", set below. The positions are considered
+ * 			// in the order of the array.
+ *			positions: [
+ *				//
+ *			 	//	[ Target ]
+ *				//	+-----------------+
+ *				//	|     Element     |
+ *				//	+-----------------+
+ *				//
+ *				targetRect => ( {
+ *					top: targetRect.bottom,
+ *					left: targetRect.left,
+ *					name: 'mySouthEastPosition'
+ *				} ),
+ *
+ *				//
+ *				//	+-----------------+
+ *				//	|     Element     |
+ *				//	+-----------------+
+ *				//	[ Target ]
+ *				//
+ *				( targetRect, elementRect ) => ( {
+ *					top: targetRect.top - elementRect.height,
+ *					left: targetRect.left,
+ *					name: 'myNorthEastPosition'
+ *				} )
+ *			],
+ *
+ *			// Find a position such guarantees the element remains within visible boundaries of <body>.
+ *			limiter: document.body,
+ *
+ *			// Find a position such guarantees the element remains within visible boundaries of the browser viewport.
+ *			fitInViewport: true
+ *		} );
+ *
+ *		// The best position which fits into document.body and the viewport. May be useful
+ *		// to set proper class on the `element`.
+ *		console.log( name ); -> "myNorthEastPosition"
+ *
+ *		// Using the absolute coordinates which has been found to position the element
+ *		// as in the diagram depicting the "myNorthEastPosition" position.
+ *		element.style.top = top;
+ *		element.style.left = left;
+ *
+ * @param {module:utils/dom/position~Options} options Positioning options object.
+ * @returns {module:utils/dom/position~Position}
+ */
+function getOptimalPosition( { element, target, positions, limiter, fitInViewport } ) {
+	// If the {@link module:utils/dom/position~Options#target} is a function, use what it returns.
+	// https://github.com/ckeditor/ckeditor5-utils/issues/157
+	if ( Object(lodash_es__WEBPACK_IMPORTED_MODULE_4__["isFunction"])( target ) ) {
+		target = target();
+	}
+
+	// If the {@link module:utils/dom/position~Options#limiter} is a function, use what it returns.
+	// https://github.com/ckeditor/ckeditor5-ui/issues/260
+	if ( Object(lodash_es__WEBPACK_IMPORTED_MODULE_4__["isFunction"])( limiter ) ) {
+		limiter = limiter();
+	}
+
+	const positionedElementAncestor = Object(_getpositionedancestor__WEBPACK_IMPORTED_MODULE_2__["default"])( element.parentElement );
+	const elementRect = new _rect__WEBPACK_IMPORTED_MODULE_1__["default"]( element );
+	const targetRect = new _rect__WEBPACK_IMPORTED_MODULE_1__["default"]( target );
+
+	let bestPosition;
+	let name;
+
+	// If there are no limits, just grab the very first position and be done with that drama.
+	if ( !limiter && !fitInViewport ) {
+		[ name, bestPosition ] = getPosition( positions[ 0 ], targetRect, elementRect );
+	} else {
+		const limiterRect = limiter && new _rect__WEBPACK_IMPORTED_MODULE_1__["default"]( limiter ).getVisible();
+		const viewportRect = fitInViewport && new _rect__WEBPACK_IMPORTED_MODULE_1__["default"]( _global__WEBPACK_IMPORTED_MODULE_0__["default"].window );
+
+		[ name, bestPosition ] =
+			getBestPosition( positions, targetRect, elementRect, limiterRect, viewportRect ) ||
+			// If there's no best position found, i.e. when all intersections have no area because
+			// rects have no width or height, then just use the first available position.
+			getPosition( positions[ 0 ], targetRect, elementRect );
+	}
+
+	let { left, top } = getAbsoluteRectCoordinates( bestPosition );
+
+	if ( positionedElementAncestor ) {
+		const ancestorPosition = getAbsoluteRectCoordinates( new _rect__WEBPACK_IMPORTED_MODULE_1__["default"]( positionedElementAncestor ) );
+		const ancestorBorderWidths = Object(_getborderwidths__WEBPACK_IMPORTED_MODULE_3__["default"])( positionedElementAncestor );
+
+		// (https://github.com/ckeditor/ckeditor5-ui-default/issues/126)
+		// If there's some positioned ancestor of the panel, then its `Rect` must be taken into
+		// consideration. `Rect` is always relative to the viewport while `position: absolute` works
+		// with respect to that positioned ancestor.
+		left -= ancestorPosition.left;
+		top -= ancestorPosition.top;
+
+		// (https://github.com/ckeditor/ckeditor5-utils/issues/139)
+		// If there's some positioned ancestor of the panel, not only its position must be taken into
+		// consideration (see above) but also its internal scrolls. Scroll have an impact here because `Rect`
+		// is relative to the viewport (it doesn't care about scrolling), while `position: absolute`
+		// must compensate that scrolling.
+		left += positionedElementAncestor.scrollLeft;
+		top += positionedElementAncestor.scrollTop;
+
+		// (https://github.com/ckeditor/ckeditor5-utils/issues/139)
+		// If there's some positioned ancestor of the panel, then its `Rect` includes its CSS `borderWidth`
+		// while `position: absolute` positioning does not consider it.
+		// E.g. `{ position: absolute, top: 0, left: 0 }` means upper left corner of the element,
+		// not upper-left corner of its border.
+		left -= ancestorBorderWidths.left;
+		top -= ancestorBorderWidths.top;
+	}
+
+	return { left, top, name };
+}
+
+// For given position function, returns a corresponding `Rect` instance.
+//
+// @private
+// @param {Function} position A function returning {@link module:utils/dom/position~Position}.
+// @param {utils/dom/rect~Rect} targetRect A rect of the target.
+// @param {utils/dom/rect~Rect} elementRect A rect of positioned element.
+// @returns {Array} An array containing position name and its Rect.
+function getPosition( position, targetRect, elementRect ) {
+	const { left, top, name } = position( targetRect, elementRect );
+
+	return [ name, elementRect.clone().moveTo( left, top ) ];
+}
+
+// For a given array of positioning functions, returns such that provides the best
+// fit of the `elementRect` into the `limiterRect` and `viewportRect`.
+//
+// @private
+// @param {module:utils/dom/position~Options#positions} positions Functions returning
+// {@link module:utils/dom/position~Position} to be checked, in the order of preference.
+// @param {utils/dom/rect~Rect} targetRect A rect of the {@link module:utils/dom/position~Options#target}.
+// @param {utils/dom/rect~Rect} elementRect A rect of positioned {@link module:utils/dom/position~Options#element}.
+// @param {utils/dom/rect~Rect} limiterRect A rect of the {@link module:utils/dom/position~Options#limiter}.
+// @param {utils/dom/rect~Rect} viewportRect A rect of the viewport.
+// @returns {Array} An array containing the name of the position and it's rect.
+function getBestPosition( positions, targetRect, elementRect, limiterRect, viewportRect ) {
+	let maxLimiterIntersectArea = 0;
+	let maxViewportIntersectArea = 0;
+	let bestPositionRect;
+	let bestPositionName;
+
+	// This is when element is fully visible.
+	const elementRectArea = elementRect.getArea();
+
+	positions.some( position => {
+		const [ positionName, positionRect ] = getPosition( position, targetRect, elementRect );
+		let limiterIntersectArea;
+		let viewportIntersectArea;
+
+		if ( limiterRect ) {
+			if ( viewportRect ) {
+				// Consider only the part of the limiter which is visible in the viewport. So the limiter is getting limited.
+				const limiterViewportIntersectRect = limiterRect.getIntersection( viewportRect );
+
+				if ( limiterViewportIntersectRect ) {
+					// If the limiter is within the viewport, then check the intersection between that part of the
+					// limiter and actual position.
+					limiterIntersectArea = limiterViewportIntersectRect.getIntersectionArea( positionRect );
+				} else {
+					limiterIntersectArea = 0;
+				}
+			} else {
+				limiterIntersectArea = limiterRect.getIntersectionArea( positionRect );
+			}
+		}
+
+		if ( viewportRect ) {
+			viewportIntersectArea = viewportRect.getIntersectionArea( positionRect );
+		}
+
+		// The only criterion: intersection with the viewport.
+		if ( viewportRect && !limiterRect ) {
+			if ( viewportIntersectArea > maxViewportIntersectArea ) {
+				setBestPosition();
+			}
+		}
+		// The only criterion: intersection with the limiter.
+		else if ( !viewportRect && limiterRect ) {
+			if ( limiterIntersectArea > maxLimiterIntersectArea ) {
+				setBestPosition();
+			}
+		}
+		// Two criteria: intersection with the viewport and the limiter visible in the viewport.
+		else {
+			if ( viewportIntersectArea > maxViewportIntersectArea && limiterIntersectArea >= maxLimiterIntersectArea ) {
+				setBestPosition();
+			} else if ( viewportIntersectArea >= maxViewportIntersectArea && limiterIntersectArea > maxLimiterIntersectArea ) {
+				setBestPosition();
+			}
+		}
+
+		function setBestPosition() {
+			maxViewportIntersectArea = viewportIntersectArea;
+			maxLimiterIntersectArea = limiterIntersectArea;
+			bestPositionRect = positionRect;
+			bestPositionName = positionName;
+		}
+
+		// If a such position is found that element is fully container by the limiter then, obviously,
+		// there will be no better one, so finishing.
+		return limiterIntersectArea === elementRectArea;
+	} );
+
+	return bestPositionRect ? [ bestPositionName, bestPositionRect ] : null;
+}
+
+// DOMRect (also Rect) works in a scroll–independent geometry but `position: absolute` doesn't.
+// This function converts Rect to `position: absolute` coordinates.
+//
+// @private
+// @param {utils/dom/rect~Rect} rect A rect to be converted.
+// @returns {Object} Object containing `left` and `top` properties, in absolute coordinates.
+function getAbsoluteRectCoordinates( { left, top } ) {
+	const { scrollX, scrollY } = _global__WEBPACK_IMPORTED_MODULE_0__["default"].window;
+
+	return {
+		left: left + scrollX,
+		top: top + scrollY,
+	};
+}
+
+/**
+ * The `getOptimalPosition` helper options.
+ *
+ * @interface module:utils/dom/position~Options
+ */
+
+/**
+ * Element that is to be positioned.
+ *
+ * @member {HTMLElement} #element
+ */
+
+/**
+ * Target with respect to which the `element` is to be positioned.
+ *
+ * @member {HTMLElement|Range|ClientRect|Rect|Function} #target
+ */
+
+/**
+ * An array of functions which return {@link module:utils/dom/position~Position} relative
+ * to the `target`, in the order of preference.
+ *
+ * @member {Array.<Function>} #positions
+ */
+
+/**
+ * When set, the algorithm will chose position which fits the most in the
+ * limiter's bounding rect.
+ *
+ * @member {HTMLElement|Range|ClientRect|Rect|Function} #limiter
+ */
+
+/**
+ * When set, the algorithm will chose such a position which fits `element`
+ * the most inside visible viewport.
+ *
+ * @member {Boolean} #fitInViewport
+ */
+
+/**
+ * An object describing a position in `position: absolute` coordinate
+ * system, along with position name.
+ *
+ * @typedef {Object} module:utils/dom/position~Position
+ *
+ * @property {Number} top Top position offset.
+ * @property {Number} left Left position offset.
+ * @property {String} name Name of the position.
+ */
 
 
 /***/ }),
@@ -54245,6 +62869,1299 @@ if ( windowOrGlobal.CKEDITOR_VERSION ) {
 }
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-widget/src/highlightstack.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-widget/src/highlightstack.js ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return HighlightStack; });
+/* harmony import */ var _ckeditor_ckeditor5_utils_src_emittermixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-utils/src/emittermixin */ "./node_modules/@ckeditor/ckeditor5-utils/src/emittermixin.js");
+/* harmony import */ var _ckeditor_ckeditor5_utils_src_mix__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ckeditor/ckeditor5-utils/src/mix */ "./node_modules/@ckeditor/ckeditor5-utils/src/mix.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module widget/highlightstack
+ */
+
+
+
+
+/**
+ * Class used to handle correct order of highlights on elements.
+ *
+ * When different highlights are applied to same element correct order should be preserved:
+ *
+ * * highlight with highest priority should be applied,
+ * * if two highlights have same priority - sort by CSS class provided in
+ * {@link module:engine/conversion/downcast-converters~HighlightDescriptor}.
+ *
+ * This way, highlight will be applied with the same rules it is applied on texts.
+ */
+class HighlightStack {
+	/**
+	 * Creates class instance.
+	 */
+	constructor() {
+		this._stack = [];
+	}
+
+	/**
+	 * Adds highlight descriptor to the stack.
+	 *
+	 * @fires change:top
+	 * @param {module:engine/conversion/downcast-converters~HighlightDescriptor} descriptor
+	 * @param {module:engine/view/downcastwriter~DowncastWriter} writer
+	 */
+	add( descriptor, writer ) {
+		const stack = this._stack;
+
+		// Save top descriptor and insert new one. If top is changed - fire event.
+		const oldTop = stack[ 0 ];
+		this._insertDescriptor( descriptor );
+		const newTop = stack[ 0 ];
+
+		// When new object is at the top and stores different information.
+		if ( oldTop !== newTop && !compareDescriptors( oldTop, newTop ) ) {
+			this.fire( 'change:top', {
+				oldDescriptor: oldTop,
+				newDescriptor: newTop,
+				writer
+			} );
+		}
+	}
+
+	/**
+	 * Removes highlight descriptor from the stack.
+	 *
+	 * @fires change:top
+	 * @param {String} id Id of the descriptor to remove.
+	 * @param {module:engine/view/downcastwriter~DowncastWriter} writer
+	 */
+	remove( id, writer ) {
+		const stack = this._stack;
+
+		const oldTop = stack[ 0 ];
+		this._removeDescriptor( id );
+		const newTop = stack[ 0 ];
+
+		// When new object is at the top and stores different information.
+		if ( oldTop !== newTop && !compareDescriptors( oldTop, newTop ) ) {
+			this.fire( 'change:top', {
+				oldDescriptor: oldTop,
+				newDescriptor: newTop,
+				writer
+			} );
+		}
+	}
+
+	/**
+	 * Inserts given descriptor in correct place in the stack. It also takes care about updating information when
+	 * descriptor with same id is already present.
+	 *
+	 * @private
+	 * @param {module:engine/conversion/downcast-converters~HighlightDescriptor} descriptor
+	 */
+	_insertDescriptor( descriptor ) {
+		const stack = this._stack;
+		const index = stack.findIndex( item => item.id === descriptor.id );
+
+		// Inserting exact same descriptor - do nothing.
+		if ( compareDescriptors( descriptor, stack[ index ] ) ) {
+			return;
+		}
+
+		// If descriptor with same id but with different information is on the stack - remove it.
+		if ( index > -1 ) {
+			stack.splice( index, 1 );
+		}
+
+		// Find correct place to insert descriptor in the stack.
+		// It have different information (for example priority) so it must be re-inserted in correct place.
+		let i = 0;
+
+		while ( stack[ i ] && shouldABeBeforeB( stack[ i ], descriptor ) ) {
+			i++;
+		}
+
+		stack.splice( i, 0, descriptor );
+	}
+
+	/**
+	 * Removes descriptor with given id from the stack.
+	 *
+	 * @private
+	 * @param {String} id Descriptor's id.
+	 */
+	_removeDescriptor( id ) {
+		const stack = this._stack;
+		const index = stack.findIndex( item => item.id === id );
+
+		// If descriptor with same id is on the list - remove it.
+		if ( index > -1 ) {
+			stack.splice( index, 1 );
+		}
+	}
+}
+
+Object(_ckeditor_ckeditor5_utils_src_mix__WEBPACK_IMPORTED_MODULE_1__["default"])( HighlightStack, _ckeditor_ckeditor5_utils_src_emittermixin__WEBPACK_IMPORTED_MODULE_0__["default"] );
+
+// Compares two descriptors by checking their priority and class list.
+//
+// @param {module:engine/conversion/downcast-converters~HighlightDescriptor} a
+// @param {module:engine/conversion/downcast-converters~HighlightDescriptor} b
+// @returns {Boolean} Returns true if both descriptors are defined and have same priority and classes.
+function compareDescriptors( a, b ) {
+	return a && b && a.priority == b.priority && classesToString( a.classes ) == classesToString( b.classes );
+}
+
+// Checks whenever first descriptor should be placed in the stack before second one.
+//
+// @param {module:engine/conversion/downcast-converters~HighlightDescriptor} a
+// @param {module:engine/conversion/downcast-converters~HighlightDescriptor} b
+// @returns {Boolean}
+function shouldABeBeforeB( a, b ) {
+	if ( a.priority > b.priority ) {
+		return true;
+	} else if ( a.priority < b.priority ) {
+		return false;
+	}
+
+	// When priorities are equal and names are different - use classes to compare.
+	return classesToString( a.classes ) > classesToString( b.classes );
+}
+
+// Converts CSS classes passed with {@link module:engine/conversion/downcast-converters~HighlightDescriptor} to
+// sorted string.
+//
+// @param {String|Array<String>} descriptor
+// @returns {String}
+function classesToString( classes ) {
+	return Array.isArray( classes ) ? classes.sort().join( ',' ) : classes;
+}
+
+/**
+ * Fired when top element on {@link module:widget/highlightstack~HighlightStack} has been changed
+ *
+ * @event change:top
+ * @param {Object} data Additional information about the change.
+ * @param {module:engine/conversion/downcast-converters~HighlightDescriptor} [data.newDescriptor] New highlight
+ * descriptor. It will be `undefined` when last descriptor is removed from the stack.
+ * @param {module:engine/conversion/downcast-converters~HighlightDescriptor} [data.oldDescriptor] Old highlight
+ * descriptor. It will be `undefined` when first descriptor is added to the stack.
+ * @param {module:engine/view/downcastwriter~DowncastWriter} writer View writer that can be used to modify element.
+ */
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-widget/src/utils.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-widget/src/utils.js ***!
+  \**************************************************************/
+/*! exports provided: WIDGET_CLASS_NAME, WIDGET_SELECTED_CLASS_NAME, isWidget, toWidget, setHighlightHandling, setLabel, getLabel, toWidgetEditable, findOptimalInsertionPosition */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WIDGET_CLASS_NAME", function() { return WIDGET_CLASS_NAME; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WIDGET_SELECTED_CLASS_NAME", function() { return WIDGET_SELECTED_CLASS_NAME; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isWidget", function() { return isWidget; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toWidget", function() { return toWidget; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setHighlightHandling", function() { return setHighlightHandling; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setLabel", function() { return setLabel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getLabel", function() { return getLabel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toWidgetEditable", function() { return toWidgetEditable; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "findOptimalInsertionPosition", function() { return findOptimalInsertionPosition; });
+/* harmony import */ var _highlightstack__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./highlightstack */ "./node_modules/@ckeditor/ckeditor5-widget/src/highlightstack.js");
+/* harmony import */ var _ckeditor_ckeditor5_engine_src_view_position__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ckeditor/ckeditor5-engine/src/view/position */ "./node_modules/@ckeditor/ckeditor5-engine/src/view/position.js");
+/* harmony import */ var _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ckeditor/ckeditor5-engine/src/model/position */ "./node_modules/@ckeditor/ckeditor5-engine/src/model/position.js");
+/* harmony import */ var _ckeditor_ckeditor5_ui_src_icon_iconview__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ckeditor/ckeditor5-ui/src/icon/iconview */ "./node_modules/@ckeditor/ckeditor5-ui/src/icon/iconview.js");
+/* harmony import */ var _ckeditor_ckeditor5_utils_src_env__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ckeditor/ckeditor5-utils/src/env */ "./node_modules/@ckeditor/ckeditor5-utils/src/env.js");
+/* harmony import */ var _theme_icons_drag_handler_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../theme/icons/drag-handler.svg */ "./node_modules/@ckeditor/ckeditor5-widget/theme/icons/drag-handler.svg");
+/* harmony import */ var _theme_icons_drag_handler_svg__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_theme_icons_drag_handler_svg__WEBPACK_IMPORTED_MODULE_5__);
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module widget/utils
+ */
+
+
+
+
+
+
+
+
+
+const widgetSymbol = Symbol( 'isWidget' );
+const labelSymbol = Symbol( 'label' );
+
+/**
+ * CSS class added to each widget element.
+ *
+ * @const {String}
+ */
+const WIDGET_CLASS_NAME = 'ck-widget';
+
+/**
+ * CSS class added to currently selected widget element.
+ *
+ * @const {String}
+ */
+const WIDGET_SELECTED_CLASS_NAME = 'ck-widget_selected';
+
+/**
+ * Returns `true` if given {@link module:engine/view/element~Element} is a widget.
+ *
+ * @param {module:engine/view/element~Element} element
+ * @returns {Boolean}
+ */
+function isWidget( element ) {
+	return !!element.getCustomProperty( widgetSymbol );
+}
+
+/**
+ * Converts given {@link module:engine/view/element~Element} to widget in following way:
+ *
+ * * sets `contenteditable` attribute to `"true"`,
+ * * adds `ck-widget` CSS class,
+ * * adds custom {@link module:engine/view/element~Element#getFillerOffset `getFillerOffset()`} method returning `null`,
+ * * adds custom property allowing to recognize widget elements by using {@link ~isWidget `isWidget()`},
+ * * implements {@link ~setHighlightHandling view highlight on widgets}.
+ *
+ * This function needs to be used in conjuction with {@link module:engine/conversion/downcast-converters downcast converters}
+ * like {@link module:engine/conversion/downcast-converters~downcastElementToElement `downcastElementToElement()`}.
+ * Moreover, typically you will want to use `toWidget()` only for `editingDowncast`, while keeping the `dataDowncast` clean.
+ *
+ * For example, in order to convert a `<widget>` model element to `<div class="widget">` in the view, you can define
+ * such converters:
+ *
+ *		editor.conversion.for( 'editingDowncast' )
+ *			.add( downcastElementToElement( {
+ *				model: 'widget',
+ *				view: ( modelItem, writer ) => {
+ *					const div = writer.createContainerElement( 'div', { class: 'widget' } );
+ *
+ *					return toWidget( div, writer, { label: 'some widget' } );
+ *				}
+ *			} ) );
+ *
+ *		editor.conversion.for( 'dataDowncast' )
+ *			.add( downcastElementToElement( {
+ *				model: 'widget',
+ *				view: ( modelItem, writer ) => {
+ *					return writer.createContainerElement( 'div', { class: 'widget' } );
+ *				}
+ *			} ) );
+ *
+ * See a full source code of a widget (with nested editable) schema definition and converters in
+ * [this sample](https://github.com/ckeditor/ckeditor5-widget/blob/master/tests/manual/widget-with-nestededitable.js).
+ *
+ * @param {module:engine/view/element~Element} element
+ * @param {module:engine/view/downcastwriter~DowncastWriter} writer
+ * @param {Object} [options={}]
+ * @param {String|Function} [options.label] Element's label provided to {@link ~setLabel} function. It can be passed as
+ * a plain string or a function returning a string. It represents the widget for assistive technologies (like screen readers).
+ * @param {Boolean} [options.hasSelectionHandler=false] If `true`, the widget will have a selection handler added.
+ * @returns {module:engine/view/element~Element} Returns same element.
+ */
+function toWidget( element, writer, options = {} ) {
+	// The selection on Edge behaves better when the whole editor contents is in a single contentedible element.
+	// https://github.com/ckeditor/ckeditor5/issues/1079
+	if ( !_ckeditor_ckeditor5_utils_src_env__WEBPACK_IMPORTED_MODULE_4__["default"].isEdge ) {
+		writer.setAttribute( 'contenteditable', 'false', element );
+	}
+
+	writer.addClass( WIDGET_CLASS_NAME, element );
+	writer.setCustomProperty( widgetSymbol, true, element );
+	element.getFillerOffset = getFillerOffset;
+
+	if ( options.label ) {
+		setLabel( element, options.label, writer );
+	}
+
+	if ( options.hasSelectionHandler ) {
+		addSelectionHandler( element, writer );
+	}
+
+	setHighlightHandling(
+		element,
+		writer,
+		( element, descriptor, writer ) => writer.addClass( normalizeToArray( descriptor.classes ), element ),
+		( element, descriptor, writer ) => writer.removeClass( normalizeToArray( descriptor.classes ), element )
+	);
+
+	return element;
+
+	// Normalizes CSS class in descriptor that can be provided in form of an array or a string.
+	function normalizeToArray( classes ) {
+		return Array.isArray( classes ) ? classes : [ classes ];
+	}
+}
+
+/**
+ * Sets highlight handling methods. Uses {@link module:widget/highlightstack~HighlightStack} to
+ * properly determine which highlight descriptor should be used at given time.
+ *
+ * @param {module:engine/view/element~Element} element
+ * @param {module:engine/view/downcastwriter~DowncastWriter} writer
+ * @param {Function} add
+ * @param {Function} remove
+ */
+function setHighlightHandling( element, writer, add, remove ) {
+	const stack = new _highlightstack__WEBPACK_IMPORTED_MODULE_0__["default"]();
+
+	stack.on( 'change:top', ( evt, data ) => {
+		if ( data.oldDescriptor ) {
+			remove( element, data.oldDescriptor, data.writer );
+		}
+
+		if ( data.newDescriptor ) {
+			add( element, data.newDescriptor, data.writer );
+		}
+	} );
+
+	writer.setCustomProperty( 'addHighlight', ( element, descriptor, writer ) => stack.add( descriptor, writer ), element );
+	writer.setCustomProperty( 'removeHighlight', ( element, id, writer ) => stack.remove( id, writer ), element );
+}
+
+/**
+ * Sets label for given element.
+ * It can be passed as a plain string or a function returning a string. Function will be called each time label is retrieved by
+ * {@link ~getLabel `getLabel()`}.
+ *
+ * @param {module:engine/view/element~Element} element
+ * @param {String|Function} labelOrCreator
+ * @param {module:engine/view/downcastwriter~DowncastWriter} writer
+ */
+function setLabel( element, labelOrCreator, writer ) {
+	writer.setCustomProperty( labelSymbol, labelOrCreator, element );
+}
+
+/**
+ * Returns the label of the provided element.
+ *
+ * @param {module:engine/view/element~Element} element
+ * @returns {String}
+ */
+function getLabel( element ) {
+	const labelCreator = element.getCustomProperty( labelSymbol );
+
+	if ( !labelCreator ) {
+		return '';
+	}
+
+	return typeof labelCreator == 'function' ? labelCreator() : labelCreator;
+}
+
+/**
+ * Adds functionality to a provided {@link module:engine/view/editableelement~EditableElement} to act as a widget's editable:
+ *
+ * * sets `contenteditable` as `true` when {@link module:engine/view/editableelement~EditableElement#isReadOnly} is `false`
+ * otherwise set `false`,
+ * * adds `ck-editor__editable` and `ck-editor__nested-editable` CSS classes,
+ * * adds `ck-editor__nested-editable_focused` CSS class when editable is focused and removes it when it is blurred.
+ *
+ * Similarly to {@link ~toWidget `toWidget()`} this function should be used in `dataDowncast` only and it is usually
+ * used together with {@link module:engine/conversion/downcast-converters~downcastElementToElement `downcastElementToElement()`}.
+ *
+ * For example, in order to convert a `<nested>` model element to `<div class="nested">` in the view, you can define
+ * such converters:
+ *
+ *		editor.conversion.for( 'editingDowncast' )
+ *			.add( downcastElementToElement( {
+ *				model: 'nested',
+ *				view: ( modelItem, writer ) => {
+ *					const div = writer.createEditableElement( 'div', { class: 'nested' } );
+ *
+ *					return toWidgetEditable( nested, writer );
+ *				}
+ *			} ) );
+ *
+ *		editor.conversion.for( 'dataDowncast' )
+ *			.add( downcastElementToElement( {
+ *				model: 'nested',
+ *				view: ( modelItem, writer ) => {
+ *					return writer.createContainerElement( 'div', { class: 'nested' } );
+ *				}
+ *			} ) );
+ *
+ * See a full source code of a widget (with nested editable) schema definition and converters in
+ * [this sample](https://github.com/ckeditor/ckeditor5-widget/blob/master/tests/manual/widget-with-nestededitable.js).
+ *
+ * @param {module:engine/view/editableelement~EditableElement} editable
+ * @param {module:engine/view/downcastwriter~DowncastWriter} writer
+ * @returns {module:engine/view/editableelement~EditableElement} Returns same element that was provided in `editable` param.
+ */
+function toWidgetEditable( editable, writer ) {
+	writer.addClass( [ 'ck-editor__editable', 'ck-editor__nested-editable' ], editable );
+
+	// The selection on Edge behaves better when the whole editor contents is in a single contentedible element.
+	// https://github.com/ckeditor/ckeditor5/issues/1079
+	if ( !_ckeditor_ckeditor5_utils_src_env__WEBPACK_IMPORTED_MODULE_4__["default"].isEdge ) {
+		// Set initial contenteditable value.
+		writer.setAttribute( 'contenteditable', editable.isReadOnly ? 'false' : 'true', editable );
+
+		// Bind the contenteditable property to element#isReadOnly.
+		editable.on( 'change:isReadOnly', ( evt, property, is ) => {
+			writer.setAttribute( 'contenteditable', is ? 'false' : 'true', editable );
+		} );
+	}
+
+	editable.on( 'change:isFocused', ( evt, property, is ) => {
+		if ( is ) {
+			writer.addClass( 'ck-editor__nested-editable_focused', editable );
+		} else {
+			writer.removeClass( 'ck-editor__nested-editable_focused', editable );
+		}
+	} );
+
+	return editable;
+}
+
+/**
+ * Returns a model position which is optimal (in terms of UX) for inserting a widget block.
+ *
+ * For instance, if a selection is in the middle of a paragraph, the position before this paragraph
+ * will be returned so that it is not split. If the selection is at the end of a paragraph,
+ * the position after this paragraph will be returned.
+ *
+ * Note: If the selection is placed in an empty block, that block will be returned. If that position
+ * is then passed to {@link module:engine/model/model~Model#insertContent},
+ * the block will be fully replaced by the image.
+ *
+ * @param {module:engine/model/selection~Selection|module:engine/model/documentselection~DocumentSelection} selection
+ * The selection based on which the insertion position should be calculated.
+ * @returns {module:engine/model/position~Position} The optimal position.
+ */
+function findOptimalInsertionPosition( selection ) {
+	const selectedElement = selection.getSelectedElement();
+
+	if ( selectedElement ) {
+		return _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_2__["default"].createAfter( selectedElement );
+	}
+
+	const firstBlock = selection.getSelectedBlocks().next().value;
+
+	if ( firstBlock ) {
+		// If inserting into an empty block – return position in that block. It will get
+		// replaced with the image by insertContent(). #42.
+		if ( firstBlock.isEmpty ) {
+			return _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_2__["default"].createAt( firstBlock );
+		}
+
+		const positionAfter = _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_2__["default"].createAfter( firstBlock );
+
+		// If selection is at the end of the block - return position after the block.
+		if ( selection.focus.isTouching( positionAfter ) ) {
+			return positionAfter;
+		}
+
+		// Otherwise return position before the block.
+		return _ckeditor_ckeditor5_engine_src_model_position__WEBPACK_IMPORTED_MODULE_2__["default"].createBefore( firstBlock );
+	}
+
+	return selection.focus;
+}
+
+// Default filler offset function applied to all widget elements.
+//
+// @returns {null}
+function getFillerOffset() {
+	return null;
+}
+
+// Adds a drag handler to the editable element.
+//
+// @param {module:engine/view/editableelement~EditableElement}
+// @param {module:engine/view/downcastwriter~DowncastWriter} writer
+function addSelectionHandler( editable, writer ) {
+	const selectionHandler = writer.createUIElement( 'div', { class: 'ck ck-widget__selection-handler' }, function( domDocument ) {
+		const domElement = this.toDomElement( domDocument );
+
+		// Use the IconView from the ui library.
+		const icon = new _ckeditor_ckeditor5_ui_src_icon_iconview__WEBPACK_IMPORTED_MODULE_3__["default"]();
+		icon.set( 'content', _theme_icons_drag_handler_svg__WEBPACK_IMPORTED_MODULE_5___default.a );
+
+		// Render the icon view right away to append its #element to the selectionHandler DOM element.
+		icon.render();
+
+		domElement.appendChild( icon.element );
+
+		return domElement;
+	} );
+
+	// Append the selection handler into the widget wrapper.
+	writer.insert( _ckeditor_ckeditor5_engine_src_view_position__WEBPACK_IMPORTED_MODULE_1__["default"].createAt( editable ), selectionHandler );
+	writer.addClass( [ 'ck-widget_selectable' ], editable );
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-widget/src/widget.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-widget/src/widget.js ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Widget; });
+/* harmony import */ var _ckeditor_ckeditor5_core_src_plugin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-core/src/plugin */ "./node_modules/@ckeditor/ckeditor5-core/src/plugin.js");
+/* harmony import */ var _ckeditor_ckeditor5_engine_src_view_observer_mouseobserver__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ckeditor/ckeditor5-engine/src/view/observer/mouseobserver */ "./node_modules/@ckeditor/ckeditor5-engine/src/view/observer/mouseobserver.js");
+/* harmony import */ var _ckeditor_ckeditor5_engine_src_model_range__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ckeditor/ckeditor5-engine/src/model/range */ "./node_modules/@ckeditor/ckeditor5-engine/src/model/range.js");
+/* harmony import */ var _ckeditor_ckeditor5_engine_src_model_selection__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ckeditor/ckeditor5-engine/src/model/selection */ "./node_modules/@ckeditor/ckeditor5-engine/src/model/selection.js");
+/* harmony import */ var _ckeditor_ckeditor5_engine_src_model_element__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ckeditor/ckeditor5-engine/src/model/element */ "./node_modules/@ckeditor/ckeditor5-engine/src/model/element.js");
+/* harmony import */ var _ckeditor_ckeditor5_engine_src_view_editableelement__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ckeditor/ckeditor5-engine/src/view/editableelement */ "./node_modules/@ckeditor/ckeditor5-engine/src/view/editableelement.js");
+/* harmony import */ var _ckeditor_ckeditor5_engine_src_view_rooteditableelement__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ckeditor/ckeditor5-engine/src/view/rooteditableelement */ "./node_modules/@ckeditor/ckeditor5-engine/src/view/rooteditableelement.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./utils */ "./node_modules/@ckeditor/ckeditor5-widget/src/utils.js");
+/* harmony import */ var _ckeditor_ckeditor5_utils_src_keyboard__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ckeditor/ckeditor5-utils/src/keyboard */ "./node_modules/@ckeditor/ckeditor5-utils/src/keyboard.js");
+/* harmony import */ var _theme_widget_css__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../theme/widget.css */ "./node_modules/@ckeditor/ckeditor5-widget/theme/widget.css");
+/* harmony import */ var _theme_widget_css__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_theme_widget_css__WEBPACK_IMPORTED_MODULE_9__);
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module widget/widget
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+const selectAllKeystrokeCode = Object(_ckeditor_ckeditor5_utils_src_keyboard__WEBPACK_IMPORTED_MODULE_8__["parseKeystroke"])( 'Ctrl+A' );
+
+/**
+ * The widget plugin. It enables base support for widgets.
+ *
+ * See {@glink api/widget package page} for more details and documentation.
+ *
+ * This plugin enables multiple behaiors required by the widgets:
+ *
+ * * The model to view selection converter for the editing pipeline (it handles widget custom selection rendering).
+ * If a converted selection is wraps around a widget element, that selection is marked as
+ * {@link module:engine/view/selection~Selection#isFake fake}. Additionally, proper the `ck-widget_selected` CSS class
+ * is added to indicate that widget has been selected.
+ * * The mouse and keyboard events handling on and around widget elements.
+ *
+ * @extends module:core/plugin~Plugin.
+ */
+class Widget extends _ckeditor_ckeditor5_core_src_plugin__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * @inheritDoc
+	 */
+	static get pluginName() {
+		return 'Widget';
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	init() {
+		const view = this.editor.editing.view;
+		const viewDocument = view.document;
+
+		/**
+		 * Holds previously selected widgets.
+		 *
+		 * @private
+		 * @type {Set.<module:engine/view/element~Element>}
+		 */
+		this._previouslySelected = new Set();
+
+		// Model to view selection converter.
+		// Converts selection placed over widget element to fake selection
+		this.editor.editing.downcastDispatcher.on( 'selection', ( evt, data, conversionApi ) => {
+			// Remove selected class from previously selected widgets.
+			this._clearPreviouslySelectedWidgets( conversionApi.writer );
+
+			const viewWriter = conversionApi.writer;
+			const viewSelection = viewWriter.document.selection;
+			const selectedElement = viewSelection.getSelectedElement();
+
+			for ( const range of viewSelection.getRanges() ) {
+				for ( const value of range ) {
+					const node = value.item;
+
+					if ( node.is( 'element' ) && Object(_utils__WEBPACK_IMPORTED_MODULE_7__["isWidget"])( node ) ) {
+						viewWriter.addClass( _utils__WEBPACK_IMPORTED_MODULE_7__["WIDGET_SELECTED_CLASS_NAME"], node );
+						this._previouslySelected.add( node );
+
+						// Check if widget is a single element selected.
+						if ( node == selectedElement ) {
+							viewWriter.setSelection( viewSelection.getRanges(), { fake: true, label: Object(_utils__WEBPACK_IMPORTED_MODULE_7__["getLabel"])( selectedElement ) } );
+						}
+					}
+				}
+			}
+		}, { priority: 'low' } );
+
+		// If mouse down is pressed on widget - create selection over whole widget.
+		view.addObserver( _ckeditor_ckeditor5_engine_src_view_observer_mouseobserver__WEBPACK_IMPORTED_MODULE_1__["default"] );
+		this.listenTo( viewDocument, 'mousedown', ( ...args ) => this._onMousedown( ...args ) );
+
+		// Handle custom keydown behaviour.
+		this.listenTo( viewDocument, 'keydown', ( ...args ) => this._onKeydown( ...args ), { priority: 'high' } );
+
+		// Handle custom delete behaviour.
+		this.listenTo( viewDocument, 'delete', ( evt, data ) => {
+			if ( this._handleDelete( data.direction == 'forward' ) ) {
+				data.preventDefault();
+				evt.stop();
+			}
+		}, { priority: 'high' } );
+	}
+
+	/**
+	 * Handles {@link module:engine/view/document~Document#event:mousedown mousedown} events on widget elements.
+	 *
+	 * @private
+	 * @param {module:utils/eventinfo~EventInfo} eventInfo
+	 * @param {module:engine/view/observer/domeventdata~DomEventData} domEventData
+	 */
+	_onMousedown( eventInfo, domEventData ) {
+		const editor = this.editor;
+		const view = editor.editing.view;
+		const viewDocument = view.document;
+		let element = domEventData.target;
+
+		// Do nothing if inside nested editable.
+		if ( isInsideNestedEditable( element ) ) {
+			return;
+		}
+
+		// If target is not a widget element - check if one of the ancestors is.
+		if ( !Object(_utils__WEBPACK_IMPORTED_MODULE_7__["isWidget"])( element ) ) {
+			element = element.findAncestor( _utils__WEBPACK_IMPORTED_MODULE_7__["isWidget"] );
+
+			if ( !element ) {
+				return;
+			}
+		}
+
+		domEventData.preventDefault();
+
+		// Focus editor if is not focused already.
+		if ( !viewDocument.isFocused ) {
+			view.focus();
+		}
+
+		// Create model selection over widget.
+		const modelElement = editor.editing.mapper.toModelElement( element );
+
+		this._setSelectionOverElement( modelElement );
+	}
+
+	/**
+	 * Handles {@link module:engine/view/document~Document#event:keydown keydown} events.
+	 *
+	 * @private
+	 * @param {module:utils/eventinfo~EventInfo} eventInfo
+	 * @param {module:engine/view/observer/domeventdata~DomEventData} domEventData
+	 */
+	_onKeydown( eventInfo, domEventData ) {
+		const keyCode = domEventData.keyCode;
+		const isForward = keyCode == _ckeditor_ckeditor5_utils_src_keyboard__WEBPACK_IMPORTED_MODULE_8__["keyCodes"].delete || keyCode == _ckeditor_ckeditor5_utils_src_keyboard__WEBPACK_IMPORTED_MODULE_8__["keyCodes"].arrowdown || keyCode == _ckeditor_ckeditor5_utils_src_keyboard__WEBPACK_IMPORTED_MODULE_8__["keyCodes"].arrowright;
+		let wasHandled = false;
+
+		// Checks if the keys were handled and then prevents the default event behaviour and stops
+		// the propagation.
+		if ( isArrowKeyCode( keyCode ) ) {
+			wasHandled = this._handleArrowKeys( isForward );
+		} else if ( isSelectAllKeyCode( domEventData ) ) {
+			wasHandled = this._selectAllNestedEditableContent() || this._selectAllContent();
+		} else if ( keyCode === _ckeditor_ckeditor5_utils_src_keyboard__WEBPACK_IMPORTED_MODULE_8__["keyCodes"].enter ) {
+			wasHandled = this._handleEnterKey( domEventData.shiftKey );
+		}
+
+		if ( wasHandled ) {
+			domEventData.preventDefault();
+			eventInfo.stop();
+		}
+	}
+
+	/**
+	 * Handles delete keys: backspace and delete.
+	 *
+	 * @private
+	 * @param {Boolean} isForward Set to true if delete was performed in forward direction.
+	 * @returns {Boolean|undefined} Returns `true` if keys were handled correctly.
+	 */
+	_handleDelete( isForward ) {
+		// Do nothing when the read only mode is enabled.
+		if ( this.editor.isReadOnly ) {
+			return;
+		}
+
+		const modelDocument = this.editor.model.document;
+		const modelSelection = modelDocument.selection;
+
+		// Do nothing on non-collapsed selection.
+		if ( !modelSelection.isCollapsed ) {
+			return;
+		}
+
+		const objectElement = this._getObjectElementNextToSelection( isForward );
+
+		if ( objectElement ) {
+			this.editor.model.change( writer => {
+				let previousNode = modelSelection.anchor.parent;
+
+				// Remove previous element if empty.
+				while ( previousNode.isEmpty ) {
+					const nodeToRemove = previousNode;
+					previousNode = nodeToRemove.parent;
+
+					writer.remove( nodeToRemove );
+				}
+
+				this._setSelectionOverElement( objectElement );
+			} );
+
+			return true;
+		}
+	}
+
+	/**
+	 * Handles arrow keys.
+	 *
+	 * @private
+	 * @param {Boolean} isForward Set to true if arrow key should be handled in forward direction.
+	 * @returns {Boolean|undefined} Returns `true` if keys were handled correctly.
+	 */
+	_handleArrowKeys( isForward ) {
+		const model = this.editor.model;
+		const schema = model.schema;
+		const modelDocument = model.document;
+		const modelSelection = modelDocument.selection;
+		const objectElement = modelSelection.getSelectedElement();
+
+		// If object element is selected.
+		if ( objectElement && schema.isObject( objectElement ) ) {
+			const position = isForward ? modelSelection.getLastPosition() : modelSelection.getFirstPosition();
+			const newRange = schema.getNearestSelectionRange( position, isForward ? 'forward' : 'backward' );
+
+			if ( newRange ) {
+				model.change( writer => {
+					writer.setSelection( newRange );
+				} );
+			}
+
+			return true;
+		}
+
+		// If selection is next to object element.
+		// Return if not collapsed.
+		if ( !modelSelection.isCollapsed ) {
+			return;
+		}
+
+		const objectElement2 = this._getObjectElementNextToSelection( isForward );
+
+		if ( objectElement2 instanceof _ckeditor_ckeditor5_engine_src_model_element__WEBPACK_IMPORTED_MODULE_4__["default"] && schema.isObject( objectElement2 ) ) {
+			this._setSelectionOverElement( objectElement2 );
+
+			return true;
+		}
+	}
+
+	/**
+	 * Handles the enter key, giving users and access to positions in the editable directly before
+	 * (<kbd>Shift</kbd>+<kbd>Enter</kbd>) or after (<kbd>Enter</kbd>) the selected widget.
+	 * It improves the UX, mainly when the widget is the first or last child of the root editable
+	 * and there's no other way to type after or before it.
+	 *
+	 * @private
+	 * @param {Boolean} isBackwards Set to true if the new paragraph is to be inserted before
+	 * the selected widget (<kbd>Shift</kbd>+<kbd>Enter</kbd>).
+	 * @returns {Boolean|undefined} Returns `true` if keys were handled correctly.
+	 */
+	_handleEnterKey( isBackwards ) {
+		const model = this.editor.model;
+		const modelSelection = model.document.selection;
+		const objectElement = modelSelection.getSelectedElement();
+
+		if ( objectElement && model.schema.isObject( objectElement ) ) {
+			model.change( writer => {
+				const paragraph = writer.createElement( 'paragraph' );
+
+				writer.insert( paragraph, objectElement, isBackwards ? 'before' : 'after' );
+				writer.setSelection( paragraph, 'in' );
+			} );
+
+			return true;
+		}
+	}
+
+	/**
+	 * Extends the {@link module:engine/model/selection~Selection document's selection} to span the entire
+	 * content of the nested editable if already anchored in one.
+	 *
+	 * See: {@link module:engine/model/schema~Schema#getLimitElement}.
+	 *
+	 * @private
+	 */
+	_selectAllNestedEditableContent() {
+		const model = this.editor.model;
+		const documentSelection = model.document.selection;
+		const limitElement = model.schema.getLimitElement( documentSelection );
+
+		if ( documentSelection.getFirstRange().root == limitElement ) {
+			return false;
+		}
+
+		model.change( writer => {
+			writer.setSelection( _ckeditor_ckeditor5_engine_src_model_range__WEBPACK_IMPORTED_MODULE_2__["default"].createIn( limitElement ) );
+		} );
+
+		return true;
+	}
+
+	/**
+	 * Handles <kbd>CTRL + A</kbd> when widget is selected.
+	 *
+	 * @private
+	 * @returns {Boolean} Returns true if widget was selected and selecting all was handled by this method.
+	 */
+	_selectAllContent() {
+		const model = this.editor.model;
+		const editing = this.editor.editing;
+		const view = editing.view;
+		const viewDocument = view.document;
+		const viewSelection = viewDocument.selection;
+
+		const selectedElement = viewSelection.getSelectedElement();
+
+		// Only widget is selected.
+		// https://github.com/ckeditor/ckeditor5-widget/issues/23
+		if ( selectedElement && Object(_utils__WEBPACK_IMPORTED_MODULE_7__["isWidget"])( selectedElement ) ) {
+			const widgetParent = editing.mapper.toModelElement( selectedElement.parent );
+
+			model.change( writer => {
+				writer.setSelection( _ckeditor_ckeditor5_engine_src_model_range__WEBPACK_IMPORTED_MODULE_2__["default"].createIn( widgetParent ) );
+			} );
+
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Sets {@link module:engine/model/selection~Selection document's selection} over given element.
+	 *
+	 * @private
+	 * @param {module:engine/model/element~Element} element
+	 */
+	_setSelectionOverElement( element ) {
+		this.editor.model.change( writer => {
+			writer.setSelection( _ckeditor_ckeditor5_engine_src_model_range__WEBPACK_IMPORTED_MODULE_2__["default"].createOn( element ) );
+		} );
+	}
+
+	/**
+	 * Checks if {@link module:engine/model/element~Element element} placed next to the current
+	 * {@link module:engine/model/selection~Selection model selection} exists and is marked in
+	 * {@link module:engine/model/schema~Schema schema} as `object`.
+	 *
+	 * @private
+	 * @param {Boolean} forward Direction of checking.
+	 * @returns {module:engine/model/element~Element|null}
+	 */
+	_getObjectElementNextToSelection( forward ) {
+		const model = this.editor.model;
+		const schema = model.schema;
+		const modelSelection = model.document.selection;
+
+		// Clone current selection to use it as a probe. We must leave default selection as it is so it can return
+		// to its current state after undo.
+		const probe = new _ckeditor_ckeditor5_engine_src_model_selection__WEBPACK_IMPORTED_MODULE_3__["default"]( modelSelection );
+		model.modifySelection( probe, { direction: forward ? 'forward' : 'backward' } );
+		const objectElement = forward ? probe.focus.nodeBefore : probe.focus.nodeAfter;
+
+		if ( objectElement instanceof _ckeditor_ckeditor5_engine_src_model_element__WEBPACK_IMPORTED_MODULE_4__["default"] && schema.isObject( objectElement ) ) {
+			return objectElement;
+		}
+
+		return null;
+	}
+
+	/**
+	 * Removes CSS class from previously selected widgets.
+	 *
+	 * @private
+	 * @param {module:engine/view/downcastwriter~DowncastWriter} writer
+	 */
+	_clearPreviouslySelectedWidgets( writer ) {
+		for ( const widget of this._previouslySelected ) {
+			writer.removeClass( _utils__WEBPACK_IMPORTED_MODULE_7__["WIDGET_SELECTED_CLASS_NAME"], widget );
+		}
+
+		this._previouslySelected.clear();
+	}
+}
+
+// Returns 'true' if provided key code represents one of the arrow keys.
+//
+// @param {Number} keyCode
+// @returns {Boolean}
+function isArrowKeyCode( keyCode ) {
+	return keyCode == _ckeditor_ckeditor5_utils_src_keyboard__WEBPACK_IMPORTED_MODULE_8__["keyCodes"].arrowright ||
+		keyCode == _ckeditor_ckeditor5_utils_src_keyboard__WEBPACK_IMPORTED_MODULE_8__["keyCodes"].arrowleft ||
+		keyCode == _ckeditor_ckeditor5_utils_src_keyboard__WEBPACK_IMPORTED_MODULE_8__["keyCodes"].arrowup ||
+		keyCode == _ckeditor_ckeditor5_utils_src_keyboard__WEBPACK_IMPORTED_MODULE_8__["keyCodes"].arrowdown;
+}
+
+// Returns 'true' if provided (DOM) key event data corresponds with the Ctrl+A keystroke.
+//
+// @param {module:engine/view/observer/keyobserver~KeyEventData} domEventData
+// @returns {Boolean}
+function isSelectAllKeyCode( domEventData ) {
+	return Object(_ckeditor_ckeditor5_utils_src_keyboard__WEBPACK_IMPORTED_MODULE_8__["getCode"])( domEventData ) == selectAllKeystrokeCode;
+}
+
+// Returns `true` when element is a nested editable or is placed inside one.
+//
+// @param {module:engine/view/element~Element}
+// @returns {Boolean}
+function isInsideNestedEditable( element ) {
+	while ( element ) {
+		if ( element instanceof _ckeditor_ckeditor5_engine_src_view_editableelement__WEBPACK_IMPORTED_MODULE_5__["default"] && !( element instanceof _ckeditor_ckeditor5_engine_src_view_rooteditableelement__WEBPACK_IMPORTED_MODULE_6__["default"] ) ) {
+			return true;
+		}
+
+		element = element.parent;
+	}
+
+	return false;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-widget/src/widgettoolbarrepository.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-widget/src/widgettoolbarrepository.js ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return WidgetToolbarRepository; });
+/* harmony import */ var _ckeditor_ckeditor5_core_src_plugin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-core/src/plugin */ "./node_modules/@ckeditor/ckeditor5-core/src/plugin.js");
+/* harmony import */ var _ckeditor_ckeditor5_ui_src_panel_balloon_contextualballoon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ckeditor/ckeditor5-ui/src/panel/balloon/contextualballoon */ "./node_modules/@ckeditor/ckeditor5-ui/src/panel/balloon/contextualballoon.js");
+/* harmony import */ var _ckeditor_ckeditor5_ui_src_toolbar_toolbarview__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ckeditor/ckeditor5-ui/src/toolbar/toolbarview */ "./node_modules/@ckeditor/ckeditor5-ui/src/toolbar/toolbarview.js");
+/* harmony import */ var _ckeditor_ckeditor5_ui_src_panel_balloon_balloonpanelview__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ckeditor/ckeditor5-ui/src/panel/balloon/balloonpanelview */ "./node_modules/@ckeditor/ckeditor5-ui/src/panel/balloon/balloonpanelview.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils */ "./node_modules/@ckeditor/ckeditor5-widget/src/utils.js");
+/* harmony import */ var _ckeditor_ckeditor5_utils_src_ckeditorerror__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ckeditor/ckeditor5-utils/src/ckeditorerror */ "./node_modules/@ckeditor/ckeditor5-utils/src/ckeditorerror.js");
+/**
+ * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/**
+ * @module widget/widgettoolbarrepository
+ */
+
+
+
+
+
+
+
+
+/**
+ * Widget toolbar repository plugin. A central point for registering widget toolbars. This plugin handles the whole
+ * toolbar rendering process and exposes a concise API.
+ *
+ * To add a toolbar for your widget use the {@link ~WidgetToolbarRepository#register `WidgetToolbarRepository#register()`} method.
+ *
+ * The following example comes from the {@link module:image/imagetoolbar~ImageToolbar} plugin:
+ *
+ * 		class ImageToolbar extends Plugin {
+ *			static get requires() {
+ *				return [ WidgetToolbarRepository ];
+ *			}
+ *
+ *			afterInit() {
+ *				const editor = this.editor;
+ *				const widgetToolbarRepository = editor.plugins.get( WidgetToolbarRepository );
+ *
+ *				widgetToolbarRepository.register( 'image', {
+ *					items: editor.config.get( 'image.toolbar' ),
+ *					visibleWhen: viewSelection => isImageWidgetSelected( viewSelection )
+ *				} );
+ *			}
+ *		}
+ */
+class WidgetToolbarRepository extends _ckeditor_ckeditor5_core_src_plugin__WEBPACK_IMPORTED_MODULE_0__["default"] {
+	/**
+	 * @inheritDoc
+	 */
+	static get requires() {
+		return [ _ckeditor_ckeditor5_ui_src_panel_balloon_contextualballoon__WEBPACK_IMPORTED_MODULE_1__["default"] ];
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	static get pluginName() {
+		return 'WidgetToolbarRepository';
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	init() {
+		const editor = this.editor;
+		const balloonToolbar = editor.plugins.get( 'BalloonToolbar' );
+
+		// Disables the default balloon toolbar for all widgets.
+		if ( balloonToolbar ) {
+			this.listenTo( balloonToolbar, 'show', evt => {
+				if ( isWidgetSelected( editor.editing.view.document.selection ) ) {
+					evt.stop();
+				}
+			}, { priority: 'high' } );
+		}
+
+		/**
+		 * A map of toolbars.
+		 *
+		 * @protected
+		 * @member {Map.<string,Object>} #_toolbars
+		 */
+		this._toolbars = new Map();
+
+		/**
+		 * @private
+		 */
+		this._balloon = this.editor.plugins.get( 'ContextualBalloon' );
+
+		this.listenTo( editor.ui, 'update', () => {
+			this._updateToolbarsVisibility();
+		} );
+
+		// UI#update is not fired after focus is back in editor, we need to check if balloon panel should be visible.
+		this.listenTo( editor.ui.focusTracker, 'change:isFocused', () => {
+			this._updateToolbarsVisibility();
+		}, { priority: 'low' } );
+	}
+
+	/**
+	 * Registers toolbar in the WidgetToolbarRepository. It renders it in the `ContextualBalloon` based on the value of the invoked
+	 * `visibleWhen` function. Toolbar items are gathered from `items` array.
+	 * The balloon's CSS class is by default `ck-toolbar-container` and may be override with the `balloonClassName` option.
+	 *
+	 * Note: This method should be called in the {@link module:core/plugin~PluginInterface#afterInit `Plugin#afterInit()`}
+	 * callback (or later) to make sure that the given toolbar items were already registered by other plugins.
+	 *
+	 * @param {String} toolbarId An id for the toolbar. Used to
+	 * @param {Object} options
+	 * @param {Array.<String>} options.items Array of toolbar items.
+	 * @param {Function} options.visibleWhen Callback which specifies when the toolbar should be visible for the widget.
+	 * @param {String} [options.balloonClassName='ck-toolbar-container'] CSS class for the widget balloon.
+	 */
+	register( toolbarId, { items, visibleWhen, balloonClassName = 'ck-toolbar-container' } ) {
+		const editor = this.editor;
+		const toolbarView = new _ckeditor_ckeditor5_ui_src_toolbar_toolbarview__WEBPACK_IMPORTED_MODULE_2__["default"]();
+
+		if ( this._toolbars.has( toolbarId ) ) {
+			/**
+			 * Toolbar with the given id was already added.
+			 *
+			 * @error widget-toolbar-duplicated
+			 * @param toolbarId Toolbar id.
+			 */
+			throw new _ckeditor_ckeditor5_utils_src_ckeditorerror__WEBPACK_IMPORTED_MODULE_5__["default"]( 'widget-toolbar-duplicated: Toolbar with the given id was already added.', { toolbarId } );
+		}
+
+		toolbarView.fillFromConfig( items, editor.ui.componentFactory );
+
+		this._toolbars.set( toolbarId, {
+			view: toolbarView,
+			visibleWhen,
+			balloonClassName,
+		} );
+	}
+
+	/**
+	 * Iterates over stored toolbars and makes them visible or hidden.
+	 *
+	 * @private
+	 */
+	_updateToolbarsVisibility() {
+		for ( const toolbar of this._toolbars.values() ) {
+			if ( !this.editor.ui.focusTracker.isFocused || !toolbar.visibleWhen( this.editor.editing.view.document.selection ) ) {
+				this._hideToolbar( toolbar );
+			} else {
+				this._showToolbar( toolbar );
+			}
+		}
+	}
+
+	/**
+	 * Hides the given toolbar.
+	 *
+	 * @private
+	 * @param {Object} toolbar
+	 */
+	_hideToolbar( toolbar ) {
+		if ( !this._isToolbarVisible( toolbar ) ) {
+			return;
+		}
+
+		this._balloon.remove( toolbar.view );
+	}
+
+	/**
+	 * Shows up the toolbar if the toolbar is not visible and repositions the toolbar's balloon when toolbar's
+	 * view is the most top view in balloon stack.
+	 *
+	 * It might happen here that the toolbar's view is under another view. Then do nothing as the other toolbar view
+	 * should be still visible after the {@link module:core/editor/editorui~EditorUI#event:update}.
+	 *
+	 * @private
+	 * @param {Object} toolbar
+	 */
+	_showToolbar( toolbar ) {
+		if ( this._isToolbarVisible( toolbar ) ) {
+			repositionContextualBalloon( this.editor );
+		} else if ( !this._balloon.hasView( toolbar.view ) ) {
+			this._balloon.add( {
+				view: toolbar.view,
+				position: getBalloonPositionData( this.editor ),
+				balloonClassName: toolbar.balloonClassName,
+			} );
+		}
+	}
+
+	/**
+	 * @private
+	 * @param {Object} toolbar
+	 */
+	_isToolbarVisible( toolbar ) {
+		return this._balloon.visibleView == toolbar.view;
+	}
+}
+
+function repositionContextualBalloon( editor ) {
+	const balloon = editor.plugins.get( 'ContextualBalloon' );
+	const position = getBalloonPositionData( editor );
+
+	balloon.updatePosition( position );
+}
+
+function getBalloonPositionData( editor ) {
+	const editingView = editor.editing.view;
+	const defaultPositions = _ckeditor_ckeditor5_ui_src_panel_balloon_balloonpanelview__WEBPACK_IMPORTED_MODULE_3__["default"].defaultPositions;
+	const widget = getParentWidget( editingView.document.selection );
+
+	return {
+		target: editingView.domConverter.viewToDom( widget ),
+		positions: [
+			defaultPositions.northArrowSouth,
+			defaultPositions.northArrowSouthWest,
+			defaultPositions.northArrowSouthEast,
+			defaultPositions.southArrowNorth,
+			defaultPositions.southArrowNorthWest,
+			defaultPositions.southArrowNorthEast
+		]
+	};
+}
+
+function getParentWidget( selection ) {
+	const selectedElement = selection.getSelectedElement();
+
+	if ( selectedElement && Object(_utils__WEBPACK_IMPORTED_MODULE_4__["isWidget"])( selectedElement ) ) {
+		return selectedElement;
+	}
+
+	const position = selection.getFirstPosition();
+	let parent = position.parent;
+
+	while ( parent ) {
+		if ( parent.is( 'element' ) && Object(_utils__WEBPACK_IMPORTED_MODULE_4__["isWidget"])( parent ) ) {
+			return parent;
+		}
+
+		parent = parent.parent;
+	}
+}
+
+function isWidgetSelected( selection ) {
+	const viewElement = selection.getSelectedElement();
+
+	return !!( viewElement && Object(_utils__WEBPACK_IMPORTED_MODULE_4__["isWidget"])( viewElement ) );
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-widget/theme/icons/drag-handler.svg":
+/*!******************************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-widget/theme/icons/drag-handler.svg ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" xmlns=\"http://www.w3.org/2000/svg\"><g><path d=\"M4 0v1H1v3H0V.5A.5.5 0 0 1 .5 0H4zm8 0h3.5a.5.5 0 0 1 .5.5V4h-1V1h-3V0zM4 16H.5a.5.5 0 0 1-.5-.5V12h1v3h3v1zm8 0v-1h3v-3h1v3.5a.5.5 0 0 1-.5.5H12z\"/><path fill-opacity=\".256\" d=\"M1 1h14v14H1z\"/><g class=\"ck-icon__selected-indicator\"><path d=\"M7 0h2v1H7V0zM0 7h1v2H0V7zm15 0h1v2h-1V7zm-8 8h2v1H7v-1z\"/><path fill-opacity=\".254\" d=\"M1 1h14v14H1z\"/></g></g></svg>\n"
+
+/***/ }),
+
+/***/ "./node_modules/@ckeditor/ckeditor5-widget/theme/widget.css":
+/*!******************************************************************!*\
+  !*** ./node_modules/@ckeditor/ckeditor5-widget/theme/widget.css ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../postcss-loader/src??ref--5-1!./widget.css */ "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-widget/theme/widget.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"singleton":true,"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
 
 /***/ }),
 
@@ -87467,6 +97384,50 @@ module.exports = ".ck.ck-editor{position:relative}.ck.ck-editor .ck-editor__top 
 
 /***/ }),
 
+/***/ "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-heading/theme/heading.css":
+/*!****************************************************************************************************************!*\
+  !*** ./node_modules/postcss-loader/src??ref--5-1!./node_modules/@ckeditor/ckeditor5-heading/theme/heading.css ***!
+  \****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".ck.ck-heading_heading1{font-size:20px}.ck.ck-heading_heading2{font-size:17px}.ck.ck-heading_heading3{font-size:14px}.ck[class*=ck-heading_heading]{font-weight:700}.ck.ck-dropdown.ck-heading-dropdown .ck-dropdown__button .ck-button__label{width:8em}.ck.ck-dropdown.ck-heading-dropdown .ck-dropdown__panel .ck-list__item{min-width:18em}"
+
+/***/ }),
+
+/***/ "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-table/theme/inserttable.css":
+/*!******************************************************************************************************************!*\
+  !*** ./node_modules/postcss-loader/src??ref--5-1!./node_modules/@ckeditor/ckeditor5-table/theme/inserttable.css ***!
+  \******************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":root{--ck-insert-table-dropdown-padding:10px;--ck-insert-table-dropdown-box-height:11px;--ck-insert-table-dropdown-box-width:12px;--ck-insert-table-dropdown-box-margin:1px;--ck-insert-table-dropdown-box-border-color:#bfbfbf;--ck-insert-table-dropdown-box-border-active-color:#53a0e4;--ck-insert-table-dropdown-box-active-background:#c7e5ff}.ck .ck-insert-table-dropdown__grid{display:flex;flex-direction:row;flex-wrap:wrap;width:calc(var(--ck-insert-table-dropdown-box-width)*10 + var(--ck-insert-table-dropdown-box-margin)*20 + var(--ck-insert-table-dropdown-padding)*2);padding:var(--ck-insert-table-dropdown-padding) var(--ck-insert-table-dropdown-padding) 0}.ck .ck-insert-table-dropdown__label{text-align:center}.ck .ck-insert-table-dropdown-grid-box{width:var(--ck-insert-table-dropdown-box-width);height:var(--ck-insert-table-dropdown-box-height);margin:var(--ck-insert-table-dropdown-box-margin);border:1px solid var(--ck-insert-table-dropdown-box-border-color);border-radius:1px}.ck .ck-insert-table-dropdown-grid-box.ck-on{border-color:var(--ck-insert-table-dropdown-box-border-active-color);background:var(--ck-insert-table-dropdown-box-active-background)}"
+
+/***/ }),
+
+/***/ "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-table/theme/table.css":
+/*!************************************************************************************************************!*\
+  !*** ./node_modules/postcss-loader/src??ref--5-1!./node_modules/@ckeditor/ckeditor5-table/theme/table.css ***!
+  \************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".ck-content .table{margin:1em auto;display:table}.ck-content .table table{border-collapse:collapse;border-spacing:0;border:1px double #b3b3b3}.ck-content .table table td,.ck-content .table table th{min-width:2em;padding:.4em;border-color:#d9d9d9}.ck-content .table table th{font-weight:700;background:#fafafa}"
+
+/***/ }),
+
+/***/ "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-table/theme/tableediting.css":
+/*!*******************************************************************************************************************!*\
+  !*** ./node_modules/postcss-loader/src??ref--5-1!./node_modules/@ckeditor/ckeditor5-table/theme/tableediting.css ***!
+  \*******************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":root{--ck-color-table-focused-cell-background:#f5fafe}.ck-widget.table td.ck-editor__nested-editable.ck-editor__nested-editable_focused,.ck-widget.table th.ck-editor__nested-editable.ck-editor__nested-editable_focused{background:var(--ck-color-table-focused-cell-background);border-style:none;outline:1px solid var(--ck-color-focus-border);outline-offset:-1px}"
+
+/***/ }),
+
 /***/ "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-ui/theme/components/button/button.css":
 /*!****************************************************************************************************************************!*\
   !*** ./node_modules/postcss-loader/src??ref--5-1!./node_modules/@ckeditor/ckeditor5-ui/theme/components/button/button.css ***!
@@ -87475,6 +97436,50 @@ module.exports = ".ck.ck-editor{position:relative}.ck.ck-editor .ck-editor__top 
 /***/ (function(module, exports) {
 
 module.exports = ".ck.ck-button,a.ck.ck-button{-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none}.ck.ck-button .ck-tooltip,a.ck.ck-button .ck-tooltip{display:block}@media (hover:none){.ck.ck-button .ck-tooltip,a.ck.ck-button .ck-tooltip{display:none}}.ck.ck-button,a.ck.ck-button{position:relative;display:inline-flex;align-items:center;justify-content:left}.ck.ck-button.ck-button_with-text .ck-button__label,a.ck.ck-button.ck-button_with-text .ck-button__label{display:inline-block}.ck.ck-button:not(.ck-button_with-text),a.ck.ck-button:not(.ck-button_with-text){justify-content:center}.ck.ck-button:hover .ck-tooltip,a.ck.ck-button:hover .ck-tooltip{visibility:visible;opacity:1}.ck.ck-button .ck-button__label,.ck.ck-button:focus:not(:hover) .ck-tooltip,a.ck.ck-button .ck-button__label,a.ck.ck-button:focus:not(:hover) .ck-tooltip{display:none}.ck.ck-button,a.ck.ck-button{background:var(--ck-color-button-default-background)}.ck.ck-button:not(.ck-disabled):hover,a.ck.ck-button:not(.ck-disabled):hover{background:var(--ck-color-button-default-hover-background)}.ck.ck-button:not(.ck-disabled):active,a.ck.ck-button:not(.ck-disabled):active{background:var(--ck-color-button-default-active-background);box-shadow:inset 0 2px 2px var(--ck-color-button-default-active-shadow)}.ck.ck-button.ck-disabled,a.ck.ck-button.ck-disabled{background:var(--ck-color-button-default-disabled-background)}.ck.ck-button,a.ck.ck-button{border-radius:0}.ck-rounded-corners .ck.ck-button,.ck-rounded-corners a.ck.ck-button,.ck.ck-button.ck-rounded-corners,a.ck.ck-button.ck-rounded-corners{border-radius:var(--ck-border-radius)}.ck.ck-button,a.ck.ck-button{white-space:nowrap;cursor:default;vertical-align:middle;padding:var(--ck-spacing-tiny);text-align:center;min-width:var(--ck-ui-component-min-height);min-height:var(--ck-ui-component-min-height);line-height:1;font-size:inherit;border:1px solid transparent;transition:box-shadow .2s ease-in-out;-webkit-appearance:none}.ck.ck-button:active,.ck.ck-button:focus,a.ck.ck-button:active,a.ck.ck-button:focus{outline:none;border:var(--ck-focus-ring);box-shadow:var(--ck-focus-outer-shadow),0 0;border-color:transparent}.ck.ck-button.ck-disabled:active,.ck.ck-button.ck-disabled:focus,a.ck.ck-button.ck-disabled:active,a.ck.ck-button.ck-disabled:focus{box-shadow:var(--ck-focus-disabled-outer-shadow),0 0}.ck.ck-button.ck-disabled .ck-button__icon,a.ck.ck-button.ck-disabled .ck-button__icon{opacity:var(--ck-disabled-opacity)}.ck.ck-button.ck-disabled .ck-button__label,a.ck.ck-button.ck-disabled .ck-button__label{opacity:var(--ck-disabled-opacity)}.ck.ck-button.ck-button_with-text,a.ck.ck-button.ck-button_with-text{padding:var(--ck-spacing-tiny) var(--ck-spacing-standard)}.ck.ck-button.ck-button_with-text .ck-button__icon,a.ck.ck-button.ck-button_with-text .ck-button__icon{margin-left:calc(-1*var(--ck-spacing-small));margin-right:var(--ck-spacing-small)}.ck.ck-button.ck-on,a.ck.ck-button.ck-on{background:var(--ck-color-button-on-background)}.ck.ck-button.ck-on:not(.ck-disabled):hover,a.ck.ck-button.ck-on:not(.ck-disabled):hover{background:var(--ck-color-button-on-hover-background)}.ck.ck-button.ck-on:not(.ck-disabled):active,a.ck.ck-button.ck-on:not(.ck-disabled):active{background:var(--ck-color-button-on-active-background);box-shadow:inset 0 2px 2px var(--ck-color-button-on-active-shadow)}.ck.ck-button.ck-on.ck-disabled,a.ck.ck-button.ck-on.ck-disabled{background:var(--ck-color-button-on-disabled-background)}.ck.ck-button.ck-button-save,a.ck.ck-button.ck-button-save{color:var(--ck-color-button-save)}.ck.ck-button.ck-button-cancel,a.ck.ck-button.ck-button-cancel{color:var(--ck-color-button-cancel)}.ck.ck-button .ck-button__icon use,.ck.ck-button .ck-button__icon use *,a.ck.ck-button .ck-button__icon use,a.ck.ck-button .ck-button__icon use *{color:inherit}.ck.ck-button .ck-button__label,a.ck.ck-button .ck-button__label{font-size:inherit;font-weight:inherit;color:inherit;cursor:inherit;vertical-align:middle}.ck.ck-button-action,a.ck.ck-button-action{background:var(--ck-color-button-action-background)}.ck.ck-button-action:not(.ck-disabled):hover,a.ck.ck-button-action:not(.ck-disabled):hover{background:var(--ck-color-button-action-hover-background)}.ck.ck-button-action:not(.ck-disabled):active,a.ck.ck-button-action:not(.ck-disabled):active{background:var(--ck-color-button-action-active-background);box-shadow:inset 0 2px 2px var(--ck-color-button-action-active-shadow)}.ck.ck-button-action.ck-disabled,a.ck.ck-button-action.ck-disabled{background:var(--ck-color-button-action-disabled-background)}.ck.ck-button-action,a.ck.ck-button-action{color:var(--ck-color-button-action-text)}.ck.ck-button-bold,a.ck.ck-button-bold{font-weight:700}"
+
+/***/ }),
+
+/***/ "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-ui/theme/components/button/switchbutton.css":
+/*!**********************************************************************************************************************************!*\
+  !*** ./node_modules/postcss-loader/src??ref--5-1!./node_modules/@ckeditor/ckeditor5-ui/theme/components/button/switchbutton.css ***!
+  \**********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".ck.ck-button.ck-switchbutton .ck-button__toggle,.ck.ck-button.ck-switchbutton .ck-button__toggle .ck-button__toggle__inner{display:block}:root{--ck-switch-button-toggle-width:2.6153846154em;--ck-switch-button-toggle-inner-size:1.0769230769em;--ck-switch-button-toggle-spacing:1px}.ck.ck-button.ck-switchbutton .ck-button__label{margin-right:calc(2*var(--ck-spacing-large))}.ck.ck-button.ck-switchbutton.ck-disabled .ck-button__toggle{opacity:var(--ck-disabled-opacity)}.ck.ck-button.ck-switchbutton .ck-button__toggle{border-radius:0}.ck-rounded-corners .ck.ck-button.ck-switchbutton .ck-button__toggle,.ck.ck-button.ck-switchbutton .ck-button__toggle.ck-rounded-corners{border-radius:var(--ck-border-radius)}.ck.ck-button.ck-switchbutton .ck-button__toggle{margin-left:auto;transition:background .4s ease;width:var(--ck-switch-button-toggle-width);background:var(--ck-color-switch-button-off-background)}.ck.ck-button.ck-switchbutton .ck-button__toggle .ck-button__toggle__inner{border-radius:0}.ck-rounded-corners .ck.ck-button.ck-switchbutton .ck-button__toggle .ck-button__toggle__inner,.ck.ck-button.ck-switchbutton .ck-button__toggle .ck-button__toggle__inner.ck-rounded-corners{border-radius:var(--ck-border-radius);border-radius:calc(0.5*var(--ck-border-radius))}.ck.ck-button.ck-switchbutton .ck-button__toggle .ck-button__toggle__inner{margin:var(--ck-switch-button-toggle-spacing);width:var(--ck-switch-button-toggle-inner-size);height:var(--ck-switch-button-toggle-inner-size);background:var(--ck-color-switch-button-inner-background);transition:transform .3s ease}.ck.ck-button.ck-switchbutton.ck-on .ck-button__toggle{background:var(--ck-color-switch-button-on-background)}.ck.ck-button.ck-switchbutton.ck-on .ck-button__toggle .ck-button__toggle__inner{transform:translateX(1.3846153847em)}"
+
+/***/ }),
+
+/***/ "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/dropdown.css":
+/*!********************************************************************************************************************************!*\
+  !*** ./node_modules/postcss-loader/src??ref--5-1!./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/dropdown.css ***!
+  \********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".ck.ck-dropdown{display:inline-block;position:relative}.ck.ck-dropdown .ck-dropdown__arrow{pointer-events:none;z-index:var(--ck-z-default)}.ck.ck-dropdown .ck-button.ck-dropdown__button{width:100%}.ck.ck-dropdown .ck-button.ck-dropdown__button.ck-on .ck-tooltip{display:none}.ck.ck-dropdown .ck-dropdown__panel{-webkit-backface-visibility:hidden;display:none;z-index:var(--ck-z-modal);position:absolute;left:0;transform:translate3d(0,100%,0)}.ck.ck-dropdown .ck-dropdown__panel.ck-dropdown__panel-visible{display:inline-block;will-change:transform}:root{--ck-dropdown-arrow-size:calc(0.5*var(--ck-icon-size))}.ck.ck-dropdown{font-size:inherit}.ck.ck-dropdown .ck-dropdown__arrow{right:var(--ck-spacing-standard);width:var(--ck-dropdown-arrow-size);margin-left:var(--ck-spacing-small)}.ck.ck-dropdown.ck-disabled .ck-dropdown__arrow{opacity:var(--ck-disabled-opacity)}.ck.ck-dropdown .ck-button.ck-dropdown__button:not(.ck-button_with-text){padding-left:var(--ck-spacing-small)}.ck.ck-dropdown .ck-button.ck-dropdown__button.ck-disabled .ck-button__label{opacity:var(--ck-disabled-opacity)}.ck.ck-dropdown .ck-button.ck-dropdown__button.ck-on{border-bottom-left-radius:0;border-bottom-right-radius:0}.ck.ck-dropdown .ck-button.ck-dropdown__button .ck-button__label{width:7em;overflow:hidden;text-overflow:ellipsis}.ck.ck-dropdown__panel{box-shadow:var(--ck-drop-shadow),0 0;border-radius:0}.ck-rounded-corners .ck.ck-dropdown__panel,.ck.ck-dropdown__panel.ck-rounded-corners{border-radius:var(--ck-border-radius);border-top-left-radius:0}.ck.ck-dropdown__panel{background:var(--ck-color-dropdown-panel-background);border:1px solid var(--ck-color-dropdown-panel-border);bottom:0;min-width:100%}"
+
+/***/ }),
+
+/***/ "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/listdropdown.css":
+/*!************************************************************************************************************************************!*\
+  !*** ./node_modules/postcss-loader/src??ref--5-1!./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/listdropdown.css ***!
+  \************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".ck.ck-dropdown .ck-dropdown__panel .ck-list{border-radius:0}.ck-rounded-corners .ck.ck-dropdown .ck-dropdown__panel .ck-list,.ck.ck-dropdown .ck-dropdown__panel .ck-list.ck-rounded-corners{border-radius:var(--ck-border-radius);border-top-left-radius:0}.ck.ck-dropdown .ck-dropdown__panel .ck-list .ck-list__item:first-child .ck-button{border-radius:0}.ck-rounded-corners .ck.ck-dropdown .ck-dropdown__panel .ck-list .ck-list__item:first-child .ck-button,.ck.ck-dropdown .ck-dropdown__panel .ck-list .ck-list__item:first-child .ck-button.ck-rounded-corners{border-radius:var(--ck-border-radius);border-top-left-radius:0;border-bottom-left-radius:0;border-bottom-right-radius:0}.ck.ck-dropdown .ck-dropdown__panel .ck-list .ck-list__item:last-child .ck-button{border-radius:0}.ck-rounded-corners .ck.ck-dropdown .ck-dropdown__panel .ck-list .ck-list__item:last-child .ck-button,.ck.ck-dropdown .ck-dropdown__panel .ck-list .ck-list__item:last-child .ck-button.ck-rounded-corners{border-radius:var(--ck-border-radius);border-top-left-radius:0;border-top-right-radius:0}"
+
+/***/ }),
+
+/***/ "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/toolbardropdown.css":
+/*!***************************************************************************************************************************************!*\
+  !*** ./node_modules/postcss-loader/src??ref--5-1!./node_modules/@ckeditor/ckeditor5-ui/theme/components/dropdown/toolbardropdown.css ***!
+  \***************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".ck.ck-toolbar-dropdown .ck-toolbar{flex-wrap:nowrap}.ck.ck-toolbar-dropdown .ck-dropdown__panel .ck-button:focus{z-index:calc(var(--ck-z-default) + 1)}.ck.ck-toolbar-dropdown .ck-toolbar{border:0}"
 
 /***/ }),
 
@@ -87511,6 +97516,28 @@ module.exports = ".ck.ck-label{display:block}.ck.ck-voice-label{display:none}.ck
 
 /***/ }),
 
+/***/ "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-ui/theme/components/list/list.css":
+/*!************************************************************************************************************************!*\
+  !*** ./node_modules/postcss-loader/src??ref--5-1!./node_modules/@ckeditor/ckeditor5-ui/theme/components/list/list.css ***!
+  \************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".ck.ck-list{-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none;display:flex;flex-direction:column}.ck.ck-list .ck-list__item,.ck.ck-list .ck-list__separator{display:block}.ck.ck-list .ck-list__item>:focus{position:relative;z-index:var(--ck-z-default)}.ck.ck-list{border-radius:0}.ck-rounded-corners .ck.ck-list,.ck.ck-list.ck-rounded-corners{border-radius:var(--ck-border-radius)}.ck.ck-list{list-style-type:none;background:var(--ck-color-list-background)}.ck.ck-list__item{cursor:default;min-width:12em}.ck.ck-list__item .ck-button{min-height:unset;width:100%;text-align:left;border-radius:0;border:0;padding:calc(0.2*var(--ck-line-height-base)*var(--ck-font-size-base)) calc(0.4*var(--ck-line-height-base)*var(--ck-font-size-base))}.ck.ck-list__item .ck-button .ck-button__label{line-height:calc(1.2*var(--ck-line-height-base)*var(--ck-font-size-base))}.ck.ck-list__item .ck-button:active{box-shadow:none}.ck.ck-list__item .ck-button.ck-on{background:var(--ck-color-list-button-on-background);color:var(--ck-color-list-button-on-text)}.ck.ck-list__item .ck-button.ck-on:hover:not(ck-disabled){background:var(--ck-color-list-button-on-background-focus)}.ck.ck-list__item .ck-button.ck-on:active{box-shadow:none}.ck.ck-list__item .ck-button:hover:not(.ck-disabled){background:var(--ck-color-list-button-hover-background)}.ck.ck-list__item .ck-switchbutton.ck-on{background:var(--ck-color-list-background);color:inherit}.ck.ck-list__item .ck-switchbutton.ck-on:hover:not(ck-disabled){background:var(--ck-color-list-button-hover-background);color:inherit}.ck.ck-list__separator{height:1px;width:100%;background:var(--ck-color-base-border)}"
+
+/***/ }),
+
+/***/ "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/balloonpanel.css":
+/*!*********************************************************************************************************************************!*\
+  !*** ./node_modules/postcss-loader/src??ref--5-1!./node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/balloonpanel.css ***!
+  \*********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":root{--ck-balloon-panel-arrow-z-index:calc(var(--ck-z-default) - 3)}.ck.ck-balloon-panel{display:none;position:absolute;z-index:var(--ck-z-modal)}.ck.ck-balloon-panel.ck-balloon-panel_with-arrow:after,.ck.ck-balloon-panel.ck-balloon-panel_with-arrow:before{content:\"\";position:absolute}.ck.ck-balloon-panel.ck-balloon-panel_with-arrow:before{z-index:var(--ck-balloon-panel-arrow-z-index)}.ck.ck-balloon-panel.ck-balloon-panel_with-arrow:after{z-index:calc(var(--ck-balloon-panel-arrow-z-index) + 1)}.ck.ck-balloon-panel[class*=arrow_n]:before{z-index:var(--ck-balloon-panel-arrow-z-index)}.ck.ck-balloon-panel[class*=arrow_n]:after{z-index:calc(var(--ck-balloon-panel-arrow-z-index) + 1)}.ck.ck-balloon-panel[class*=arrow_s]:before{z-index:var(--ck-balloon-panel-arrow-z-index)}.ck.ck-balloon-panel[class*=arrow_s]:after{z-index:calc(var(--ck-balloon-panel-arrow-z-index) + 1)}.ck.ck-balloon-panel.ck-balloon-panel_visible{display:block}:root{--ck-balloon-arrow-offset:2px;--ck-balloon-arrow-height:10px;--ck-balloon-arrow-half-width:8px}.ck.ck-balloon-panel{border-radius:0}.ck-rounded-corners .ck.ck-balloon-panel,.ck.ck-balloon-panel.ck-rounded-corners{border-radius:var(--ck-border-radius)}.ck.ck-balloon-panel{box-shadow:var(--ck-drop-shadow),0 0;min-height:15px;background:var(--ck-color-panel-background);border:1px solid var(--ck-color-panel-border)}.ck.ck-balloon-panel.ck-balloon-panel_with-arrow:after,.ck.ck-balloon-panel.ck-balloon-panel_with-arrow:before{width:0;height:0;border-style:solid}.ck.ck-balloon-panel[class*=arrow_n]:after,.ck.ck-balloon-panel[class*=arrow_n]:before{border-left-width:var(--ck-balloon-arrow-half-width);border-bottom-width:var(--ck-balloon-arrow-height);border-right-width:var(--ck-balloon-arrow-half-width);border-top-width:0}.ck.ck-balloon-panel[class*=arrow_n]:before{border-bottom-color:var(--ck-color-panel-border)}.ck.ck-balloon-panel[class*=arrow_n]:after,.ck.ck-balloon-panel[class*=arrow_n]:before{border-left-color:transparent;border-right-color:transparent;border-top-color:transparent}.ck.ck-balloon-panel[class*=arrow_n]:after{border-bottom-color:var(--ck-color-panel-background);margin-top:var(--ck-balloon-arrow-offset)}.ck.ck-balloon-panel[class*=arrow_s]:after,.ck.ck-balloon-panel[class*=arrow_s]:before{border-left-width:var(--ck-balloon-arrow-half-width);border-bottom-width:0;border-right-width:var(--ck-balloon-arrow-half-width);border-top-width:var(--ck-balloon-arrow-height)}.ck.ck-balloon-panel[class*=arrow_s]:before{border-top-color:var(--ck-color-panel-border)}.ck.ck-balloon-panel[class*=arrow_s]:after,.ck.ck-balloon-panel[class*=arrow_s]:before{border-left-color:transparent;border-bottom-color:transparent;border-right-color:transparent}.ck.ck-balloon-panel[class*=arrow_s]:after{border-top-color:var(--ck-color-panel-background);margin-bottom:var(--ck-balloon-arrow-offset)}.ck.ck-balloon-panel.ck-balloon-panel_arrow_n:after,.ck.ck-balloon-panel.ck-balloon-panel_arrow_n:before{left:50%;margin-left:calc(-1*var(--ck-balloon-arrow-half-width));top:calc(-1*var(--ck-balloon-arrow-height))}.ck.ck-balloon-panel.ck-balloon-panel_arrow_nw:after,.ck.ck-balloon-panel.ck-balloon-panel_arrow_nw:before{left:calc(2*var(--ck-balloon-arrow-half-width));top:calc(-1*var(--ck-balloon-arrow-height))}.ck.ck-balloon-panel.ck-balloon-panel_arrow_ne:after,.ck.ck-balloon-panel.ck-balloon-panel_arrow_ne:before{right:calc(2*var(--ck-balloon-arrow-half-width));top:calc(-1*var(--ck-balloon-arrow-height))}.ck.ck-balloon-panel.ck-balloon-panel_arrow_s:after,.ck.ck-balloon-panel.ck-balloon-panel_arrow_s:before{left:50%;margin-left:calc(-1*var(--ck-balloon-arrow-half-width));bottom:calc(-1*var(--ck-balloon-arrow-height))}.ck.ck-balloon-panel.ck-balloon-panel_arrow_sw:after,.ck.ck-balloon-panel.ck-balloon-panel_arrow_sw:before{left:calc(2*var(--ck-balloon-arrow-half-width));bottom:calc(-1*var(--ck-balloon-arrow-height))}.ck.ck-balloon-panel.ck-balloon-panel_arrow_se:after,.ck.ck-balloon-panel.ck-balloon-panel_arrow_se:before{right:calc(2*var(--ck-balloon-arrow-half-width));bottom:calc(-1*var(--ck-balloon-arrow-height))}"
+
+/***/ }),
+
 /***/ "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/stickypanel.css":
 /*!********************************************************************************************************************************!*\
   !*** ./node_modules/postcss-loader/src??ref--5-1!./node_modules/@ckeditor/ckeditor5-ui/theme/components/panel/stickypanel.css ***!
@@ -87529,7 +97556,7 @@ module.exports = ".ck.ck-sticky-panel .ck-sticky-panel__content_sticky{z-index:v
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".ck.ck-toolbar{-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none;display:flex;position:fixed;width:77%;flex-flow:row wrap;align-items:center;background:#00f}.ck.ck-toolbar.ck-toolbar_vertical{flex-direction:column}.ck.ck-toolbar.ck-toolbar_floating{flex-wrap:nowrap}.ck.ck-toolbar__separator{display:inline-block}.ck.ck-toolbar__newline{display:block;width:100%}.ck.ck-toolbar{border-radius:0}.ck-rounded-corners .ck.ck-toolbar,.ck.ck-toolbar.ck-rounded-corners{border-radius:var(--ck-border-radius)}.ck.ck-toolbar{background:var(--ck-color-toolbar-background);padding:0 var(--ck-spacing-small);border:1px solid var(--ck-color-toolbar-border)}.ck.ck-toolbar>*{margin-right:var(--ck-spacing-small);margin-top:var(--ck-spacing-small);margin-bottom:var(--ck-spacing-small)}.ck.ck-toolbar.ck-toolbar_vertical{padding:0}.ck.ck-toolbar.ck-toolbar_vertical>*{width:100%;margin:0;border-radius:0;border:0}.ck.ck-toolbar>:last-child{margin-right:0}.ck-toolbar-container .ck.ck-toolbar{border:0}.ck.ck-toolbar__separator{align-self:stretch;width:1px;margin-top:0;margin-bottom:0;background:var(--ck-color-toolbar-border)}.ck.ck-toolbar__newline{margin:0}"
+module.exports = ".ck.ck-toolbar{-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none;display:flex;position:fixed;width:77%;flex-flow:row wrap;align-items:center}.ck.ck-toolbar.ck-toolbar_vertical{flex-direction:column}.ck.ck-toolbar.ck-toolbar_floating{flex-wrap:nowrap}.ck.ck-toolbar__separator{display:inline-block}.ck.ck-toolbar__newline{display:block;width:100%}.ck.ck-toolbar{border-radius:0}.ck-rounded-corners .ck.ck-toolbar,.ck.ck-toolbar.ck-rounded-corners{border-radius:var(--ck-border-radius)}.ck.ck-toolbar{background:var(--ck-color-toolbar-background);padding:0 var(--ck-spacing-small);border:1px solid var(--ck-color-toolbar-border)}.ck.ck-toolbar>*{margin-right:var(--ck-spacing-small);margin-top:var(--ck-spacing-small);margin-bottom:var(--ck-spacing-small)}.ck.ck-toolbar.ck-toolbar_vertical{padding:0}.ck.ck-toolbar.ck-toolbar_vertical>*{width:100%;margin:0;border-radius:0;border:0}.ck.ck-toolbar>:last-child{margin-right:0}.ck-toolbar-container .ck.ck-toolbar{border:0}.ck.ck-toolbar__separator{align-self:stretch;width:1px;margin-top:0;margin-bottom:0;background:var(--ck-color-toolbar-border)}.ck.ck-toolbar__newline{margin:0}"
 
 /***/ }),
 
@@ -87552,6 +97579,17 @@ module.exports = ".ck.ck-tooltip,.ck.ck-tooltip .ck-tooltip__text:after{position
 /***/ (function(module, exports) {
 
 module.exports = ".ck-hidden{display:none!important}.ck.ck-reset,.ck.ck-reset_all,.ck.ck-reset_all *{box-sizing:border-box;height:auto;position:static}:root{--ck-z-default:1;--ck-z-modal:calc(var(--ck-z-default) + 999);--ck-color-base-foreground:#fafafa;--ck-color-base-background:#fff;--ck-color-base-border:#c4c4c4;--ck-color-base-action:#61b045;--ck-color-base-focus:#6cb5f9;--ck-color-base-text:#333;--ck-color-base-active:#198cf0;--ck-color-base-active-focus:#0e7fe1;--ck-color-base-error:#db3700;--ck-color-focus-border:#47a4f5;--ck-color-focus-shadow:rgba(119,186,248,0.5);--ck-color-focus-disabled-shadow:rgba(119,186,248,0.3);--ck-color-focus-error-shadow:rgba(255,64,31,0.3);--ck-color-text:var(--ck-color-base-text);--ck-color-shadow-drop:rgba(0,0,0,0.15);--ck-color-shadow-inner:rgba(0,0,0,0.1);--ck-color-button-default-background:transparent;--ck-color-button-default-hover-background:#e6e6e6;--ck-color-button-default-active-background:#d9d9d9;--ck-color-button-default-active-shadow:#bfbfbf;--ck-color-button-default-disabled-background:transparent;--ck-color-button-on-background:#dedede;--ck-color-button-on-hover-background:#c4c4c4;--ck-color-button-on-active-background:#bababa;--ck-color-button-on-active-shadow:#a1a1a1;--ck-color-button-on-disabled-background:#dedede;--ck-color-button-action-background:var(--ck-color-base-action);--ck-color-button-action-hover-background:#579e3d;--ck-color-button-action-active-background:#53973b;--ck-color-button-action-active-shadow:#498433;--ck-color-button-action-disabled-background:#7ec365;--ck-color-button-action-text:var(--ck-color-base-background);--ck-color-button-save:#008a00;--ck-color-button-cancel:#db3700;--ck-color-switch-button-off-background:#b0b0b0;--ck-color-switch-button-on-background:var(--ck-color-button-action-background);--ck-color-switch-button-inner-background:var(--ck-color-base-background);--ck-color-dropdown-panel-background:var(--ck-color-base-background);--ck-color-dropdown-panel-border:var(--ck-color-base-border);--ck-color-input-background:var(--ck-color-base-background);--ck-color-input-border:#c7c7c7;--ck-color-input-error-border:var(--ck-color-base-error);--ck-color-input-text:var(--ck-color-base-text);--ck-color-input-disabled-background:#f2f2f2;--ck-color-input-disabled-border:#c7c7c7;--ck-color-input-disabled-text:#5c5c5c;--ck-color-list-background:var(--ck-color-base-background);--ck-color-list-button-hover-background:var(--ck-color-base-foreground);--ck-color-list-button-on-background:var(--ck-color-base-active);--ck-color-list-button-on-background-focus:var(--ck-color-base-active-focus);--ck-color-list-button-on-text:var(--ck-color-base-background);--ck-color-panel-background:var(--ck-color-base-background);--ck-color-panel-border:var(--ck-color-base-border);--ck-color-toolbar-background:var(--ck-color-base-foreground);--ck-color-toolbar-border:var(--ck-color-base-border);--ck-color-tooltip-background:var(--ck-color-base-text);--ck-color-tooltip-text:var(--ck-color-base-background);--ck-color-engine-placeholder-text:#c2c2c2;--ck-color-upload-bar-background:#6cb5f9;--ck-color-upload-infinite-background:rgba(0,0,0,0.1);--ck-color-link-default:#0000f0;--ck-color-link-selected-background:#ebf8ff;--ck-disabled-opacity:.5;--ck-focus-outer-shadow-geometry:0 0 0 3px;--ck-focus-outer-shadow:var(--ck-focus-outer-shadow-geometry) var(--ck-color-focus-shadow);--ck-focus-disabled-outer-shadow:var(--ck-focus-outer-shadow-geometry) var(--ck-color-focus-disabled-shadow);--ck-focus-error-outer-shadow:var(--ck-focus-outer-shadow-geometry) var(--ck-color-focus-error-shadow);--ck-focus-ring:1px solid var(--ck-color-focus-border);--ck-font-size-base:13px;--ck-line-height-base:1.84615;--ck-font-face:Helvetica,Arial,Tahoma,Verdana,Sans-Serif;--ck-font-size-tiny:0.7em;--ck-font-size-small:0.75em;--ck-font-size-normal:1em;--ck-font-size-big:1.4em;--ck-font-size-large:1.8em;--ck-ui-component-min-height:2.3em}.ck.ck-reset,.ck.ck-reset_all,.ck.ck-reset_all *{margin:0;padding:0;border:0;background:transparent;text-decoration:none;vertical-align:middle;transition:none;word-wrap:break-word}.ck.ck-reset_all,.ck.ck-reset_all *{border-collapse:collapse;font:normal normal normal var(--ck-font-size-base)/var(--ck-line-height-base) var(--ck-font-face);color:var(--ck-color-text);text-align:left;white-space:nowrap;cursor:auto;float:none}.ck.ck-reset_all .ck-rtl *{text-align:right}.ck.ck-reset_all iframe{vertical-align:inherit}.ck.ck-reset_all textarea{white-space:pre-wrap}.ck.ck-reset_all input[type=password],.ck.ck-reset_all input[type=text],.ck.ck-reset_all textarea{cursor:text}.ck.ck-reset_all input[type=password][disabled],.ck.ck-reset_all input[type=text][disabled],.ck.ck-reset_all textarea[disabled]{cursor:default}.ck.ck-reset_all fieldset{padding:10px;border:2px groove #dfdee3}.ck.ck-reset_all button::-moz-focus-inner{padding:0;border:0}:root{--ck-border-radius:2px;--ck-inner-shadow:2px 2px 3px var(--ck-color-shadow-inner) inset;--ck-drop-shadow:0 1px 2px 1px var(--ck-color-shadow-drop);--ck-spacing-unit:0.6em;--ck-spacing-large:calc(var(--ck-spacing-unit)*1.5);--ck-spacing-standard:var(--ck-spacing-unit);--ck-spacing-medium:calc(var(--ck-spacing-unit)*0.8);--ck-spacing-small:calc(var(--ck-spacing-unit)*0.5);--ck-spacing-tiny:calc(var(--ck-spacing-unit)*0.3);--ck-spacing-extra-tiny:calc(var(--ck-spacing-unit)*0.16)}"
+
+/***/ }),
+
+/***/ "./node_modules/postcss-loader/src/index.js?!./node_modules/@ckeditor/ckeditor5-widget/theme/widget.css":
+/*!**************************************************************************************************************!*\
+  !*** ./node_modules/postcss-loader/src??ref--5-1!./node_modules/@ckeditor/ckeditor5-widget/theme/widget.css ***!
+  \**************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".ck .ck-widget.ck-widget_selectable{position:relative}.ck .ck-widget.ck-widget_selectable .ck-widget__selection-handler{visibility:hidden;position:absolute}.ck .ck-widget.ck-widget_selectable .ck-widget__selection-handler .ck-icon{display:block}.ck .ck-widget.ck-widget_selectable.ck-widget_selected .ck-widget__selection-handler,.ck .ck-widget.ck-widget_selectable:hover .ck-widget__selection-handler{visibility:visible}:root{--ck-widget-outline-thickness:3px;--ck-widget-handler-icon-size:16px;--ck-widget-handler-animation-duration:200ms;--ck-widget-handler-animation-curve:ease;--ck-color-widget-blurred-border:#dedede;--ck-color-widget-hover-border:#ffc83d;--ck-color-widget-editable-focus-background:var(--ck-color-base-background);--ck-color-widget-drag-handler-icon-color:var(--ck-color-base-background)}.ck .ck-widget{margin:var(--ck-spacing-standard) 0;padding:0;outline-width:var(--ck-widget-outline-thickness);outline-style:solid;outline-color:transparent;transition:outline-color var(--ck-widget-handler-animation-duration) var(--ck-widget-handler-animation-curve)}.ck .ck-widget.ck-widget_selected,.ck .ck-widget.ck-widget_selected:hover{outline:var(--ck-widget-outline-thickness) solid var(--ck-color-focus-border)}.ck .ck-widget:hover{outline-color:var(--ck-color-widget-hover-border)}.ck .ck-editor__nested-editable{border:1px solid transparent}.ck .ck-editor__nested-editable.ck-editor__nested-editable_focused,.ck .ck-editor__nested-editable:focus{outline:none;border:var(--ck-focus-ring);box-shadow:var(--ck-inner-shadow),0 0;background-color:var(--ck-color-widget-editable-focus-background)}.ck .ck-widget.ck-widget_selectable .ck-widget__selection-handler{padding:4px;box-sizing:border-box;background-color:transparent;opacity:0;transition:background-color var(--ck-widget-handler-animation-duration) var(--ck-widget-handler-animation-curve),visibility var(--ck-widget-handler-animation-duration) var(--ck-widget-handler-animation-curve),opacity var(--ck-widget-handler-animation-duration) var(--ck-widget-handler-animation-curve);border-radius:var(--ck-border-radius) var(--ck-border-radius) 0 0;transform:translateY(-100%);left:calc(0px - var(--ck-widget-outline-thickness))}.ck .ck-widget.ck-widget_selectable .ck-widget__selection-handler:hover .ck-icon .ck-icon__selected-indicator{opacity:1}.ck .ck-widget.ck-widget_selectable .ck-widget__selection-handler .ck-icon{width:var(--ck-widget-handler-icon-size);height:var(--ck-widget-handler-icon-size);color:var(--ck-color-widget-drag-handler-icon-color)}.ck .ck-widget.ck-widget_selectable .ck-widget__selection-handler .ck-icon .ck-icon__selected-indicator{opacity:0;transition:opacity .3s var(--ck-widget-handler-animation-curve)}.ck .ck-widget.ck-widget_selectable.ck-widget_selected .ck-widget__selection-handler,.ck .ck-widget.ck-widget_selectable.ck-widget_selected:hover .ck-widget__selection-handler{opacity:1;background-color:var(--ck-color-focus-border)}.ck .ck-widget.ck-widget_selectable.ck-widget_selected .ck-widget__selection-handler .ck-icon .ck-icon__selected-indicator,.ck .ck-widget.ck-widget_selectable.ck-widget_selected:hover .ck-widget__selection-handler .ck-icon .ck-icon__selected-indicator{opacity:1}.ck .ck-widget.ck-widget_selectable:hover .ck-widget__selection-handler{opacity:1;background-color:var(--ck-color-widget-hover-border)}.ck-editor__editable.ck-blurred .ck-widget.ck-widget_selected,.ck-editor__editable.ck-blurred .ck-widget.ck-widget_selected:hover{outline-color:var(--ck-color-widget-blurred-border)}.ck-editor__editable.ck-blurred .ck-widget.ck-widget_selected .ck-widget__selection-handler,.ck-editor__editable.ck-blurred .ck-widget.ck-widget_selected .ck-widget__selection-handler:hover,.ck-editor__editable.ck-blurred .ck-widget.ck-widget_selected:hover .ck-widget__selection-handler,.ck-editor__editable.ck-blurred .ck-widget.ck-widget_selected:hover .ck-widget__selection-handler:hover{background:var(--ck-color-widget-blurred-border)}"
 
 /***/ }),
 
