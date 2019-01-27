@@ -126,6 +126,7 @@ _ckeditor_ckeditor5_editor_classic_src_classiceditor__WEBPACK_IMPORTED_MODULE_0_
     .catch( error => {
         //console.error( error.stack );
     } );
+    
 
 /***/ }),
 
@@ -64169,10 +64170,10 @@ if(false) {}
 /*!*********************************************!*\
   !*** ./node_modules/ckeditor5/package.json ***!
   \*********************************************/
-/*! exports provided: _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _shasum, _spec, _where, author, bugs, bundleDependencies, deprecated, description, engines, homepage, keywords, license, name, repository, version, default */
+/*! exports provided: _args, _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _spec, _where, author, bugs, description, engines, homepage, keywords, license, name, repository, version, default */
 /***/ (function(module) {
 
-module.exports = {"_from":"ckeditor5@^11.1.0","_id":"ckeditor5@11.1.1","_inBundle":false,"_integrity":"sha512-xif/R/KaNFkW+EH9+X9J3H7jvz8BOzMWmDxIBO32UoQBfIsKorpG/VvulD+KxkUMEw5wO2XWfZ+8kbf3Aa8MUg==","_location":"/ckeditor5","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"ckeditor5@^11.1.0","name":"ckeditor5","escapedName":"ckeditor5","rawSpec":"^11.1.0","saveSpec":null,"fetchSpec":"^11.1.0"},"_requiredBy":["/@ckeditor/ckeditor5-utils"],"_resolved":"https://registry.npmjs.org/ckeditor5/-/ckeditor5-11.1.1.tgz","_shasum":"f2da24b01a659e848ef6a4dd125ff5cc9e1cb06f","_spec":"ckeditor5@^11.1.0","_where":"E:\\Some Codes\\Editor\\node_modules\\@ckeditor\\ckeditor5-utils","author":{"name":"CKSource","url":"http://cksource.com/"},"bugs":{"url":"https://github.com/ckeditor/ckeditor5/issues"},"bundleDependencies":false,"deprecated":false,"description":"A set of ready-to-use rich text editors created with a powerful framework. Made with real-time collaborative editing in mind.","engines":{"node":">=6.9.0","npm":">=3.0.0"},"homepage":"http://ckeditor.com","keywords":["ckeditor","ckeditor5","ckeditor 5","wysiwyg","rich text","editor","html","contentEditable","editing","operational transformation","ot","collaboration","collaborative","real-time","framework"],"license":"GPL-2.0-or-later","name":"ckeditor5","repository":{"type":"git","url":"git+https://github.com/ckeditor/ckeditor5.git"},"version":"11.1.1"};
+module.exports = {"_args":[["ckeditor5@11.1.1","/home/fatsani/Dropbox/Thesis/code/editorv1"]],"_from":"ckeditor5@11.1.1","_id":"ckeditor5@11.1.1","_inBundle":false,"_integrity":"sha512-xif/R/KaNFkW+EH9+X9J3H7jvz8BOzMWmDxIBO32UoQBfIsKorpG/VvulD+KxkUMEw5wO2XWfZ+8kbf3Aa8MUg==","_location":"/ckeditor5","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"ckeditor5@11.1.1","name":"ckeditor5","escapedName":"ckeditor5","rawSpec":"11.1.1","saveSpec":null,"fetchSpec":"11.1.1"},"_requiredBy":["/@ckeditor/ckeditor5-utils"],"_resolved":"https://registry.npmjs.org/ckeditor5/-/ckeditor5-11.1.1.tgz","_spec":"11.1.1","_where":"/home/fatsani/Dropbox/Thesis/code/editorv1","author":{"name":"CKSource","url":"http://cksource.com/"},"bugs":{"url":"https://github.com/ckeditor/ckeditor5/issues"},"description":"A set of ready-to-use rich text editors created with a powerful framework. Made with real-time collaborative editing in mind.","engines":{"node":">=6.9.0","npm":">=3.0.0"},"homepage":"http://ckeditor.com","keywords":["ckeditor","ckeditor5","ckeditor 5","wysiwyg","rich text","editor","html","contentEditable","editing","operational transformation","ot","collaboration","collaborative","real-time","framework"],"license":"GPL-2.0-or-later","name":"ckeditor5","repository":{"type":"git","url":"git+https://github.com/ckeditor/ckeditor5.git"},"version":"11.1.1"};
 
 /***/ }),
 
