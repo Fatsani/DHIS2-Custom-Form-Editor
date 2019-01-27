@@ -18,6 +18,8 @@ function displayElements(dataset){
       let newNode = document.createElement('div');
       newNode.setAttribute('id', data.dataElement.id);
       newNode.setAttribute('class','data-element');
+      newNode.setAttribute('draggable','true');
+      newNode.setAttribute('ondragstart', 'drag(event)')
       //assign the entered value to the created list ite
       newNode.innerHTML = data.dataElement.name;
       //appent it to the parent
